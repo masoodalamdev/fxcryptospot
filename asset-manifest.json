@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/masoodalamdev.github.io/fxcryptospot/static/css/main.497c7e87.css",
+    "main.js": "/masoodalamdev.github.io/fxcryptospot/static/js/main.5b3c1693.js",
+    "static/js/787.451a1a94.chunk.js": "/masoodalamdev.github.io/fxcryptospot/static/js/787.451a1a94.chunk.js",
+    "static/media/bg.jpeg": "/masoodalamdev.github.io/fxcryptospot/static/media/bg.114411783bff2a18669c.jpeg",
+    "static/media/ad.png": "/masoodalamdev.github.io/fxcryptospot/static/media/ad.276db59e41fb68c8fb91.png",
+    "static/media/logo.png": "/masoodalamdev.github.io/fxcryptospot/static/media/logo.a2ab6c98079feab2b28c.png",
+    "index.html": "/masoodalamdev.github.io/fxcryptospot/index.html",
+    "main.497c7e87.css.map": "/masoodalamdev.github.io/fxcryptospot/static/css/main.497c7e87.css.map",
+    "main.5b3c1693.js.map": "/masoodalamdev.github.io/fxcryptospot/static/js/main.5b3c1693.js.map",
+    "787.451a1a94.chunk.js.map": "/masoodalamdev.github.io/fxcryptospot/static/js/787.451a1a94.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.497c7e87.css",
+    "static/js/main.5b3c1693.js"
+  ]
+}
