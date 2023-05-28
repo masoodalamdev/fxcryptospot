@@ -80,7 +80,7 @@ const handleSubmit = (e) => {
       <Grid item xs={8}>
     <img src={bgImg} alt="backgroundImage" width='100%' height='100%' />
   </Grid>
-  <Grid item xs={4}>
+  <Grid item xs={4} sx={{pr:4}}>
    
    <Typography variant="h4" gutterBottom sx={{textAlign: 'center', mt: '25%'}}>
        Login

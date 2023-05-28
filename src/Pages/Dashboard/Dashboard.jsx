@@ -1,11 +1,16 @@
 import { Book, DashboardOutlined, Group, Groups, Home, School, VideoLibrary, Work } from '@mui/icons-material'
-import { Box, Card, CardContent, Grid, Stack, Typography } from '@mui/material'
+import { Box, Card, CardContent, Grid, Stack, Toolbar, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import MiniDrawer from '../../Components/Drawer/Drawer'
 import PageHeader from '../../Components/PageHeader/PageHeader'
-
+import AccordionComponent from '../../Components/Accordion/Accordion'
+import AreaChartComponent from '../../Components/Charts/AreaChartComponent'
+import BarChartComponent from '../../Components/Charts/BarChartComponent'
+import PieChartComponent from '../../Components/Charts/PieChartComponent'
+import TinyLineChart from '../../Components/Charts/TinyLineChart'
 
 export default function Dashboard() {
+    const theme = useTheme()
     return (
         <>
             {/* <Box sx={{ display: 'flex', backgroundColor: '#cfd8dc', minHeight: 100 + 'vh' }}> */}
@@ -13,11 +18,12 @@ export default function Dashboard() {
 
                 {/* <MiniDrawer /> */}
 
-                <Box component="main" sx={{ flexGrow: 1, p: 3 , bgcolor: '#cfd8dc'}}>
+                <Box component="main" sx={{ flexGrow: 1, p: 3 , bgcolor: theme.palette.background.default}}>
+                    <Toolbar/>
                 <PageHeader
-                    icon={<Book />}
-                    title="Blog Posts"
-                    subTitle="Read Amazing Blogs"
+                    icon={<DashboardOutlined />}
+                    title="Dashboard"
+                    subTitle="Admin Tools"
                 />
                     {/* <Box height={20} /> */}
                     <Grid container spacing={2}>
@@ -25,9 +31,11 @@ export default function Dashboard() {
                         <Grid item xs={2.4}>
                                 <Card sx={{  height: 150 }}>
 
-                                    <span style={{ textAlign: 'center', fontWeight: 'bold', display: 'block', marginTop: '5px' }}>SCHOOLS</span>
+                                    <span style={{ textAlign: 'center', fontWeight: 'bold', display: 'block', marginTop: '5px' }}>Blogs</span>
                                   
-
+                                    <AreaChartComponent
+                                        strokeColor="#02bf2e" backgroundColor='#50fa78'
+                                    />
 
 
                                 </Card>
@@ -35,27 +43,34 @@ export default function Dashboard() {
                                 <Grid item xs={2.4}>
                                 <Card sx={{ height: 150 }}>
 
-                                    <span style={{ textAlign: 'center', fontWeight: 'bold', display: 'block', marginTop: '5px' }}>TEACHERS</span>
+                                    <span style={{ textAlign: 'center', fontWeight: 'bold', display: 'block', marginTop: '5px' }}>Wallets</span>
                                   
 
 
-
+                                    <AreaChartComponent
+                                        strokeColor="#f5070f" backgroundColor='#ed6f74'
+                                    />
                                 </Card>
                                 </Grid>
                                 <Grid item xs={2.4}>
                                 <Card sx={{  height: 150 }}>
 
-                                    <span style={{ textAlign: 'center', fontWeight: 'bold', display: 'block', marginTop: '5px' }}>STUDENTS</span>
+                                    <span style={{ textAlign: 'center', fontWeight: 'bold', display: 'block', marginTop: '5px' }}>Coins</span>
                                     
-
+                                    <AreaChartComponent
+                                        strokeColor="#02a89d" backgroundColor='#7ef7ef'
+                                    />
 
                                 </Card>
                                 </Grid>
                                 <Grid item xs={2.4}>
                                 <Card sx={{ height: 150 }}>
 
-                                    <span style={{ textAlign: 'center', fontWeight: 'bold', display: 'block', marginTop: '5px' }}>BLOGS</span>
+                                    <span style={{ textAlign: 'center', fontWeight: 'bold', display: 'block', marginTop: '5px' }}>Trading</span>
                                    
+                                    <AreaChartComponent
+                                        strokeColor="#fc8105" backgroundColor='#fca956'
+                                    />
 
 
 
@@ -64,10 +79,12 @@ export default function Dashboard() {
                                 <Grid item xs={2.4}>
                                 <Card sx={{ height: 150 }}>
 
-                                    <span style={{ textAlign: 'center', fontWeight: 'bold', display: 'block', marginTop: '5px' }}>JOBS</span>
+                                    <span style={{ textAlign: 'center', fontWeight: 'bold', display: 'block', marginTop: '5px' }}>Affiliate</span>
                                   
 
-
+                                    <AreaChartComponent
+                                        strokeColor="#1105b0" backgroundColor='#9089f0'
+                                    />
 
                                 </Card>
                                 </Grid>
@@ -83,17 +100,8 @@ export default function Dashboard() {
                             <Card sx={{ height: 25 + 'vh' }}>
 
                                 <CardContent>
-                                    <Typography variant='h6'>Admissions</Typography>
-                                </CardContent>
-
-                            </Card>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Card sx={{ height: 25 + 'vh' }}>
-
-                                <CardContent>
-                                    <Typography variant='h6'>Fee Collections</Typography>
-
+                                    <Typography variant='h6'>Buy Crypto</Typography>
+                                    <TinyLineChart />
 
                                 </CardContent>
 
@@ -103,8 +111,21 @@ export default function Dashboard() {
                             <Card sx={{ height: 25 + 'vh' }}>
 
                                 <CardContent>
+                                    <Typography variant='h6'>Sell Crypto</Typography>
+                                    <TinyLineChart />
 
-                                    <Typography variant='h6'>Results</Typography>
+
+                                </CardContent>
+
+                            </Card>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Card sx={{ height: 25 + 'vh' }}>
+
+                                <CardContent>
+
+                                    <Typography variant='h6'>Exchange Crypto</Typography>
+                                    <BarChartComponent />
 
                                 </CardContent>
 
@@ -118,7 +139,8 @@ export default function Dashboard() {
                             <Card sx={{ height: 30 + 'vh' }}>
 
                                 <CardContent>
-                                    <Typography variant='h6'>Attendance</Typography>
+                                    <Typography variant='h6'>Apps</Typography>
+                                    <PieChartComponent />
 
                                 </CardContent>
 
@@ -129,7 +151,9 @@ export default function Dashboard() {
 
                                 <CardContent>
 
-                                    <Typography variant='h6'>Salary</Typography>
+                                    <Typography variant='h6'>Earn Crypto</Typography>
+                                    <BarChartComponent />
+
                                 </CardContent>
 
                             </Card>
@@ -139,8 +163,9 @@ export default function Dashboard() {
 
                                 <CardContent>
                                     <div className='paddingAll'>
-                                        <span className='priceTitle'>Notice Board</span>
+                                        <span className='priceTitle'>BlockChain</span>
                                     </div>
+                                    <AccordionComponent />
 
                                 </CardContent>
 

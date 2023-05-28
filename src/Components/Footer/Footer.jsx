@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -31,14 +31,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Container } from '@mui/system';
-import { Grid } from '@mui/material';
+import { Grid, useTheme } from '@mui/material';
 import { Link } from '@mui/material';
-
+import logo from '../../Assets/logo5.png'
+import logo3 from '../../Assets/logo555.png'
+import { ColorModeContext } from '../../Store';
 
 
 export default function Footer() {
+  const theme = useTheme()
+  const {mode, toggleMode} = useContext(ColorModeContext)
+
   return (
-    <TableContainer component={Paper} style={{position: 'static'}} > 
+    <TableContainer component={Paper} style={{position: 'static', backgroundColor: theme.palette.background.paper}} > 
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
   
@@ -60,7 +65,7 @@ export default function Footer() {
             textDecoration: 'none',
           }}
         >
-                     <img src='https://i.ibb.co/Wnk76Tg/logoo.jpg' height="60px" width="250px" />
+                     <img src={mode === "light" ? logo : logo3} height="60px" width="250px" />
 
         </Typography>
             </TableCell>
@@ -71,7 +76,7 @@ export default function Footer() {
        
           </TableRow>
           <TableRow>
-            <TableCell>Home</TableCell>
+            <TableCell component="a" href={"/fxcryptospot"} sx={{textDecoration: 'none'}}>Home</TableCell>
             <TableCell align="left">Academy</TableCell>
             <TableCell align="left">Wallet</TableCell>
             <TableCell align="left">Buy Crypto</TableCell>
@@ -98,7 +103,7 @@ export default function Footer() {
        
           </TableRow>
           <TableRow style={{}}>
-          <TableCell component="a" href={"/"}  sx={{textDecoration: 'none'}}>Sitemap</TableCell>
+          <TableCell component="a" href={"/fxcryptospot"}  sx={{textDecoration: 'none'}}>Sitemap</TableCell>
             <TableCell align="left">Online Courses</TableCell>
             <TableCell align="left">Trading</TableCell>
             <TableCell align="left">Exchange Crypto</TableCell>
@@ -114,7 +119,7 @@ export default function Footer() {
        
           </TableRow>
           <TableRow style={{}}>
-          <TableCell component="a" href={"/advertiseWithUs"}  sx={{textDecoration: 'none'}}>Advertise with us</TableCell>
+          <TableCell component="a" href={"/advertise"}  sx={{textDecoration: 'none'}}>Advertise with us</TableCell>
 
             <TableCell align="left">Knowledge World</TableCell>
             <TableCell align="left">Crypto Cards</TableCell>

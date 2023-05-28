@@ -1,129 +1,53 @@
 import { Box, Card, CardContent, Grid, Stack, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { Book } from '@mui/icons-material'
-import * as walletServices from '../../Services/walletServices'
+import { Book, Info } from '@mui/icons-material'
 import { styled } from "@mui/material/styles";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PageHeader from '../../Components/PageHeader/PageHeader'
+import MuiCardView from '../../Components/MuiCardView/MuiCardView';
+import contactus from '../../Assets/Images/contactus.jpg'
 
-
+const handleEdit = ()=>{
+    alert('edited succesfully')
+  }
+  const handleDelete = ()=>{
+    alert('deleted succesfully')
+  }
+  const handleFavorite = ()=>{
+    alert('favorite added succesfully')
+  }
+  const handleShare = ()=>{
+    alert('share succesfully')
+  }
 export default function Contact() {
 
-    const [wallet, setWallet] = useState([])
-
-    const getWalletList = async () => {
-        let response = await walletServices.getAllWallets();
-        setWallet(response.data);
-        console.log(response.data)
-        console.log(wallet)
-    }
-
-    useEffect(() => {
-        getWalletList();
-    }, []);
-
-    const updateWallet = async (wallet, id) => {
-        let response = await walletServices.editWallet(wallet, id);
-        if (response.status === 200) {
-            console.log("Records Updated Succesfully")
-        }
-    }
-
-   
+    
       
     return (
 
-        <Box sx={{ display: 'flex', backgroundColor: '#cfd8dc', minHeight: 100 + 'vh' }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: '#cfd8dc', minHeight: 100 + 'vh'  }}>
 
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-
-                <PageHeader
-                    icon={<Book />}
-                    title="Contact Posts"
-                    subTitle="Read Amazing Wallets"
-                />
-                <Grid container spacing={2}>
-                    
-                            {wallet.map((item, index)=> {
-                                const desc = item.description
-                               return(
-                            <Grid item xs={3}>
-                                      <Card sx={{minHeight: '465px'}}>
-                                <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={item.img}
-                                    alt="blog image"
-                                />
-                                <CardHeader
-                                    avatar={
-                                        <Avatar
-                                            sx={{ bgcolor: red[500] }}
-                                            aria-label="recipe"
-                                            src="https://thumbs.dreamstime.com/z/blogging-concept-white-background-d-rendering-image-38891869.jpg"
-                                        ></Avatar>
-                                    }
-                                    action={
-                                        <IconButton aria-label="settings">
-                                            <MoreVertIcon />
-                                        </IconButton>
-                                    }
-                                    title={item.title}
-                                    subheader={item.publishDate.substring(0,10)}
-                                />
-
-                                <CardContent>
-                                    <Typography
-                                        variant="body2"
-                                        color="text.secondary"
-                                        style={{
-                                            // overflow: "hidden",
-                                            // maxWidth: "100ch",
-                                            // textOverflow: "ellipsis",
-                                            // whiteSpace: "nowrap"
-                                            display: '-webkit-box',
-                                            overflow: 'hidden',
-                                            WebkitLineClamp: 4,
-                                            WebkitBoxOrient: 'vertical'
-                                        }}
-                                       dangerouslySetInnerHTML={{ __html: desc }} 
-                                    >
-                                       
-                                      
-                                       
-                                    </Typography>
-                                        
-                                </CardContent>
-                                <CardActions disableSpacing>
-                                    <IconButton aria-label="add to favorites">
-                                        <FavoriteIcon />
-                                    </IconButton>
-                                    <IconButton aria-label="share">
-                                        <ShareIcon />
-                                    </IconButton>
-
-                                </CardActions>
-
-                            </Card>
-                            </Grid>
-                                 )
-})}
-                          
-                      
-
-
-                </Grid>
-            </Box>
-        </Box>
+        <PageHeader
+            icon={<Info />}
+            title="Contact Us"
+            subTitle="Read Amazing Blogs"
+        />
+          <MuiCardView
+          image={contactus}
+          profileImage='https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'
+          title="Forex Crypto Spot"
+          categoryAndDate="01-01-2018"
+          description= "Welcome to Forex Crypto Spot, a blog website dedicated to providing valuable information and insights on Forex trading, cryptocurrency, buying and selling, and exchanging crypto coins My name is Masood Alam and I am the founder and primary contributor to this website With years of experience in the financial industry particularly in Forex and cryptocurrency trading I have gained a wealth of knowledge and expertise that I am passionate about sharing with my readers Through this blog I aim to provide readers with relevant and up-to-date information on Forex and crypto trading including market trends, analysis, and trading strategies. I believe that the world of finance is constantly evolving, and keeping up with the latest developments is crucial for anyone looking to make informed investment decisions Whether you are a seasoned trader or just starting in the world of finance, my goal is to provide you with valuable insights and resources to help you succeed in your investment journey. From beginner-friendly guides to in-depth analysis, Forex Crypto Spot is your go-to source for all things Forex and crypto Thank you for visiting my website, and I hope you find the information here helpful and informative. If you have any questions or comments, please don't hesitate to get in touch!"
+          // id={item._id}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          handleFavorite = {handleFavorite}
+          handleShare = {handleShare}
+          />
+</Box>
     )
 }

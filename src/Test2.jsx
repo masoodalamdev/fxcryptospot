@@ -22,7 +22,7 @@ import Footer from './Components/Footer/Footer';
 import logo from './Assets/logo.png'
 import logo2 from './Assets/logo2.png'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { Avatar, Collapse, InputBase, Menu, MenuItem, Stack, Tooltip } from '@mui/material';
+import { Avatar, Collapse, Grid, InputBase, Menu, MenuItem, Stack, Tooltip } from '@mui/material';
 import { AccountBalance, AccountBalanceWallet, Add, AttachMoney, CurrencyBitcoin, Dashboard, ExpandLess, ExpandMore, NoteAdd } from '@mui/icons-material';
 import Badge from "@mui/material/Badge";
 import profilePic from './Assets/Images/user2.jpg'
@@ -30,6 +30,7 @@ import MuiButton from './Components/MuiButton/MuiButton';
 import  {getToken, removeToken}  from './Services/LocalStorageServices.js';
 import SearchIcon from '@mui/icons-material/Search';
 import profileImg from './Assets/Images/user2.jpg'
+import MuiCard from './Components/MuiCard/MuiCard';
 
 
 
@@ -485,39 +486,22 @@ export default function Test2() {
         </List>
       </Drawer>
       <Outlet/>
-      {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-     
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-      </Box> */}
+        <Grid container spacing={2}>
+
+      <Grid item xs={4}>
+       <MuiCard 
+       image='https://thumbs.dreamstime.com/z/blogging-concept-white-background-d-rendering-image-38891869.jpg'
+       profileImage='https://firebasestorage.googleapis.com/v0/b/fx-crypto-spot.appspot.com/o/images%2F1681663379227blog2.jpg?alt=media&token=8b8854ad-2aec-4b1b-b5f4-ea9204c73334'
+       title='Its Title Here'
+       date='09-10-2011'
+       
+       description= 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti minus illo amet veniam exercitationem? A voluptatem beatae at quia molestiae animi quidem quas. Minus a eius dolores est eligendi voluptatum!'
+       />
+       </Grid>
+       </Grid>
+      </Box>
     </Box>
     <div id="footer" style={{marginLeft: '64px', width: 'calc(100% - 64px)'}}>
 

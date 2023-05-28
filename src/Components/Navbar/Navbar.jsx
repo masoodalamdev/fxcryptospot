@@ -35,7 +35,7 @@ export default function Navbar() {
 
 
   const token = getToken()
-  const url = 'https://fxcryptospot-server-production.up.railway.app/api/user/loggeduser'
+  const url = 'https://fxcryptospot.cyclic.app//api/user/loggeduser'
 
   useEffect(()=> {
     getUserDetail()
@@ -48,7 +48,7 @@ export default function Navbar() {
       .then((response => {
         const userLoggedIn = response.data.user
         setUser(userLoggedIn)        
-        console.log(userLoggedIn)
+        // console.log(userLoggedIn)
         
       }) )
       .catch((error) => {
@@ -85,6 +85,12 @@ export default function Navbar() {
       <Toolbar>
       
          
+          <Link to='/fxcryptospot'>
+          <MuiButton
+          variant='text'
+          text='Home'
+          />
+              </Link>
           <Link to='/blogs'>
           <MuiButton
           variant='text'

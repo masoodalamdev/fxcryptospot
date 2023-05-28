@@ -1,14 +1,15 @@
-import { Card, Paper, Typography } from '@mui/material'
+import { Card, Paper, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import { styled } from "@mui/material/styles";
 
 export default function PageHeader(props) {
+    const theme = useTheme()
     const {icon, title, subTitle} = props;
 
     const styledHeader = {
-        root:{backgroundColor: '#cfd8dc'},
+        root:{backgroundColor: theme.palette.background.default},
         pageHeader: { display: 'flex', marginBottom: '6px'},
-        pageIcon: {display: 'inline-block', padding: '6px', color: 'rgba(0, 0, 0, 0.87)', backgroundColor:'#cfd8dc', },
+        pageIcon: {display: 'inline-block', padding: '6px',  backgroundColor: theme.palette.background.default, },
         pageTitle: {paddingLeft: '6px'},
         pageSubTitle: {opacity: 1}
     }

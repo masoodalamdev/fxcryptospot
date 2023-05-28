@@ -11,17 +11,14 @@ import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Coin from './Coin';
-
-  
-
-
-
-
+import { Box, Grid, Toolbar, useTheme } from '@mui/material';
+import PageHeader from '../../Components/PageHeader/PageHeader';
+import { QueryStats } from '@mui/icons-material';
 
 
 
 export default function Prices() {
-
+  const theme = useTheme()
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   
@@ -52,6 +49,16 @@ export default function Prices() {
     
   
     return (
+      <>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
+      <Toolbar/>
+      <PageHeader
+        icon={<QueryStats />}
+        title="Live Prices"
+        subTitle="Coin Market Cape"
+      />
+      <Grid container>
+        <Grid item xs={12}>
         <div className='coin-app'>
           <div className='coin-search'>
             <h1 className='coin-text'>Search a currency</h1>
@@ -77,12 +84,15 @@ export default function Prices() {
                 image={coin.image}
                 priceChange={coin.price_change_percentage_24h}
               />
-          
-             
               </>
             );
           })}
         </div>
+        </Grid>
+      </Grid>
+      </Box>
+        
+        </>
     );
 
 

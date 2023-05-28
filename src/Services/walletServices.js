@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const URL = "https://fxcryptospot-server-production.up.railway.app/api/fxcryptospot"
+const URL = "https://fxcryptospot.cyclic.app//api/fxcryptospot"
 
 
 export const getAllWallets = async () => {

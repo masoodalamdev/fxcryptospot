@@ -2,14 +2,15 @@ import React from 'react'
 import PageHeader from '../../Components/PageHeader/PageHeader'
 import { Book } from '@mui/icons-material'
 import  adImg from '../../Assets/Images/ad.png'
-import { Box, Grid } from '@mui/material'
+import { Box, Grid, Toolbar, useTheme } from '@mui/material'
 
 export default function Advertise() {
+  const theme = useTheme()
   return (
     <>
-      <Box sx={{ display: 'flex', backgroundColor: '#cfd8dc', minHeight: 100 + 'vh' }}>
 
-<Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+<Box component="main" sx={{ flexGrow: 1, p: 3 , bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
+  <Toolbar/>
 <PageHeader
     icon={<Book />}
     title="Advertise with us"
@@ -21,7 +22,6 @@ export default function Advertise() {
 
     </Grid>
     </Grid>
-  </Box>
   </Box>
     
    

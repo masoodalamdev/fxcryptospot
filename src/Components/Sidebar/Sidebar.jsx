@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useEffect, useState } from 'react'
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -19,17 +19,22 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Footer from '../../Components/Footer/Footer';
-import logo from '../../Assets/logo.png'
-import logo2 from '../../Assets/logo2.png'
+import logo from '../../Assets/logo5.png'
+import logo2 from '../../Assets/logo6.png'
+import logo3 from '../../Assets/logo555.png'
+import logo4 from '../../Assets/logo66.png'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { Avatar, Collapse, InputBase, Menu, MenuItem, Stack, Tooltip } from '@mui/material';
-import { AccountBalance, AccountBalanceWallet, Add, AttachMoney, Book, CurrencyBitcoin, Dashboard, ExpandLess, ExpandMore, NoteAdd } from '@mui/icons-material';
+import { Avatar, Button, Collapse, Grid, InputBase, Menu, MenuItem, Stack, Tooltip, createTheme } from '@mui/material';
+import { AccountBalance, AccountBalanceWallet, Add, AttachMoney, Book, CurrencyBitcoin, Dashboard, ExpandLess, ExpandMore, NoteAdd, QueryStats } from '@mui/icons-material';
 import Badge from "@mui/material/Badge";
 import MuiButton from '../../Components/MuiButton/MuiButton';
 import { getToken, removeToken } from '../../Services/LocalStorageServices.js';
-import SearchIcon from '@mui/icons-material/Search';
 import profileImg from '../../Assets/Images/user2.jpg'
-
+import axios from 'axios';
+import Notification from '../../Components/Notification/Notification'
+import { ColorModeContext } from '../../Store';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 
 const drawerWidth = 240;
@@ -63,6 +68,18 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
 }));
+// const theme = createTheme({
+//     components: {
+//       MuiAppBar: {
+//         styleOverrides: {
+//           colorPrimary: {
+//             backgroundColor: "red"
+//           }
+//         }
+//       }
+//     }
+//   });
+
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -71,7 +88,8 @@ const AppBar = styled(MuiAppBar, {
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
-        paddingLeft: '10px'
+        // paddingLeft: '10px',
+        // color: theme.palette.background.default
     }),
     ...(open && {
         marginLeft: drawerWidth,
@@ -102,15 +120,23 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
+
+
 export default function Sidebar() {
+    const { mode, toggleMode } = useContext(ColorModeContext)
+    // console.log(mode, "mode")
+
     const theme = useTheme();
+    // console.log(theme)
     const [open, setOpen] = React.useState(true);
     const [openList, setOpenList] = React.useState(true);
-    const token = getToken()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const [user, setUser] = React.useState(null)
+    const [user, setUser] = React.useState('')
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+
     const navigate = useNavigate()
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -183,151 +209,204 @@ export default function Sidebar() {
     }));
 
 
-    const styledHeader = {
-        searchInput: {
-            opacity: '0.6',
-            padding: '0px 8px',
-            fontSize: '0.8rem',
-            '&:hover': {
-                backgroundColor: '#f2f2f2'
-            },
-            '& .MuiSvgIcon-root': {
-                marginRight: '8px'
-            }
-        }
+    
 
-    }
+
+    const token = getToken()
+    const url = 'https://fxcryptospot.cyclic.app//api/user/loggeduser'
+
+    useEffect(() => {
+        getUserDetail()
+    }, [])
+
+    const getUserDetail = async () => {
+        const response = await axios.get(url, {
+            'headers': {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response => {
+                const loggedUser = response.data.user
+                setUser(loggedUser)
+            }))
+            .catch((error) => {
+                // console.log(error);
+                if (error.response.data.message === "Token Expired") {
+                //     setNotify({
+                //         isOpen: true,
+                //         message: "Session expired! Please login again",
+                //         type: 'error'
+                //     })
+                //     navigate('/login')
+                //     setTimeout(() => { navigate('/login') }, 2000);
+                    removeToken('token');
+                }
+                // setUser(null)
+            })
+
+    };
+
+
+    // const theme = createTheme({
+    //     MuiAppbar: {
+    //           root: {
+    //             // Some CSS
+    //             backgroundColor: '#fff',
+    //           },
+    //     },
+    //   });
+
+
     return (
         <>
-            <Box sx={{ display: "flex" }}>
-
+            <Box sx={{ display: "flex"}}>
                 <CssBaseline />
-                <AppBar position="fixed" open={open} sx={{ bgcolor: '#fff' }}>
-                    <Toolbar disableGutters="true" >
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={handleDrawerOpen}
-                            edge="start"
-                            sx={{
-                                margin: 0,
+                <AppBar position="fixed" open={open} elevation={0} sx={{bgcolor:theme.palette.background.paper}}>
+                                    <Toolbar disableGutters={true} >
+                        <Grid container sx={{flex: 1,textAlign: 'center', margin: 'auto'}}>
+                            <Grid item >
+                                <Stack direction="row"  sx={{ml:1.5}} >
+                                    <IconButton
+                                        color="inherit"
+                                        aria-label="open drawer"
+                                        onClick={handleDrawerOpen}
+                                        edge="start"
+                                        sx={{
+                                            margin: 0,
 
-                                ...(open && { display: 'none' }),
-                            }}
-                        >
-                            {/* <MenuIcon /> */}
-                            <img src={logo2} height='50px' width='50px' />
-                        </IconButton>
+                                            ...(open && { display: 'none' }),
+                                        }}
+                                    >
+                                        {/* <MenuIcon /> */}
+                                        <img src={mode === "light" ? logo2 : logo4} height='24px' width='24px' />
+                                    </IconButton>
 
 
-                        <Link to='/blogs'>
-                            <MuiButton
-                                variant='text'
-                                text='Blog'
-                            />
-                        </Link>
-                        <Link to='/blockchain'>
-                            <MuiButton
-                                variant='text'
-                                text='Blockchain'
-                            />
-                        </Link>
-                        <Link to='/wallet'>
-                            <MuiButton
-                                variant='text'
-                                text='Wallet'
-                            />
-                        </Link>
-                        <Link to='/coin'>
-                            <MuiButton
-                                variant='text'
-                                text='Coin'
-                            />
-                        </Link>
-                        <Link to='/prices'>
-                            <MuiButton
-                                variant='text'
-                                text='Prices'
-                            />
-                        </Link>
-                        <Link to='/trading'>
-                            <MuiButton
-                                variant='text'
-                                text='Trading'
-                            />
-                        </Link>
+                                    <Link to='/fxcryptospot'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Home'
+                                        />
+                                    </Link>
+                                    {/* <Button onClick={toggleMode} >
+                                        change Mode
+                                    </Button> */}
+                                   
+                                    <Link to='/blogs'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Blog'
+                                        />
+                                    </Link>
+                                    <Link to='/blogs/blockchain'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Blockchain'
+                                        />
+                                    </Link>
+                                    <Link to='/blogs/wallet'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Wallet'
+                                        />
+                                    </Link>
+                                    <Link to='/blogs/coin'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Coin'
+                                        />
+                                    </Link>
+                                    <Link to='/prices'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Prices'
+                                        />
+                                    </Link>
+                                    <Link to='/blogs/trading'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Trading'
+                                        />
+                                    </Link>
 
-                        <Link to='/apps'>
-                            <MuiButton
-                                variant='text'
-                                text='Apps'
-                            />
-                        </Link>
-                        <Link to='/trading'>
-                            <MuiButton
-                                variant='text'
-                                text='Buy Crypto'
-                            />
-                        </Link>
-                        <Link to='/trading'>
-                            <MuiButton
-                                variant='text'
-                                text='Sell Crypto'
-                            />
-                        </Link>
-                        <Link to='/trading'>
-                            <MuiButton
-                                variant='text'
-                                text='Exchange Crypto'
-                            />
-                        </Link>
-                        <Link to='/advertise'>
-                            <MuiButton
-                                variant='text'
-                                text='Advertise'
-                            />
-                        </Link>
+                                    <Link to='/apps'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Apps'
+                                        />
+                                    </Link>
+                                    {/* <Link to='/trading'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Buy'
+                                        />
+                                    </Link>
+                                    <Link to='/trading'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Sell'
+                                        />
+                                    </Link>
+                                    <Link to='/trading'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Exchange'
+                                        />
+                                    </Link> */}
+                                    {/* <Link to='/advertise'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Advertise'
+                                        />
+                                    </Link> */}
 
-                        <InputBase
-                            sx={styledHeader.searchInput}
-                            placeholder='Search here'
-                            endAdornment={<SearchIcon fontSize="small" />}
-                        />
+                                </Stack>
+                            </Grid>
+                            <Grid item sm>
 
-                        {token ? <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Semy Sharp" src={profileImg} />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{ mt: '45px' }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                {/* {settings.map((setting) => (
+                            </Grid>
+                            <Grid item >
+                                <Stack direction="row">
+
+                                <IconButton sx={{ ml: 1 }} onClick={toggleMode} >
+                                        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                                    </IconButton>
+
+                                    {token ? <Box sx={{ flexGrow: 0, mr: 1 }}>
+                                        <Tooltip title="Open settings">
+                                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                                <Avatar alt="Username" src={profileImg} />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Menu
+                                            sx={{ mt: '45px' }}
+                                            id="menu-appbar"
+                                            anchorEl={anchorElUser}
+                                            anchorOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            open={Boolean(anchorElUser)}
+                                            onClose={handleCloseUserMenu}
+                                        >
+                                            {/* {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))} */}
-                                <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
-                                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                            </Menu>
-                        </Box>
-                            :
-                            <>
-                                <Link to='/register'>
+                                            <MenuItem onClick={handleCloseUserMenu} component='a' href='/profile'>Profile</MenuItem>
+                                            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                                        </Menu>
+                                    </Box>
+                                        :
+                                        <>
+                                            {/* <Link to='/register'>
                                     <MuiButton
                                         variant='text'
                                         text='Register'
@@ -338,97 +417,106 @@ export default function Sidebar() {
                                         variant='text'
                                         text='Login'
                                     />
-                                </Link>
-                            </>
-                        }
+                                </Link> */}
+                                        </>
+                                    }
+                                </Stack>
+
+                            </Grid>
+                        </Grid>
                     </Toolbar>
                 </AppBar>
-                <Drawer variant="permanent" open={open}>
+
+                
+                <Drawer variant="permanent" open={open} sx={{bgcolor: 'red'}} elevation={0} >
                     <DrawerHeader sx={{ margin: '0 auto' }}>
                         <IconButton onClick={handleDrawerClose} sx={{ p: 0 }}>
-                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <img src={logo} height='64px' width='100%' />}
+                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <img src={mode === "light" ? logo : logo3} height='40px' width='100%' />}
                         </IconButton>
                     </DrawerHeader>
-                    <Box sx={{ textAlign: 'center', mt: 2 }}>
-                        {/* <Avatar src={profilePic} sx={{ margin: 'auto', border: 1 , borderColor: 'green'}}/> */}
-                        <Stack direction="row" spacing={2} >
-                            <StyledBadge
-                                overlap="circular"
-                                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                                variant="dot"
-                                sx={{ margin: 'auto' }}
-                            >
-                                <Avatar alt="Remy Sharp" src={profileImg} sx={{ margin: 'auto' }} />
-                            </StyledBadge>
+                    {token ?
+                        <>
+                            <Box sx={{ textAlign: 'center', mt: 2, textDecoration:'none', color: 'inherit' }}component='a' href='/profile'>
+                                {/* <Avatar src={profilePic} sx={{ margin: 'auto', border: 1 , borderColor: 'green'}}/> */}
+                                <Stack direction="row" spacing={2} >
+                                    <StyledBadge
+                                        overlap="circular"
+                                        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                                        variant="dot"
+                                        sx={{ margin: 'auto' }}
+                                    >
+                                        <Avatar alt="Remy Sharp" src={profileImg} sx={{ margin: 'auto' }} />
+                                    </StyledBadge>
 
-                        </Stack>
-                        <Typography variant='body2' id='userName'>Masood Alam</Typography>
-                        <Typography variant='body2' id='userEmail'>masoodg@gmail.com</Typography>
+                                </Stack>
+                                <Typography variant='h6' id='userName'>Hi, {user && user.name}</Typography>
+                                <Typography variant='body2' id='userEmail'>{user && user.email}</Typography>
 
-                    </Box>
-                    <Divider sx={{ mt: 1 }} />
+                            </Box>
+                            <Divider sx={{ mt: 1 }} />
 
-                    <List>
-                        <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <ListItem disablePadding>
-                                <ListItemButton>
+                            <List>
+                                <Link to='/admin' style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <ListItem disablePadding>
+                                        <ListItemButton>
+                                            <ListItemIcon>
+                                                <Dashboard />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Dashboard" />
+                                        </ListItemButton>
+                                    </ListItem>
+                                </Link>
+
+                                <ListItemButton onClick={handleClickList}>
                                     <ListItemIcon>
-                                        <Dashboard />
+                                        <Add />
                                     </ListItemIcon>
-                                    <ListItemText primary="Dashboard" />
+                                    <ListItemText primary="Add Blog Post" />
+                                    {openList ? <ExpandLess /> : <ExpandMore />}
                                 </ListItemButton>
-                            </ListItem>
-                        </Link>
+                                <Collapse in={openList} timeout="auto" unmountOnExit>
+                                    <List component="div" disablePadding>
+                                        <Link to='/admin/create-blog' style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <NoteAdd />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Create Blog Post" />
+                                            </ListItemButton>
+                                        </Link>
+                                        {/* <Link to='/admin/create-wallet' style={{ textDecoration: 'none', color: 'inherit' }}>
 
-                        <ListItemButton onClick={handleClickList}>
-                            <ListItemIcon>
-                                <Add />
-                            </ListItemIcon>
-                            <ListItemText primary="Add Blog Post" />
-                            {openList ? <ExpandLess /> : <ExpandMore />}
-                        </ListItemButton>
-                        <Collapse in={openList} timeout="auto" unmountOnExit>
-                            <List component="div" disablePadding>
-                                <Link to='/create-blog' style={{ textDecoration: 'none', color: 'inherit' }}>
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemIcon>
-                                            <NoteAdd />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Create Blog Post" />
-                                    </ListItemButton>
-                                </Link>
-                                <Link to='/create-wallet' style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            <ListItemButton sx={{ pl: 4 }}>
+                                                <ListItemIcon>
+                                                    <AccountBalanceWallet />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Create Wallet" />
+                                            </ListItemButton>
+                                        </Link>
+                                        <Link to='/admin/create-coin' style={{ textDecoration: 'none', color: 'inherit' }}>
 
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemIcon>
-                                            <AccountBalanceWallet />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Create Wallet" />
-                                    </ListItemButton>
-                                </Link>
-                                <Link to='/create-coin' style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            <ListItemButton sx={{ pl: 4 }}>
+                                                <ListItemIcon>
+                                                    <CurrencyBitcoin />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Create Coin" />
+                                            </ListItemButton>
+                                        </Link>
+                                        <Link to='/admin/create-trading' style={{ textDecoration: 'none', color: 'inherit' }}>
 
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemIcon>
-                                            <CurrencyBitcoin />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Create Coin" />
-                                    </ListItemButton>
-                                </Link>
-                                <Link to='/create-trading' style={{ textDecoration: 'none', color: 'inherit' }}>
-
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemIcon>
-                                            <AttachMoney />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Create Trading" />
-                                    </ListItemButton>
-                                </Link>
+                                            <ListItemButton sx={{ pl: 4 }}>
+                                                <ListItemIcon>
+                                                    <AttachMoney />
+                                                </ListItemIcon>
+                                                <ListItemText primary="Create Trading" />
+                                            </ListItemButton>
+                                        </Link> */}
+                                    </List>
+                                </Collapse>
                             </List>
-                        </Collapse>
-                    </List>
+                        </>
+                        : ''}
                     <Divider />
-            
 
 
                     <Divider />
@@ -442,7 +530,7 @@ export default function Sidebar() {
                                 <ListItemText primary="Blog" />
                             </ListItemButton>
                         </Link>
-                        <Link to='/wallet' style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Link to='/blogs/wallet' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <AccountBalanceWallet />
@@ -450,7 +538,7 @@ export default function Sidebar() {
                                 <ListItemText primary="Wallet" />
                             </ListItemButton>
                         </Link>
-                        <Link to='/coin' style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Link to='/blogs/coin' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <CurrencyBitcoin />
@@ -458,7 +546,7 @@ export default function Sidebar() {
                                 <ListItemText primary="Coin" />
                             </ListItemButton>
                         </Link>
-                        <Link to='/trading' style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Link to='/blogs/trading' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <AttachMoney />
@@ -466,9 +554,17 @@ export default function Sidebar() {
                                 <ListItemText primary="Trading" />
                             </ListItemButton>
                         </Link>
+                        <Link to='/trading' style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <QueryStats />
+                                </ListItemIcon>
+                                <ListItemText primary="Prices" />
+                            </ListItemButton>
+                        </Link>
                     </List>
 
-                  
+
                 </Drawer>
                 <Outlet />
                 {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
@@ -510,7 +606,10 @@ export default function Sidebar() {
                 <Footer />
 
             </div>
-
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
         </>
 
     );

@@ -39,7 +39,7 @@ export default function CreateWallet() {
   }
 
   const token = getToken()
-  const url = 'https://fxcryptospot-server-production.up.railway.app/api/user/loggeduser'
+  const url = 'https://fxcryptospot.cyclic.app//api/user/loggeduser'
 
   useEffect(()=> {
     getUserDetail()

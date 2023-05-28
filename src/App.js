@@ -23,7 +23,7 @@ import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTheme } from '@emotion/react';
 import Prices from './Pages/Prices/Prices';
 import Dashboard from './Pages/Dashboard/Dashboard';
@@ -37,8 +37,14 @@ import MiniDrawer from './Components/Drawer/Drawer';
 import Test2 from './Test2';
 import Test3 from './Test3';
 import Sidebar from './Components/Sidebar/Sidebar';
+import BlogView from './Pages/Blogs/BlogView';
+import RightSidebar from './Components/RightSidebar/RightSidebar';
+import Test4 from './Pages/Test4';
+import Test5 from './Pages/Test5';
+import Blockchain from './Pages/Blockchain/Blockchain';
+import BlogEditor from './Pages/Blogs/BlogEditor';
+import Profile from './Pages/Profile/Profile';
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 function App() {
 
@@ -89,16 +95,18 @@ function App() {
 const theme = createTheme({
   
 });
-
-
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 
 
   return (
-    // <ColorModeContext.Provider value={colorMode}>
-    <ThemeProvider theme={theme}>
+   
       <BrowserRouter>
-      <Navbar/>
+      {/* <Navbar/> */}
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/register' element={<Register/>} />
@@ -116,20 +124,25 @@ const theme = createTheme({
         {/* <Route path='/contact' element={<Contact/>} /> */}
         {/* <Route path='/privacy-policy' element={<PrivacyPolicy/>} /> */}
         {/* <Route path='/*' element={<NotFound/>} /> */}
-        <Route path='/test' element={<Test/>} />
         <Route path='/test2' element={<Test2/>} />
         <Route path='/test3' element={<Test3/>} />
+        <Route path='/test5' element={<Test5/>} />
 
         <Route path='/' element={<Sidebar/>} >
         <Route index element={<Dashboard />}/>
-        <Route path="/create-blog" element={<CreateBlog/>}/>
-        <Route path='/create-wallet' element={<CreateWallet/>} />
-        <Route path='/create-coin' element={<CreateCoin/>} />
-        <Route path='/create-trading' element={<CreateTrading/>} />
+        {/* <Route path="/create-blog" element={<CreateBlog/>}/> */}
+        {/* <Route path='/create-wallet' element={<CreateWallet/>} /> */}
+        {/* <Route path='/create-coin' element={<CreateCoin/>} /> */}
+        {/* <Route path='/create-trading' element={<CreateTrading/>} /> */}
+        <Route path='/fxcryptospot' element={<Home/>} />
+
         <Route path='/blogs' element={<Blogs/>} />
-        <Route path='/wallet' element={<Wallet/>} />
-        <Route path='/coin' element={<Coin/>} />
-        <Route path='/trading' element={<Trading/>} />
+        <Route path='/blog/:id' element={<BlogView/>} />
+        <Route path='/blog-edit/:id' element={<BlogEditor/>} />
+        <Route path='/blogs/blockchain' element={<Blockchain/>} />
+        <Route path='/blogs/wallet' element={<Wallet/>} />
+        <Route path='/blogs/coin' element={<Coin/>} />
+        <Route path='/blogs/trading' element={<Trading/>} />
         <Route path='/exchange' element={<Exchange/>} />
         <Route path='/prices' element={<Prices/>} />
         <Route path='/apps' element={<Apps/>} />
@@ -138,11 +151,15 @@ const theme = createTheme({
         <Route path='/contact' element={<Contact/>} />
         <Route path='/privacy-policy' element={<PrivacyPolicy/>} />
         <Route path='/*' element={<NotFound/>} />
+        <Route path='/test' element={<Test/>} />
+        <Route path='/test4' element={<Test4/>} />
+        <Route path='/profile' element={<Profile/>} />
+
         </Route>
 
 
 
-      <Route path="/admin" element={<MiniDrawer />}>
+      <Route path="/admin" element={<Sidebar />}>
       <Route index element={<Dashboard />}/>
       <Route path="/admin/create-blog" element={<CreateBlog/>}/>
       <Route path="/admin/create-wallet" element={<CreateWallet />}/>
@@ -155,9 +172,7 @@ const theme = createTheme({
       {/* <Footer/> */}
     <CssBaseline/>
     </BrowserRouter>
-  </ThemeProvider>
-  // </ColorModeContext.Provider>
-     
+  
   );
 }
 
