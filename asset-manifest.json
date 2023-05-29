@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/fxcryptospot/static/css/main.70fab611.css",
-    "main.js": "/fxcryptospot/static/js/main.c76fdf9e.js",
-    "static/js/787.451a1a94.chunk.js": "/fxcryptospot/static/js/787.451a1a94.chunk.js",
-    "static/media/bg.jpeg": "/fxcryptospot/static/media/bg.114411783bff2a18669c.jpeg",
-    "static/media/aboutme.jpg": "/fxcryptospot/static/media/aboutme.7f5b412234626b905d62.jpg",
-    "static/media/contactus.jpg": "/fxcryptospot/static/media/contactus.8c35852ec95e3032bd09.jpg",
-    "static/media/ad.png": "/fxcryptospot/static/media/ad.276db59e41fb68c8fb91.png",
-    "static/media/logo.png": "/fxcryptospot/static/media/logo.a2ab6c98079feab2b28c.png",
-    "static/media/blog.jpg": "/fxcryptospot/static/media/blog.46db87502e08c1a6fa4b.jpg",
-    "static/media/privacypolicy.jpg": "/fxcryptospot/static/media/privacypolicy.d1f4e363c10cc230ed55.jpg",
-    "static/media/logo555.png": "/fxcryptospot/static/media/logo555.0ad324b4696531056144.png",
-    "static/media/logo5.png": "/fxcryptospot/static/media/logo5.f5358306539977bd036f.png",
-    "index.html": "/fxcryptospot/index.html",
-    "main.70fab611.css.map": "/fxcryptospot/static/css/main.70fab611.css.map",
-    "main.c76fdf9e.js.map": "/fxcryptospot/static/js/main.c76fdf9e.js.map",
-    "787.451a1a94.chunk.js.map": "/fxcryptospot/static/js/787.451a1a94.chunk.js.map"
+    "main.css": "/www.fxcryptospot.com/static/css/main.70fab611.css",
+    "main.js": "/www.fxcryptospot.com/static/js/main.b23af96d.js",
+    "static/js/787.451a1a94.chunk.js": "/www.fxcryptospot.com/static/js/787.451a1a94.chunk.js",
+    "static/media/bg.jpeg": "/www.fxcryptospot.com/static/media/bg.114411783bff2a18669c.jpeg",
+    "static/media/aboutme.jpg": "/www.fxcryptospot.com/static/media/aboutme.7f5b412234626b905d62.jpg",
+    "static/media/contactus.jpg": "/www.fxcryptospot.com/static/media/contactus.8c35852ec95e3032bd09.jpg",
+    "static/media/ad.png": "/www.fxcryptospot.com/static/media/ad.276db59e41fb68c8fb91.png",
+    "static/media/logo.png": "/www.fxcryptospot.com/static/media/logo.a2ab6c98079feab2b28c.png",
+    "static/media/blog.jpg": "/www.fxcryptospot.com/static/media/blog.46db87502e08c1a6fa4b.jpg",
+    "static/media/privacypolicy.jpg": "/www.fxcryptospot.com/static/media/privacypolicy.d1f4e363c10cc230ed55.jpg",
+    "static/media/logo555.png": "/www.fxcryptospot.com/static/media/logo555.0ad324b4696531056144.png",
+    "static/media/logo5.png": "/www.fxcryptospot.com/static/media/logo5.f5358306539977bd036f.png",
+    "index.html": "/www.fxcryptospot.com/index.html",
+    "main.70fab611.css.map": "/www.fxcryptospot.com/static/css/main.70fab611.css.map",
+    "main.b23af96d.js.map": "/www.fxcryptospot.com/static/js/main.b23af96d.js.map",
+    "787.451a1a94.chunk.js.map": "/www.fxcryptospot.com/static/js/787.451a1a94.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.70fab611.css",
-    "static/js/main.c76fdf9e.js"
+    "static/js/main.b23af96d.js"
   ]
 }
