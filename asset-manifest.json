@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/fxcryptospot/static/css/main.70fab611.css",
-    "main.js": "/fxcryptospot/static/js/main.45a13dfb.js",
+    "main.js": "/fxcryptospot/static/js/main.20b8729e.js",
     "static/js/787.451a1a94.chunk.js": "/fxcryptospot/static/js/787.451a1a94.chunk.js",
     "static/media/bg.jpeg": "/fxcryptospot/static/media/bg.114411783bff2a18669c.jpeg",
     "static/media/aboutme.jpg": "/fxcryptospot/static/media/aboutme.7f5b412234626b905d62.jpg",
@@ -14,11 +14,11 @@
     "static/media/logo5.png": "/fxcryptospot/static/media/logo5.f5358306539977bd036f.png",
     "index.html": "/fxcryptospot/index.html",
     "main.70fab611.css.map": "/fxcryptospot/static/css/main.70fab611.css.map",
-    "main.45a13dfb.js.map": "/fxcryptospot/static/js/main.45a13dfb.js.map",
+    "main.20b8729e.js.map": "/fxcryptospot/static/js/main.20b8729e.js.map",
     "787.451a1a94.chunk.js.map": "/fxcryptospot/static/js/787.451a1a94.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.70fab611.css",
-    "static/js/main.45a13dfb.js"
+    "static/js/main.20b8729e.js"
   ]
 }
