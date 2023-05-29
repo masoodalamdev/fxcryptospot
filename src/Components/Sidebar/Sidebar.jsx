@@ -456,7 +456,7 @@ export default function Sidebar() {
                             <Divider sx={{ mt: 1 }} />
 
                             <List>
-                                <Link to='/admin' style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <Link to='/dashboard' style={{ textDecoration: 'none', color: 'inherit' }}>
                                     <ListItem disablePadding>
                                         <ListItemButton>
                                             <ListItemIcon>
@@ -476,7 +476,7 @@ export default function Sidebar() {
                                 </ListItemButton>
                                 <Collapse in={openList} timeout="auto" unmountOnExit>
                                     <List component="div" disablePadding>
-                                        <Link to='/admin/create-blog' style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <Link to='/create-blog' style={{ textDecoration: 'none', color: 'inherit' }}>
                                             <ListItemButton>
                                                 <ListItemIcon>
                                                     <NoteAdd />
