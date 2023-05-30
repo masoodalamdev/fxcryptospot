@@ -1,6 +1,6 @@
 {
-  "homepage": "https://fxcryptospot.com",
   "name": "crypto-blog-app",
+  "homepage": "https://masoodalamdev.github.io/fxcryptospot",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
