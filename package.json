@@ -1,6 +1,6 @@
 {
   "name": "crypto-blog-app",
-  "homepage": "http://fxcryptospot.com",
+  "homepage": "https://fxcryptospot.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
