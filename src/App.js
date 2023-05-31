@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import Checkbox from '@mui/material/Checkbox';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { orange } from '@mui/material/colors';
@@ -47,7 +47,7 @@ function App() {
 
   return (
    
-      <BrowserRouter>
+      <HashRouter>
       <Routes>
        
         <Route path='/' element={<Sidebar/>} >
@@ -88,7 +88,7 @@ function App() {
 
       </Routes>
     <CssBaseline/>
-    </BrowserRouter>
+    </HashRouter>
   
   );
 }
