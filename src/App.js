@@ -47,7 +47,7 @@ function App() {
 
   return (
    
-      <HashRouter>
+      <BrowserRouter>
       <Routes>
        
         <Route path='/' element={<Sidebar/>} >
@@ -88,7 +88,7 @@ function App() {
 
       </Routes>
     <CssBaseline/>
-    </HashRouter>
+    </BrowserRouter>
   
   );
 }
