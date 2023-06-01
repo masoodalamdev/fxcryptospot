@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Toolbar, useTheme } from '@mui/material'
 import React from 'react'
 import PageHeader from '../../Components/PageHeader/PageHeader'
 import { Info } from '@mui/icons-material'
@@ -19,11 +19,11 @@ const handleShare = ()=>{
 }
 
 export default function PrivacyPolicy() {
-  
+  const theme = useTheme()
   return (
 
-    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: '#cfd8dc', minHeight: 100 + 'vh'  }}>
-
+    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh'  }}>
+        <Toolbar/>
         <PageHeader
             icon={<Info />}
             title="Privacy Policy"

@@ -41,6 +41,7 @@ import Test5 from './Pages/Test5';
 import Blockchain from './Pages/Blockchain/Blockchain';
 import BlogEditor from './Pages/Blogs/BlogEditor';
 import Profile from './Pages/Profile/Profile';
+import Sitemap from './Pages/Sitemap/Sitemap';
 
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
         <Route path='/advertise' element={<Advertise/>} />
         <Route path='/about' element={<About/>} />
         <Route path='/contact' element={<Contact/>} />
+        <Route path='/sitemap' element={<Sitemap/>} />
         <Route path='/privacy-policy' element={<PrivacyPolicy/>} />
         <Route path='/*' element={<NotFound/>} />
         <Route path='/test' element={<Test/>} />

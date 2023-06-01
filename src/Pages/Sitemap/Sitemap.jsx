@@ -23,10 +23,8 @@ const handleEdit = ()=>{
   const handleShare = ()=>{
     alert('share succesfully')
   }
-  
-  export default function Contact() {
-    
-    const theme = useTheme()
+export default function Sitemap() {
+const theme = useTheme()
     
       
     return (
@@ -35,11 +33,11 @@ const handleEdit = ()=>{
 <Toolbar/>
         <PageHeader
             icon={<Info />}
-            title="Contact Us"
-            subTitle="Read Amazing Blogs"
+            title="Sitemap"
+            subTitle="Forex Crypto Spot"
         />
           <MuiCardView
-          image={contactus}
+          image='https://www.searchenginejournal.com/wp-content/uploads/2020/12/sitemaps-featured-image-5fd1c052b40ef.png'
           profileImage='https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'
           title="Forex Crypto Spot"
           categoryAndDate="01-01-2018"

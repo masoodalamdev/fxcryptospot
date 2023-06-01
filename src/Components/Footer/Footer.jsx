@@ -103,7 +103,7 @@ export default function Footer() {
        
           </TableRow>
           <TableRow style={{}}>
-          <TableCell component="a" href={"/fxcryptospot"}  sx={{textDecoration: 'none'}}>Sitemap</TableCell>
+          <TableCell component="a" href={"/sitemap"}  sx={{textDecoration: 'none'}}>Sitemap</TableCell>
             <TableCell align="left">Online Courses</TableCell>
             <TableCell align="left">Trading</TableCell>
             <TableCell align="left">Exchange Crypto</TableCell>

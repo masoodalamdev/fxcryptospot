@@ -25,7 +25,7 @@ import logo3 from '../../Assets/logo555.png'
 import logo4 from '../../Assets/logo66.png'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { Avatar, Button, Collapse, Grid, InputBase, Menu, MenuItem, Stack, Tooltip, createTheme } from '@mui/material';
-import { AccountBalance, AccountBalanceWallet, Add, AttachMoney, Book, CurrencyBitcoin, Dashboard, ExpandLess, ExpandMore, NoteAdd, QueryStats } from '@mui/icons-material';
+import { AccountBalance, AccountBalanceWallet, Add, Apps, AttachMoney, Book, CurrencyBitcoin, Dashboard, ExpandLess, ExpandMore, NoteAdd, QueryStats } from '@mui/icons-material';
 import Badge from "@mui/material/Badge";
 import MuiButton from '../../Components/MuiButton/MuiButton';
 import { getToken, removeToken } from '../../Services/LocalStorageServices.js';
@@ -317,16 +317,16 @@ export default function Sidebar() {
                                             text='Coin'
                                         />
                                     </Link>
-                                    <Link to='/prices'>
-                                        <MuiButton
-                                            variant='text'
-                                            text='Prices'
-                                        />
-                                    </Link>
                                     <Link to='/blogs/trading'>
                                         <MuiButton
                                             variant='text'
                                             text='Trading'
+                                        />
+                                    </Link>
+                                    <Link to='/prices'>
+                                        <MuiButton
+                                            variant='text'
+                                            text='Prices'
                                         />
                                     </Link>
 
@@ -530,6 +530,14 @@ export default function Sidebar() {
                                 <ListItemText primary="Blog" />
                             </ListItemButton>
                         </Link>
+                        <Link to='/blogs/blockchain' style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <CurrencyBitcoin />
+                                </ListItemIcon>
+                                <ListItemText primary="Blockchain" />
+                            </ListItemButton>
+                        </Link>
                         <Link to='/blogs/wallet' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
@@ -560,6 +568,14 @@ export default function Sidebar() {
                                     <QueryStats />
                                 </ListItemIcon>
                                 <ListItemText primary="Prices" />
+                            </ListItemButton>
+                        </Link>
+                        <Link to='/apps' style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <Apps />
+                                </ListItemIcon>
+                                <ListItemText primary="Apps" />
                             </ListItemButton>
                         </Link>
                     </List>
