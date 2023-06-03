@@ -33,8 +33,7 @@ import TableRow from '@mui/material/TableRow';
 import { Container } from '@mui/system';
 import { Grid, useTheme } from '@mui/material';
 import { Link } from '@mui/material';
-import logo from '../../Assets/logo5.png'
-import logo3 from '../../Assets/logo555.png'
+import logo from '../../Assets/logo.png'
 import { ColorModeContext } from '../../Store';
 
 
@@ -43,12 +42,14 @@ export default function Footer() {
   const {mode, toggleMode} = useContext(ColorModeContext)
 
   return (
-    <TableContainer component={Paper} style={{position: 'static', backgroundColor: theme.palette.background.paper}} > 
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <Grid container sx={{p:4}}>
+                <Grid item xs={12} sm={12} md={12} lg={12} >
+    <TableContainer component={Paper} style={{backgroundColor: theme.palette.background.paper}} > 
+      <Table aria-label="simple table">
         <TableHead>
   
           <Divider/>
-          <TableRow style={{}}>
+          <TableRow >
             <TableCell>
             <Typography
           variant="h6"
@@ -65,7 +66,7 @@ export default function Footer() {
             textDecoration: 'none',
           }}
         >
-                     <img src={mode === "light" ? logo : logo3} height="60px" width="250px" />
+                     <img src={mode === "light" ? logo : logo} height="60px" width="250px" />
 
         </Typography>
             </TableCell>
@@ -129,11 +130,10 @@ export default function Footer() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {rows.map((row) => ( */}
-
-
         </TableBody>
       </Table>
     </TableContainer>
+    </Grid>
+    </Grid>
   );
 }

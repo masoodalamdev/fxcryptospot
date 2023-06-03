@@ -26,7 +26,7 @@ export default function Profile() {
     })
       .then((response => {
         const authorInfo = response.data.user
-        console.log(authorInfo)
+        // console.log(authorInfo)
         setUser(authorInfo)
       }))
       .catch((error) => {

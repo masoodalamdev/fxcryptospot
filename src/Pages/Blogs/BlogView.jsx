@@ -22,7 +22,6 @@ export default function BlogView() {
   const getBlog = async () => {
     let response = await blogServices.getSingleBlog(id);
     setBlog(response.data);
-    // setTags(response.data.tags)
     setTags(response.data.tags)
   }
 
@@ -66,7 +65,7 @@ export default function BlogView() {
               
               tags.map((tag, index) => {
                 return(
-                <Chip label={tag} onClick={handleClick} sx={{m:1}} />
+                <Chip label={tag} sx={{m:1}} component="a" href={`/blogs/${tag.toLowerCase()}`} clickable />
               )})
              
             }

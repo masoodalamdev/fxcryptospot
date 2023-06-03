@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, IconButton, Menu, MenuItem, Typography, useTheme } from '@mui/material'
+import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Grow, IconButton, Menu, MenuItem, Typography, useTheme } from '@mui/material'
 // import { getToken } from './Services/LocalStorageServices'
 import ShareIcon from "@mui/icons-material/Share";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -17,11 +17,18 @@ export default function MuiCard(props) {
   const {image, profileImage, title, categoryAndDate, description, id, handleEdit, handleDelete, handleFavorite, handleShare, clickHandler} = props
   const token = getToken('token')
   const theme = useTheme()
+  const [checked, setChecked] = React.useState(true);
+
   // const handleDel = ()=>{
   //   console.log('Del clicked succesfully')
   // }
 
   return (
+    <Grow
+          in={checked}
+          style={{ transformOrigin: '0 0 0' }}
+          {...(checked ? { timeout: 1000 } : {})}
+        >
     <Card sx={{ minHeight: '550px', maxHeight: '550px', bgcolor: theme.palette.background.paper}}>
     <a href={`/blog/${id}`} style={{textDecoration: 'none'}} >
 
@@ -96,5 +103,6 @@ export default function MuiCard(props) {
         </CardActions>
 
       </Card>
+      </Grow>
     )
 }

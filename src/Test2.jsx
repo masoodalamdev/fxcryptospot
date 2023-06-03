@@ -20,7 +20,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Footer from './Components/Footer/Footer';
 import logo from './Assets/logo.png'
-import logo2 from './Assets/logo2.png'
+import logo2 from './Assets/logoMini.png'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { Avatar, Collapse, Grid, InputBase, Menu, MenuItem, Stack, Tooltip } from '@mui/material';
 import { AccountBalance, AccountBalanceWallet, Add, AttachMoney, CurrencyBitcoin, Dashboard, ExpandLess, ExpandMore, NoteAdd } from '@mui/icons-material';

@@ -1,9 +1,7 @@
 import { Box, Card, CardContent, Grid, Stack, Toolbar, Typography, useTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import MiniDrawer from '../../Components/Drawer/Drawer'
-// import PageHeader from '../../Components/PageHeader/PageHeader'
 import { Book } from '@mui/icons-material'
-import * as blogServices from '../../Services/blogServices'
+import * as blogServices from '../../../Services/blogServices'
 import { styled } from "@mui/material/styles";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -16,11 +14,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import PageHeader from '../../Components/PageHeader/PageHeader'
-import MuiCard from '../../Components/MuiCard/MuiCard'
-import Notification from '../../Components/Notification/Notification'
-import ConfirmDialog from '../../Components/ConfirmDialog/ConfirmDialog'
-import RightSidebar from '../../Components/RightSidebar/RightSidebar'
+import PageHeader from '../../../Components/PageHeader/PageHeader'
+import MuiCard from '../../../Components/MuiCard/MuiCard'
+import Notification from '../../../Components/Notification/Notification'
+import ConfirmDialog from '../../../Components/ConfirmDialog/ConfirmDialog'
+import RightSidebar from '../../../Components/RightSidebar/RightSidebar'
+import MuiCardSkeleton from '../../../Components/MuiCardSkeleton/MuiCardSkeleton'
 
 
 const handleEdit = () => {
@@ -47,19 +46,20 @@ const handleDelete = (id) => {
 }
 
 
-export default function Trading() {
+export default function Wallet() {
 
   const [blogs, setBlogs] = useState([])
+  const [loading, setLoading] = useState(false)
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
   const [confirmDialog, setConfirmDialog] = useState({isOpen: false, title: '', subTitle: ''})
   const theme = useTheme()
 
 
   const getBlogList = async () => {
-    let response = await blogServices.getTradingBlogs();
+    let response = await blogServices.getWalletBlogs();
     setBlogs(response.data);
-    // console.log(response.data)
-    // console.log(blogs)
+    setLoading(true);
+
   }
 
   useEffect(() => {
@@ -116,17 +116,17 @@ export default function Trading() {
       <Toolbar/>
       <PageHeader
         icon={<Book />}
-        title="Trading Blog Posts"
+        title="Wallet Blog Posts"
         subTitle="Read Amazing Blogs"
       />
        <Grid container spacing={2}>
                 {/* <Stack direction="row"> */}
-              <Grid item xs={9}>
+                <Grid item xs={12} sm={12} md={9} lg={9}>
               <Grid container spacing={2}>
-
-        {blogs.map((item, index) => {
+              {loading ?
+        blogs.map((item, index) => {
           return (
-            <Grid item xs={6} md={4} sx={{p:1}}>
+            <Grid item xs={12} sm={12} md={6} lg={4} sx={{p:1}} >
 
               <MuiCard
                 image={item.image}
@@ -152,10 +152,23 @@ export default function Trading() {
               />
             </Grid>
           )
-        })}
+        })
+        :
+                <>         
+                <Grid item xs={12} sm={12} md={6} lg={4} sx={{ p: 1 }}>
+                  <MuiCardSkeleton />
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={4} sx={{ p: 1 }}>
+                  <MuiCardSkeleton />
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={4} sx={{ p: 1 }}>
+                  <MuiCardSkeleton />
+                </Grid>
+                </>
+                }
         </Grid>
 </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={0} sm={0} md={3} lg={3}>
               <RightSidebar/>
               </Grid>
 

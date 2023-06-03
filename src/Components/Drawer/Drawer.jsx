@@ -23,7 +23,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { Avatar, Collapse, Stack } from '@mui/material';
 import profilePic from '../../Assets/Images/user2.jpg'
 import logo from '../../Assets/logo.png'
-import logo2 from '../../Assets/logo2.png'
+import logo2 from '../../Assets/logoMini.png'
 import Badge from "@mui/material/Badge";
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';

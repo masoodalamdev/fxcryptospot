@@ -8,9 +8,6 @@ import { CssBaseline } from '@mui/material';
 import Contact from './Pages/Contact/Contact';
 import About from './Pages/About/About';
 import PrivacyPolicy from './Pages/PrivacyPolicy/PrivacyPolicy';
-import Wallet from './Pages/Wallet/Wallet';
-import Coin from './Pages/Coin/Coin';
-import Trading from './Pages/Trading/Trading';
 import Register from './Pages/Auth/Register/Register';
 import Login from './Pages/Auth/Login/Login';
 import NotFound from './Pages/NotFound/NotFound';
@@ -38,10 +35,13 @@ import BlogView from './Pages/Blogs/BlogView';
 import RightSidebar from './Components/RightSidebar/RightSidebar';
 import Test4 from './Pages/Test4';
 import Test5 from './Pages/Test5';
-import Blockchain from './Pages/Blockchain/Blockchain';
 import BlogEditor from './Pages/Blogs/BlogEditor';
 import Profile from './Pages/Profile/Profile';
 import Sitemap from './Pages/Sitemap/Sitemap';
+import Blockchain from './Pages/Blogs/Blockchain/Blockchain';
+import Wallet from './Pages/Blogs/Wallet/Wallet';
+import Trading from './Pages/Blogs/Trading/Trading';
+import Coin from './Pages/Blogs/Coin/Coin';
 
 
 function App() {
@@ -74,8 +74,7 @@ function App() {
         <Route path='/*' element={<NotFound/>} />
         <Route path='/test' element={<Test/>} />
         <Route path='/test2' element={<Test2/>} />
-        <Route path='/test3' element={<Test3/>} />
-        <Route path='/test4' element={<Test4/>} />
+        {/* <Route path='/test4' element={<Test4/>} /> */}
         <Route path='/test5' element={<Test5/>} />
         <Route path='/profile' element={<Profile/>} />
         {/* <Route path='/register' element={<Register/>} /> */}
@@ -87,6 +86,10 @@ function App() {
       <Route path="/admin/create-blog" element={<CreateBlog/>}/>
      
       </Route> */}
+        <Route path='/test4' element={<Test4/>} />
+        <Route path='/test5' element={<Test5/>} />
+        <Route path='/test3' element={<Test3/>} />
+      
 
       </Routes>
     <CssBaseline/>
