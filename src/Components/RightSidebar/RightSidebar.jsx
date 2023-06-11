@@ -55,7 +55,7 @@ export default function RightSidebar() {
     <>
      {/* <ThemeProvider theme={theme}> */}
     {/* <CssBaseline /> */}
-      <Box sx={{ minHeight: 100 + 'vh', borderRadius: '4px', bgcolor: theme.palette.background.default , p:1}}>
+      <Box sx={{ minHeight: 100 + 'vh', borderRadius: '4px', bgcolor: theme.palette.background.default}}>
         <InputBase
         fullWidth
           sx={styledHeader.searchInput}

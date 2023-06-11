@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import Notification from '../../Components/Notification/Notification'
 import MuiSelect from '../../Components/MuiSelect/MuiSelect';
 import Autocomplete from '@mui/material/Autocomplete';
+import { FcEditImage } from 'react-icons/fc';
 
 export default function BlogEditor() {
   const { id } = useParams()
@@ -84,7 +85,7 @@ export default function BlogEditor() {
   }
 
   const token = getToken()
-  const url = 'https://fxcryptospot.cyclic.app//api/user/loggeduser'
+  const url = 'http://localhost:8000/api/user/loggeduser'
 
   //   useEffect(() => {
   //     getUserDetail()
@@ -182,7 +183,7 @@ export default function BlogEditor() {
       <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
         <Toolbar />
         <PageHeader
-          icon={<Book />}
+          icon={<FcEditImage szie={24} />}
           title="Blog Editor"
           subTitle="Update This Blog"
         />

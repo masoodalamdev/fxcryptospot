@@ -5,6 +5,7 @@ import { Box, Card, CardContent, Chip, Grid, Stack, Toolbar, Typography, useThem
 import PageHeader from '../../Components/PageHeader/PageHeader'
 import { Book } from '@mui/icons-material'
 import MuiCardView from '../../Components/MuiCardView/MuiCardView'
+import RightSidebar from '../../Components/RightSidebar/RightSidebar'
 
 export default function BlogView() {
   const { id } = useParams()
@@ -44,7 +45,7 @@ export default function BlogView() {
   };
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
+    <Box component="main" sx={{ flexGrow: 1, p: {xs:1, sm:1, md:3, lg:3}, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
       <Toolbar/>
       <PageHeader
         icon={<Book />}
@@ -53,7 +54,7 @@ export default function BlogView() {
       />
       <Grid container spacing={2}>
 
-        <Grid item xs={12}>
+                <Grid item xs={12} sm={12} md={9} lg={9}>
           {blog ? <MuiCardView
             image={blog.image}
             profileImage='https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'
@@ -76,7 +77,10 @@ export default function BlogView() {
           />
             : ''}
         </Grid>
+        <Grid item xs={0} sm={0} md={3} lg={3}>
+<RightSidebar/>
 
+      </Grid>
       </Grid>
     </Box>
   )

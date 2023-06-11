@@ -14,6 +14,7 @@ import Coin from './Coin';
 import { Box, Grid, Toolbar, useTheme } from '@mui/material';
 import PageHeader from '../../Components/PageHeader/PageHeader';
 import { QueryStats } from '@mui/icons-material';
+import { FcBullish } from 'react-icons/fc';
 
 
 
@@ -53,7 +54,7 @@ export default function Prices() {
       <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
       <Toolbar/>
       <PageHeader
-        icon={<QueryStats />}
+        icon={<FcBullish size={24} />}
         title="Live Prices"
         subTitle="Coin Market Cape"
       />

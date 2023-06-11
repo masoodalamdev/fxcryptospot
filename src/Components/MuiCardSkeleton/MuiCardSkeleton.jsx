@@ -20,9 +20,9 @@ export default function MuiCardSkeleton() {
   // }
 
   return (
-    <Card sx={{ minHeight: '550px', maxHeight: '550px', bgcolor: theme.palette.background.paper }}>
+    <Card sx={{ minHeight: '400px', maxHeight: '400px', bgcolor: theme.palette.background.paper }}>
 
-      <Skeleton sx={{ height: 200 }} animation="wave" variant="rectangular" />
+      <Skeleton sx={{ height: 250 }} animation="wave" variant="rectangular" />
       <CardHeader
         avatar={
           <Skeleton animation="wave" variant="circular" width={40} height={40} />

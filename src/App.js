@@ -42,6 +42,8 @@ import Blockchain from './Pages/Blogs/Blockchain/Blockchain';
 import Wallet from './Pages/Blogs/Wallet/Wallet';
 import Trading from './Pages/Blogs/Trading/Trading';
 import Coin from './Pages/Blogs/Coin/Coin';
+import Author from './Pages/Author/Author';
+import MuiFooter from './Components/Footer/MuiFooter';
 
 
 function App() {
@@ -77,6 +79,7 @@ function App() {
         {/* <Route path='/test4' element={<Test4/>} /> */}
         <Route path='/test5' element={<Test5/>} />
         <Route path='/profile' element={<Profile/>} />
+        <Route path='/author/:id' element={<Author/>} />
         {/* <Route path='/register' element={<Register/>} /> */}
         <Route path='/login' element={<Login/>} />
         </Route>

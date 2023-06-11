@@ -20,6 +20,7 @@ import Notification from '../../../Components/Notification/Notification'
 import ConfirmDialog from '../../../Components/ConfirmDialog/ConfirmDialog'
 import RightSidebar from '../../../Components/RightSidebar/RightSidebar'
 import MuiCardSkeleton from '../../../Components/MuiCardSkeleton/MuiCardSkeleton'
+import { FcSalesPerformance } from 'react-icons/fc';
 
 
 const handleEdit = () => {
@@ -56,7 +57,8 @@ const theme = useTheme()
 
   const getBlogList = async () => {
     let response = await blogServices.getCoinBlogs();
-    setBlogs(response.data);
+    const blogsArray = response.data.reverse()
+    setBlogs(blogsArray);
     setLoading(true);
 
   }
@@ -114,7 +116,7 @@ const theme = useTheme()
     <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
       <Toolbar/>
       <PageHeader
-        icon={<Book />}
+        icon={<FcSalesPerformance size={24} />}
         title="Coin Blog Posts"
         subTitle="Read Amazing Blogs"
       />
@@ -133,7 +135,7 @@ const theme = useTheme()
                 title={item.title}
                 // date={item.publishDate.substring(0,10)}
                 categoryAndDate={item.createdAt.substring(0, 10) + " " + item.category}
-                description={item.content}
+                // description={item.content}
                 id={item._id}
                 handleEdit={handleEdit}
                 clickHandler={() => {

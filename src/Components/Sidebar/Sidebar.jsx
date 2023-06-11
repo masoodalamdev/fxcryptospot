@@ -34,6 +34,8 @@ import Notification from '../../Components/Notification/Notification'
 import { ColorModeContext } from '../../Store';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { FcOrgUnit, FcPositiveDynamic, FcCurrencyExchange, FcLibrary, FcAndroidOs, FcSalesPerformance, FcNews, FcDataSheet, FcPlus, FcPrevious, FcNext, FcNightLandscape, FcLandscape, FcExpand } from "react-icons/fc";
+import MuiFooter from '../Footer/MuiFooter';
 
 
 const drawerWidth = 240;
@@ -109,7 +111,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-
 const pages = [
     { name: "Home", url: "dashboard" },
     { name: "Blog", url: "blogs" },
@@ -117,7 +118,8 @@ const pages = [
     { name: "Coin", url: "blogs/coin" },
     { name: "Trading", url: "blogs/trading" },
     { name: "Prices", url: "prices" },
-    { name: "Apps", url: "apps" }
+    { name: "Apps", url: "apps" },
+    { name: "About", url: "about" }
 ];
 const settings = [
     { name: "Profile", url: "profile" },
@@ -137,6 +139,7 @@ export default function Sidebar() {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [user, setUser] = React.useState('')
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
     const navigate = useNavigate()
 
@@ -158,15 +161,15 @@ export default function Sidebar() {
 
     const handleDrawerOpen = () => {
         setOpen(true);
-        document.getElementById('userName').setAttribute('style', 'display:block');
-        document.getElementById('userEmail').setAttribute('style', 'display:block');
+        // document.getElementById('userName').setAttribute('style', 'display:block');
+        // document.getElementById('userEmail').setAttribute('style', 'display:block');
         document.getElementById('footer').setAttribute("style", "width:calc(100% - 240px); margin-left:240px;")
     };
 
     const handleDrawerClose = () => {
         setOpen(false);
-        document.getElementById('userName').setAttribute('style', 'display:none');
-        document.getElementById('userEmail').setAttribute('style', 'display:none');
+        // document.getElementById('userName').setAttribute('style', 'display:none');
+        // document.getElementById('userEmail').setAttribute('style', 'display:none');
         document.getElementById('footer').setAttribute("style", "width:calc(100% - 64px); margin-left:64px;")
 
     };
@@ -216,7 +219,7 @@ export default function Sidebar() {
 
 
     const token = getToken()
-    const url = 'https://fxcryptospot.cyclic.app//api/user/loggeduser'
+    const url = 'http://localhost:8000/api/user/loggeduser'
 
     useEffect(() => {
         getUserDetail()
@@ -251,6 +254,16 @@ export default function Sidebar() {
 
     };
 
+
+    function handleClick(event) {
+        if (anchorEl !== event.currentTarget) {
+          setAnchorEl(event.currentTarget);
+        }
+      }
+    
+      function handleClose() {
+        setAnchorEl(null);
+      }
 
     // const theme = createTheme({
     //     MuiAppbar: {
@@ -608,21 +621,20 @@ export default function Sidebar() {
                 <AppBar position="fixed" open={open} elevation={0} sx={{ bgcolor: theme.palette.background.paper }}>
                     {/* <Container maxWidth="xl"> */}
 
-                    <Toolbar disableGutters>
+                    <Toolbar >
                         <IconButton
                             aria-label="open drawer"
                             onClick={handleDrawerOpen}
                             edge="start"
                             sx={{
-                                pl: 4,
-                                marginRight: 4,
+                                // pl: 4,
+                                marginRight: 5,
                                 ...(open && { display: 'none' }),
                             }}
                         >
-
                             {/* <img src={mode === "light" ? logoMini : logoMini} height='24px' width='24px' /> */}
                             {/* <MenuIcon /> */}
-                            <ChevronRightIcon/>
+                            <FcNext />
                         </IconButton>
                         <Typography
                             variant="h6"
@@ -630,16 +642,17 @@ export default function Sidebar() {
                             component="a"
                             href="/"
                             sx={{
-                                mr: 2,
+                                // mr: 2,
                                 display: { xs: "none", md: "flex" },
                                 fontFamily: "monospace",
                                 fontWeight: 700,
                                 letterSpacing: ".3rem",
                                 color: "inherit",
-                                textDecoration: "none"
+                                textDecoration: "none",
+                                flexGrow: 1
                             }}
                         >
-                            <img src={mode === "light" ? logolight : logo} alt="logo" />
+                            <img src={mode === "light" ? logolight : logo} alt="web logo" />
                         </Typography>
 
                         <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -673,7 +686,7 @@ export default function Sidebar() {
                             >
                                 {pages.map((page) => (
                                     <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                                        <Link to={page.url} style={{textDecoration:'none'}}>
+                                        <Link to={page.url} style={{ textDecoration: 'none' }} key={page.name}>
                                             <Typography textAlign="center" >
                                                 {page.name}
                                             </Typography>
@@ -687,7 +700,7 @@ export default function Sidebar() {
                             variant="h5"
                             noWrap
                             component="a"
-                            href=""
+                            href="/"
                             sx={{
                                 mr: 2,
                                 display: { xs: "flex", md: "none" },
@@ -699,25 +712,115 @@ export default function Sidebar() {
                                 textDecoration: "none"
                             }}
                         >
-                            <img src={mode === "light" ? logolight : logo} alt="logo" />
+                            <img src={mode === "light" ? logolight : logo} alt="mobile logo" />
 
                         </Typography>
-                        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                            {pages.map((page) => (
-                                <Link to={page.url} style={{ textDecoration: 'none' }}>
+
+                        <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                            {/* {pages.map((page) => (
+                                <Link to={page.url} style={{ textDecoration: 'none' }} key={page.name}>
                                     <Button
                                         key={page.name}
                                         onClick={handleCloseNavMenu}
-                                        sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none' }}
+                                        sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none', color: theme.palette.text.primary }}
                                     >
                                         {page.name}
                                     </Button>
                                 </Link>
-                            ))}
+                            ))} */}
+                            <Link to='/' style={{ textDecoration: 'none' }}>
+                                <Button
+                                    sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none', color: theme.palette.text.primary }}
+                                >
+                                    Home
+                                </Button>
+                            </Link>
+                            <Link to='/blogs' style={{ textDecoration: 'none' }}>
+                                <Button
+                                    sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none', color: theme.palette.text.primary }}
+                                >
+                                    Blog
+                                </Button>
+                            </Link>
+                            <Link to='/blogs' style={{ textDecoration: 'none' }}>
+                                <Button
+                                    sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none', color: theme.palette.text.primary }}
+                                >
+                                    Earn
+                                </Button>
+                            </Link>
+                            <Link to='/blogs/wallet' style={{ textDecoration: 'none' }}>
+                                <Button
+                                    sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none', color: theme.palette.text.primary }}
+                                >
+                                    Wallet
+                                </Button>
+                            </Link>
+                            <Link to='/blogs/coin' style={{ textDecoration: 'none' }}>
+                                <Button
+                                    sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none', color: theme.palette.text.primary }}
+                                >
+                                    Coin
+                                </Button>
+                            </Link>
+                            <Link to='/blogs/trading' style={{ textDecoration: 'none' }}>
+                                <Button
+                                    sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none', color: theme.palette.text.primary }}
+                                >
+                                    Trading
+                                </Button>
+                            </Link>
+                            <Link to='/prices' style={{ textDecoration: 'none' }}>
+                                <Button
+                                    sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none', color: theme.palette.text.primary }}
+                                >
+                                    Prices
+                                </Button>
+                            </Link>
+                            <Link to='/apps' style={{ textDecoration: 'none' }}>
+                                <Button
+                                    sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none', color: theme.palette.text.primary }}
+                                >
+                                    Apps
+                                </Button>
+                            </Link>
+
+                            <Button onMouseOver={handleClick}
+                                onClick={handleClick}
+                                sx={{ my: 2, display: "block", fontWeight: "bold", textDecoration: 'none', color: theme.palette.text.primary }}
+                            >
+                                About <FcExpand size={12} />
+                            </Button>
+                            <Menu
+                                // id="simple-menu"
+                                anchorEl={anchorEl}
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                                MenuListProps={{ onMouseLeave: handleClose }}
+                            >
+                                <MenuItem onClick={handleClose}>About</MenuItem>
+                                <MenuItem onClick={handleClose}>Contact</MenuItem>
+                                <MenuItem onClick={handleClose}>Sitemap</MenuItem>
+                                <MenuItem onClick={handleClose}>Privacy Policy</MenuItem>
+                                <MenuItem onClick={handleClose}>Advertise</MenuItem>
+                            </Menu>
+                            <IconButton onClick={toggleMode} sx={{
+                                ':hover': {
+                                    bgcolor: 'transparent'
+                                },
+                                ':active': {
+                                    bgcolor: 'transparent'
+                                },
+                                ':focus': {
+                                    bgcolor: 'transparent'
+                                }
+                            }} >
+                                {/* <Button onClick={toggleMode}> */}
+                                {/* {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />} */}
+                                {theme.palette.mode === 'dark' ? <FcLandscape size={24} /> : <FcNightLandscape size={24} />}
+                                {/* </Button> */}
+                            </IconButton>
                         </Box>
-                        <IconButton sx={{ ml: 1 }} onClick={toggleMode} >
-                            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                        </IconButton>
                         {token ?
                             <Box sx={{ flexGrow: 0 }}>
 
@@ -745,12 +848,6 @@ export default function Sidebar() {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    {/* {settings.map((setting) => (
-                                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center" component="a" href={setting.url} sx={{textDecoration : 'none'}}>{setting.name}</Typography>
-                                </MenuItem>
-                            
-                            ))} */}
                                     <MenuItem onClick={handleCloseUserMenu}>
                                         <Typography textAlign="center" component="a" href="profile" sx={{ textDecoration: 'none' }}>Profile</Typography>
                                     </MenuItem>
@@ -763,13 +860,15 @@ export default function Sidebar() {
                                 </Menu>
                             </Box>
                             : ''}
+
+                        {/* ================== web nav ended ================== */}
                     </Toolbar>
                     {/* </Container> */}
                 </AppBar>
                 <Drawer variant="permanent" open={open}>
                     <DrawerHeader>
                         <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                            {theme.direction === 'rtl' ? <FcNext size={24} /> : <FcPrevious size={24} />}
                         </IconButton>
                     </DrawerHeader>
                     <Divider />
@@ -804,7 +903,8 @@ export default function Sidebar() {
                                     <ListItem disablePadding>
                                         <ListItemButton>
                                             <ListItemIcon>
-                                                <Dashboard />
+                                                {/* <Dashboard /> */}
+                                                <FcDataSheet size={24} />
                                             </ListItemIcon>
                                             <ListItemText primary="Dashboard" />
                                         </ListItemButton>
@@ -814,7 +914,8 @@ export default function Sidebar() {
                                     <ListItem disablePadding>
                                         <ListItemButton>
                                             <ListItemIcon>
-                                                <NoteAdd />
+                                                {/* <NoteAdd /> */}
+                                                <FcPlus size={24} />
                                             </ListItemIcon>
                                             <ListItemText primary="Add Blog Post" />
                                         </ListItemButton>
@@ -831,7 +932,8 @@ export default function Sidebar() {
                         <Link to='/blogs' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <Book />
+                                    {/* <Book /> */}
+                                    <FcNews size={24} />
                                 </ListItemIcon>
                                 <ListItemText primary="Blog" />
                             </ListItemButton>
@@ -839,7 +941,8 @@ export default function Sidebar() {
                         <Link to='/blogs/blockchain' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <Hub />
+                                    {/* <Hub /> */}
+                                    <FcOrgUnit size={24} />
                                 </ListItemIcon>
                                 <ListItemText primary="Blockchain" />
                             </ListItemButton>
@@ -847,7 +950,8 @@ export default function Sidebar() {
                         <Link to='/blogs/wallet' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <AccountBalanceWallet />
+                                    {/* <AccountBalanceWallet /> */}
+                                    <FcLibrary size={24} />
                                 </ListItemIcon>
                                 <ListItemText primary="Wallet" />
                             </ListItemButton>
@@ -855,7 +959,8 @@ export default function Sidebar() {
                         <Link to='/blogs/coin' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <CurrencyBitcoin />
+                                    {/* <CurrencyBitcoin /> */}
+                                    <FcSalesPerformance size={24} />
                                 </ListItemIcon>
                                 <ListItemText primary="Coin" />
                             </ListItemButton>
@@ -863,15 +968,17 @@ export default function Sidebar() {
                         <Link to='/blogs/trading' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <AttachMoney />
+                                    {/* <AttachMoney /> */}
+                                    <FcPositiveDynamic size={24} />
                                 </ListItemIcon>
                                 <ListItemText primary="Trading" />
                             </ListItemButton>
                         </Link>
-                        <Link to='/trading' style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Link to='/blogs/trading' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <QueryStats />
+                                    {/* <QueryStats /> */}
+                                    <FcCurrencyExchange size={24} />
                                 </ListItemIcon>
                                 <ListItemText primary="Prices" />
                             </ListItemButton>
@@ -879,7 +986,8 @@ export default function Sidebar() {
                         <Link to='/apps' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <Apps />
+                                    {/* <Apps /> */}
+                                    <FcAndroidOs size={24} />
                                 </ListItemIcon>
                                 <ListItemText primary="Apps" />
                             </ListItemButton>
@@ -892,13 +1000,14 @@ export default function Sidebar() {
                      ============= content goes here =============
                 </Box> */}
             </Box>
-         <div id="footer" style={{ marginLeft: '64px', width: 'calc(100% - 64px)' }}><Footer /></div>
+            <Box id="footer" sx={{ marginLeft: '64px', width: 'calc(100% - 64px)', p: 0 }}><MuiFooter />
+            </Box>
 
             <Notification
                 notify={notify}
                 setNotify={setNotify}
             />
-       
+
             {/* <Outlet /> */}
         </>
     );

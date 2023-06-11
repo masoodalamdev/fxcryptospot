@@ -4,6 +4,7 @@ import PageHeader from '../../Components/PageHeader/PageHeader'
 import { Info } from '@mui/icons-material'
 import MuiCardView from '../../Components/MuiCardView/MuiCardView'
 import aboutme from '../../Assets/Images/aboutme.jpg'
+import { FcAnswers } from 'react-icons/fc'
 
 const handleEdit = ()=>{
   alert('edited succesfully')
@@ -25,7 +26,7 @@ export default function About() {
     <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh'  }}>
 <Toolbar/>
         <PageHeader
-            icon={<Info />}
+            icon={<FcAnswers size={24} />}
             title="About Us"
             subTitle="Read Amazing Blogs"
         />

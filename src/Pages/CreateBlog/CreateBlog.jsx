@@ -13,6 +13,7 @@ import Notification from '../../Components/Notification/Notification'
 import PageHeader from '../../Components/PageHeader/PageHeader';
 import MuiSelect from '../../Components/MuiSelect/MuiSelect';
 import Autocomplete from '@mui/material/Autocomplete';
+import { FcPlus } from 'react-icons/fc';
 
 
 
@@ -44,7 +45,7 @@ const theme = useTheme()
   }
 
   const token = getToken()
-  const url = 'https://fxcryptospot.cyclic.app//api/user/loggeduser'
+  const url = 'http://localhost:8000/api/user/loggeduser'
 
   useEffect(() => {
     getUserDetail()
@@ -147,7 +148,7 @@ const theme = useTheme()
         <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
           <Toolbar/>
           <PageHeader
-            icon={<Book />}
+            icon={<FcPlus size={24} />}
             title="Blog Posts"
             subTitle="Add New Post"
           />
@@ -158,7 +159,7 @@ const theme = useTheme()
 
                   <Stack direction="column">
 
-                    <TextField id="outlined-basic" label="Blog Title" variant="outlined" name="title" autoComplete='off' value={blog.title} onChange={handleInputChange} sx={{ marginTop: '12px' }} />
+                    <TextField id="outlined-basic" label="Blog Title" variant="outlined" name="title" autoComplete='off' value={blog.title} onChange={handleInputChange} sx={{ marginTop: '12px' }} inputProps={{ maxLength: 60 }} />
                     <br />
                     <JoditEditor
                       ref={editor}

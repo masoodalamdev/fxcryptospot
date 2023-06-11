@@ -4,6 +4,8 @@ import PageHeader from '../../Components/PageHeader/PageHeader'
 import { Info } from '@mui/icons-material'
 import MuiCardView from '../../Components/MuiCardView/MuiCardView'
 import aboutme from '../../Assets/Images/aboutme.jpg'
+import { FcAndroidOs } from 'react-icons/fc'
+import MuiFooter from '../../Components/Footer/MuiFooter'
 
 const handleEdit = ()=>{
   alert('edited succesfully')
@@ -25,7 +27,7 @@ export default function App() {
     <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh'  }}>
 <Toolbar/>
         <PageHeader
-            icon={<Info />}
+            icon={<FcAndroidOs size={24} />}
             title="Apps"
             subTitle="Forex Crypto Spot"
         />
@@ -42,5 +44,6 @@ export default function App() {
           handleShare = {handleShare}
           />
 </Box>
+   
   )
 }

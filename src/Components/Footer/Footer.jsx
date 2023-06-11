@@ -32,9 +32,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Container } from '@mui/system';
 import { Grid, useTheme } from '@mui/material';
-import { Link } from '@mui/material';
 import logo from '../../Assets/logo.png'
+import logolight from '../../Assets/logolight.png'
 import { ColorModeContext } from '../../Store';
+import { Link } from 'react-router-dom';
 
 
 export default function Footer() {
@@ -42,20 +43,19 @@ export default function Footer() {
   const {mode, toggleMode} = useContext(ColorModeContext)
 
   return (
-    <Grid container sx={{p:4}}>
+    <Grid container sx={{ p: {xs:1, sm:1, md:3, lg:3}}}>
                 <Grid item xs={12} sm={12} md={12} lg={12} >
     <TableContainer component={Paper} style={{backgroundColor: theme.palette.background.paper}} > 
       <Table aria-label="simple table">
         <TableHead>
   
-          <Divider/>
           <TableRow >
             <TableCell>
             <Typography
           variant="h6"
           noWrap
-          component="a"
-          href="/"
+          // component="a"
+          // href="/"
           sx={{
             mr: 2,
             display: { xs: 'none', md: 'flex' },
@@ -66,7 +66,7 @@ export default function Footer() {
             textDecoration: 'none',
           }}
         >
-                     <img src={mode === "light" ? logo : logo} height="60px" width="250px" />
+                     <img src={mode === "light" ? logolight : logo}/>
 
         </Typography>
             </TableCell>
@@ -77,7 +77,8 @@ export default function Footer() {
        
           </TableRow>
           <TableRow>
-            <TableCell component="a" href={"/fxcryptospot"} sx={{textDecoration: 'none'}}>Home</TableCell>
+            <Link to='/' style={{textDecoration: 'none'}}><TableCell>Home</TableCell></Link>
+            
             <TableCell align="left">Academy</TableCell>
             <TableCell align="left">Wallet</TableCell>
             <TableCell align="left">Buy Crypto</TableCell>

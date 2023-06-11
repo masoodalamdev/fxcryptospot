@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom'
 import { getToken } from '../../Services/LocalStorageServices';
 import blogPostImg from '../../Assets/Images/blog.jpg'
 import profileImg from '../../Assets/Images/user2.jpg'
-
+import { FcTreeStructure, FcLikePlaceholder } from "react-icons/fc";
 
 
 
 
 export default function MuiCard(props) {
-  const {image, profileImage, title, categoryAndDate, description, id, handleEdit, handleDelete, handleFavorite, handleShare, clickHandler} = props
+  const {image, profileImage, title, categoryAndDate, id, handleEdit, handleDelete, handleFavorite, handleShare, clickHandler, authorID} = props
   const token = getToken('token')
   const theme = useTheme()
   const [checked, setChecked] = React.useState(true);
@@ -29,21 +29,22 @@ export default function MuiCard(props) {
           style={{ transformOrigin: '0 0 0' }}
           {...(checked ? { timeout: 1000 } : {})}
         >
-    <Card sx={{ minHeight: '550px', maxHeight: '550px', bgcolor: theme.palette.background.paper}}>
+    <Card sx={{ minHeight: '400px', maxHeight: '400px', bgcolor: theme.palette.background.paper}}>
     <a href={`/blog/${id}`} style={{textDecoration: 'none'}} >
 
         <CardMedia
           component="img"
-          height="200"
+          height="250"
           image={image}
           alt="blog image"
         />
         <CardHeader
           avatar={
             <Avatar
-              sx={{ bgcolor: 'red' }}
               aria-label="profile IMG"
               src={profileImage}
+              href={`/author/${authorID}`}
+              component="a"
             >
             </Avatar>
           }
@@ -51,11 +52,11 @@ export default function MuiCard(props) {
           titleTypographyProps={{ variant: "body", fontFamily: "sans-serif Roboto Helvetica Arial"}}
           title={title}
           subheader={categoryAndDate}
-          sx={{color: "text.primary", minHeight: '150px', maxHeight: '150px' }}
+          sx={{color: "text.primary", minHeight: '100px', maxHeight: '100px' }}
           
         />
 
-        <CardContent
+        {/* <CardContent
         sx={{minHeight: '150px', maxHeight: '150px' }}
         >
 
@@ -66,14 +67,15 @@ export default function MuiCard(props) {
               display: '-webkit-box',
               overflow: 'hidden',
               WebkitLineClamp: 4,
-              WebkitBoxOrient: 'vertical'
+              WebkitBoxOrient: 'vertical',
+              border: '1px solid green'
             }}
            dangerouslySetInnerHTML={{ __html: description }} 
            
           >
           </Typography>
 
-        </CardContent>
+        </CardContent> */}
         </a>
         
         <CardActions disableSpacing sx={{minHeight: '50px', maxHeight: '50px', justifyContent: 'space-between' }}>
@@ -95,10 +97,13 @@ export default function MuiCard(props) {
           : ''
         }
           <IconButton aria-label="add to favorites">
-            <FavoriteIcon onClick={handleFavorite} />
+            {/* <FavoriteIcon onClick={handleFavorite} /> */}
+            <FcLikePlaceholder onClick={handleFavorite} size={24}/>
+            
           </IconButton>
           <IconButton aria-label="share">
-            <ShareIcon onClick={handleShare} />
+            <FcTreeStructure onClick={handleShare} size={24}/>
+            {/* <ShareIcon onClick={handleShare} size={24}/> */}
           </IconButton>
         </CardActions>
 

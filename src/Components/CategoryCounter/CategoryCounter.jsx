@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import * as blogServices from '../../Services/blogServices'
-import { Chip, List, ListItem, ListItemButton, ListItemText, Stack } from '@mui/material'
+import { Chip, List, ListItem, ListItemButton, ListItemText, Stack, useTheme } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 export default function CategoryCounter() {
@@ -8,6 +8,7 @@ export default function CategoryCounter() {
     const [wallet, setWallet] = useState('')
     const [coin, setCoin] = useState('')
     const [trading, setTrading] = useState('')
+    const theme = useTheme()
     const blockchainCounter = async () => {
         let response = await blogServices.getBlockchainBlogs();
         setBlockchain(response.data.length);
@@ -51,7 +52,7 @@ export default function CategoryCounter() {
           <ListItem disablePadding>
             <ListItemButton component="a" href="/blogs/blockchain">
               <ListItemText primary="Blockhain" />
-              <Chip label={`${blockchain}`} color="primary" sx={{ borderRadius: 0 }} />
+              <Chip label={`${blockchain}`} color='primary' sx={{ borderRadius: 0 }} />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>

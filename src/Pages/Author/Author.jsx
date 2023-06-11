@@ -6,56 +6,45 @@ import profileImg from '../../Assets/Images/user2.jpg'
 import * as userServices from '../../Services/UserServices.js'
 import { getToken } from '../../Services/LocalStorageServices.js';
 import axios from 'axios'
-
-export default function Profile() {
-    const [user, setUser] = useState('')
+import { useParams } from 'react-router-dom'
+import { FcBusinessman } from "react-icons/fc";
+export default function Author() {
+    const [author, setAuthor] = useState('')
     const theme = useTheme()
     const token = getToken()
-  const url = 'http://localhost:8000/api/user/loggeduser'
+    const { id } = useParams()
+    const url = 'http://localhost:8000/api/user/loggeduser'
+
+  const getAuthorDetails = async () => {
+    let response = await userServices.getAuthorInfo(id);
+    setAuthor(response.data)
+        // console.log(response.data)
+  }
 
   useEffect(() => {
-    getUserDetail()
-  }, [])
-
-  const getUserDetail = async () => {
-    const response = await axios.get(url, {
-      'headers': {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((response => {
-        const authorInfo = response.data.user
-        // console.log(authorInfo)
-        setUser(authorInfo)
-      }))
-      .catch((error) => {
-        console.log(error);
-      })
-
-  };
+    getAuthorDetails();
+  }, []);
 
 
     return (
         <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
             <Toolbar />
             <PageHeader
-                icon={<AdminPanelSettings />}
-                title="Profile Info"
-                subTitle="Account Management"
+                icon={<FcBusinessman size={24}/>}
+                title="Author Info"
+                subTitle="Forex Crypto Spot"
             />
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                 <Card>
                 <CardHeader
         avatar={
-          <Avatar  aria-label="recipe" src={profileImg} sx={{ width: 56, height: 56 }}>
-            
+          <Avatar  aria-label="recipe" src={author && author.image} sx={{ width: 56, height: 56 }}>
           </Avatar>
         }
     
-        title={user && user.name}
-        subheader={user && user.email}
+        title={author && author.name}
+        subheader={author && author.email}
       />
        <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">

@@ -1,10 +1,13 @@
 import axios from "axios"
 
-const URL = "https://fxcryptospot.cyclic.app//api/user"
+const URL = "http://localhost:8000/api/user"
 
 
 export const getAllUsers = async () => {
     return await axios.get(`${URL}/users`);
+}
+export const getAuthorInfo = async (id) => {
+    return await axios.get(`${URL}/author/${id}`);
 }
 export const createUser = async (user) => {
     

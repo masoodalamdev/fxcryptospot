@@ -21,7 +21,7 @@ export default function MuiCardView(props) {
 
         <CardMedia
           component="img"
-          height="250"
+          // height="500"
           image={image}
           alt="blog image"
         />
@@ -60,20 +60,20 @@ export default function MuiCardView(props) {
 
         <CardActions disableSpacing>
         {token ? <>
-          <IconButton aria-label="edit">
-            <Edit onClick={handleEdit} />
+          <IconButton aria-label="edit" onClick={handleEdit} >
+            <Edit />
           </IconButton>
-          <IconButton aria-label="delete">
-            <Delete onClick={handleDelete} />
+          <IconButton aria-label="delete" onClick={handleDelete}>
+            <Delete  />
           </IconButton>
           </>
           : ''
         }
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon onClick={handleFavorite} />
+          <IconButton aria-label="add to favorites" onClick={handleFavorite} >
+            <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon onClick={handleShare} />
+          <IconButton aria-label="share" onClick={handleShare}>
+            <ShareIcon  />
           </IconButton>
 
         </CardActions>

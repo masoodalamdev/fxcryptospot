@@ -22,6 +22,7 @@ import Notification from '../../Components/Notification/Notification'
 import ConfirmDialog from '../../Components/ConfirmDialog/ConfirmDialog'
 import RightSidebar from '../../Components/RightSidebar/RightSidebar'
 import MuiCardSkeleton from '../../Components/MuiCardSkeleton/MuiCardSkeleton'
+import { FcNews } from 'react-icons/fc'
 
 
 const handleEdit = () => {
@@ -58,7 +59,8 @@ export default function Blogs() {
 
   const getBlogList = async () => {
     let response = await blogServices.getAllBlogs();
-    setBlogs(response.data);
+    const blogsArray = response.data.reverse()
+    setBlogs(blogsArray);
     setLoading(true);
 
     // console.log(response.data)
@@ -112,10 +114,12 @@ export default function Blogs() {
   return (
 
     // <Box sx={{ display: 'flex', backgroundColor: '#cfd8dc', minHeight: 100 + 'vh' }}>
-    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
+    // <Box component="main"   sx={{ backgroundColor: { xs: "red", md: "green", lg: "blue" }, }}>
+    <Box component="main" sx={{ flexGrow: 1, p: {xs:1, sm:1, md:3, lg:3}, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }} >
+    
       <Toolbar/>
       <PageHeader
-        icon={<Book />}
+        icon={<FcNews size={24} />}
         title="Blog Posts"
         subTitle="Read Amazing Blogs"
       />
@@ -130,12 +134,13 @@ export default function Blogs() {
 
               <MuiCard
                 image={item.image}
-                profileImage='https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'
+                profileImage={item.author.authorImage}
                 title={item.title}
                 // date={item.publishDate.substring(0,10)}
                 categoryAndDate={item.createdAt.substring(0, 10) + " " + item.category}
-                description={item.content}
+                // description={item.content}
                 id={item._id}
+                authorID={item.author.authorID}
                 // handleEdit={handleEdit}
                 clickHandler={() => {
                   // handleDelete(item._id)
