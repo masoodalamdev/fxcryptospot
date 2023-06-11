@@ -219,7 +219,7 @@ export default function Sidebar() {
 
 
     const token = getToken()
-    const url = 'http://localhost:8000/api/user/loggeduser'
+    const url = 'https://fxcryptospot.cyclic.app/api/user/loggeduser'
 
     useEffect(() => {
         getUserDetail()
