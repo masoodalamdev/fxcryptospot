@@ -39,7 +39,7 @@ export default function RightSidebar() {
     searchInput: {
         // opacity: '0.6',
         padding: '8px',
-        fontSize: '1rem',
+        
         height: '50px',
         backgroundColor: theme.palette.background.paper,
         // '&:hover': {
@@ -53,21 +53,19 @@ export default function RightSidebar() {
   }
   return (
     <>
-     {/* <ThemeProvider theme={theme}> */}
-    {/* <CssBaseline /> */}
-      <Box sx={{ minHeight: 100 + 'vh', borderRadius: '4px', bgcolor: theme.palette.background.default}}>
+      <Box sx={{ minHeight: 100 + 'vh', bgcolor: theme.palette.background.default}}>
         <InputBase
         fullWidth
-          sx={styledHeader.searchInput}
+          sx={{bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p:2, borderRadius: '1rem' }}
           placeholder='Search here'
           endAdornment={<SearchIcon fontSize="small" />}
         />
-        <Typography variant="h6" textAlign='center' color='text.primary'>
+        <Typography variant="h6" textAlign='center' color='text.primary' sx={{pb:1}}>
           Category
         </Typography>
         <Divider/>
         <CategoryCounter/>
-        <Typography variant="h6" textAlign='center' color='text.primary'>
+        <Typography variant="h6" textAlign='center' color='text.primary'  sx={{mt: 4, pb:1}}>
           Popular Posts
         </Typography>
         <Divider/>
@@ -75,21 +73,22 @@ export default function RightSidebar() {
         {slicedBlogs.map((item, index) => {
           return (
             <MuiMiniCard
+            key={index}
               title={item.title}
               // category={item.category }
               image={item.image}
               content={item.content}
+              slug={item.slug}
             />
           )
         })}
-    <Typography variant="h6" textAlign='center' color='text.primary'>
+    <Typography variant="h6" textAlign='center' color='text.primary' sx={{mb:1}}>
           Tags
         </Typography>
         <Divider/>
         <br/>
         <Tags/>
       </Box>
-      {/* </ThemeProvider> */}
     </>
   )
 }

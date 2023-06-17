@@ -53,10 +53,10 @@ export default function Blogs() {
 
   const [blogs, setBlogs] = useState([])
   const [loading, setLoading] = useState(false)
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
-  const [confirmDialog, setConfirmDialog] = useState({isOpen: false, title: '', subTitle: ''})
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: 'success' })
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
   const theme = useTheme();
-
+  const currentUrl = window.location.href
   const getBlogList = async () => {
     let response = await blogServices.getAllBlogs();
     const blogsArray = response.data.reverse()
@@ -113,71 +113,82 @@ export default function Blogs() {
   }
   return (
 
-    // <Box sx={{ display: 'flex', backgroundColor: '#cfd8dc', minHeight: 100 + 'vh' }}>
-    // <Box component="main"   sx={{ backgroundColor: { xs: "red", md: "green", lg: "blue" }, }}>
-    <Box component="main" sx={{ flexGrow: 1, p: {xs:1, sm:1, md:3, lg:3}, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }} >
-    
-      <Toolbar/>
+    <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 12, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
+      <Toolbar />
       <PageHeader
         icon={<FcNews size={24} />}
         title="Blog Posts"
-        subTitle="Read Amazing Blogs"
+        subTitle="Learn Crypto Earn Crypto"
       />
-       <Grid container spacing={2}>
-                {/* <Stack direction="row"> */}
-                <Grid item xs={12} sm={12} md={9} lg={9}>
-              <Grid container spacing={2}>
-              {loading ?
-        blogs.map((item, index) => {
-          return (
-            <Grid item xs={12} sm={12} md={6} lg={4} sx={{p:1}} >
+      <Grid container >
+        {/* <Stack direction="row"> */}
+        <Grid item xs={12} sm={12} md={9} lg={9}>
+          <Grid container >
+            {loading ?
+              blogs.map((item, index) => {
+                return (
+                  <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }} >
 
-              <MuiCard
-                image={item.image}
-                profileImage={item.author.authorImage}
-                title={item.title}
-                // date={item.publishDate.substring(0,10)}
-                categoryAndDate={item.createdAt.substring(0, 10) + " " + item.category}
-                // description={item.content}
-                id={item._id}
-                authorID={item.author.authorID}
-                // handleEdit={handleEdit}
-                clickHandler={() => {
-                  // handleDelete(item._id)
-                  setConfirmDialog({
-                    isOpen: true,
-                    title: "Are you sure to delete this record?",
-                    subTitle: "You can't undo this operation",
-                    onConfirm: ()=>{clickHandler(item._id)}
-                  })
-                }}
-                // clickHandler={clickHandler}
-                handleFavorite={handleFavorite}
-                handleShare={handleShare}
-              />
-            </Grid>
-          )
-        })
-        :
-                <>         
-                <Grid item xs={12} sm={12} md={6} lg={4} sx={{ p: 1 }}>
+                    <MuiCard
+                      key={index}
+                      image={item.image}
+                      profileImage={item.author.authorImage}
+                      title={item.title}
+                      // date={item.publishDate.substring(0,10)}
+                      category={item.category}
+                      chipColor={item.category === 'Bitcoin' ? 'primary' : (item.category === 'CryptoCurrency') ? 'secondary' : (item.category === 'Blockchain') ? 'error' : (item.category === 'Ethereum') ? 'success' : (item.category === 'Blockchain') ? 'info' : (item.category === 'Mining') ? 'warning' : 'primary'}
+                      createdAt={item.createdAt.substring(0, 10)}
+                      // description={item.content}
+                      id={item._id}
+                      slug={item.slug}
+                      shareUrl={currentUrl + 'blogs/' + item.slug}
+                      authorID={item.author.authorID}
+                      // handleEdit={handleEdit}
+                      clickHandler={() => {
+                        // handleDelete(item._id)
+                        setConfirmDialog({
+                          isOpen: true,
+                          title: "Are you sure to delete this record?",
+                          subTitle: "You can't undo this operation",
+                          onConfirm: () => { clickHandler(item._id) }
+                        })
+                      }}
+                      // clickHandler={clickHandler}
+                      // handleFavorite={handleFavorite}
+                      handleShare={handleShare}
+                    />
+                  </Grid>
+                )
+              })
+              :
+              <>
+                <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }}>
                   <MuiCardSkeleton />
                 </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} sx={{ p: 1 }}>
+                <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }}>
                   <MuiCardSkeleton />
                 </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={4} sx={{ p: 1 }}>
+                <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }}>
                   <MuiCardSkeleton />
                 </Grid>
-                </>
-                }
+                <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }}>
+                  <MuiCardSkeleton />
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }}>
+                  <MuiCardSkeleton />
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }}>
+                  <MuiCardSkeleton />
+                </Grid>
+              </>
+            }
+          </Grid>
         </Grid>
-</Grid>
-              <Grid item xs={0} sm={0} md={3} lg={3}>
-              <RightSidebar/>
-              </Grid>
+        <Grid item xs={0} sm={0} md={3} lg={3}>
+          <RightSidebar />
+        </Grid>
 
-              {/* </Stack> */}
+        {/* </Stack> */}
 
       </Grid>
       <Notification
@@ -185,10 +196,9 @@ export default function Blogs() {
         setNotify={setNotify}
       />
       <ConfirmDialog
-      confirmDialog= {confirmDialog}
-      setConfirmDialog = {setConfirmDialog}
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
       />
     </Box>
-    // </Box>
   )
 }

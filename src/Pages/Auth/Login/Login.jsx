@@ -1,4 +1,4 @@
-import { Box, Grid, TextField, Toolbar, Typography, useTheme } from '@mui/material'
+import { Box, Button, Grid, TextField, Toolbar, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
 import bgImg from '../../../Assets/Images/bg.jpeg'
 import MuiInput from '../../../Components/Inputs/MuiInput/MuiInput'
@@ -7,10 +7,9 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import * as UserServices from '../../../Services/UserServices'
 import { storeToken } from '../../../Services/LocalStorageServices';
-
 import Notification from '../../../Components/Notification/Notification'
 import PageHeader from '../../../Components/PageHeader/PageHeader'
-import { LoginOutlined } from '@mui/icons-material'
+import { LockOutlined, LoginOutlined } from '@mui/icons-material'
 
 
 
@@ -23,7 +22,7 @@ export default function Login() {
   });
 
   const [clearField, setClearField] = useState(user)
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: 'success' })
 
   const resetForm = () => {
     setUser(clearField)
@@ -78,26 +77,27 @@ export default function Login() {
 
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
+    <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px:{xs:3, sm:10, md:12, lg:8, xl:32}, minHeight: 100 + 'vh' }} >
       <Toolbar />
       <PageHeader
         icon={<LoginOutlined />}
         title="Login"
         subTitle="Forex Crypto Spot"
       />
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <img src={bgImg} alt="backgroundImage" width='100%' height='100%' />
+      <Grid container>
+        <Grid item xs={12} sm={6} md={9} lg={9} xl={9} sx={{pr:{sm:4}, pb:{xs:4,sm:0}}}>
+          <img src={bgImg} alt="backgroundImage" width='100%' height='100%' style={{borderRadius: '1rem'}} />
         </Grid>
-        <Grid item xs={4} sx={{ pr: 4 }}>
+        <Grid item xs={12} sm={6} md={3} lg={3}  xl={3} sx={{ bgcolor: theme.palette.background.paper, borderRadius: '1rem' }}>
 
-          <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', mt: '25%' }}>
+          <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', mt: '25%', }}>
             Login
           </Typography>
           <Box
             component="form"
             sx={{
-              '& .MuiTextField-root': { m: 1, mr: 2 },
+              '& .MuiTextField-root': { my: 2},
+              p:2
             }}
             noValidate
             autoComplete="off"
@@ -121,13 +121,15 @@ export default function Login() {
             />
             <Typography />
 
-            <MuiButton
+            {/* <MuiButton
               text='Submit'
               variant='text'
               type='submit'
               fullWidth
-              sx={{ bgcolor: '#444', color: '#fff', "&:hover": { bgcolor: '#444', color: '#fff' } }}
-            />
+              sx={{ bgcolor: '#444', color: '#fff', "&:hover": { bgcolor: '#444', color: '#fff', my:2 } }}
+            /> */}
+            <Button endIcon={<LockOutlined />} sx={{ textTransform: 'capitalize', py:2}} variant='outlined' fullWidth type='submit'>Submit</Button>
+
           </Box>
         </Grid>
       </Grid>

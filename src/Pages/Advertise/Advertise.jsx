@@ -9,7 +9,7 @@ export default function Advertise() {
   return (
     <>
 
-<Box component="main" sx={{ flexGrow: 1, p: 3 , bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
+<Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px:{xs:3, sm:10, md:12, lg:8, xl:32}, minHeight: 100 + 'vh' }} >
   <Toolbar/>
 <PageHeader
     icon={<Book />}
@@ -18,7 +18,7 @@ export default function Advertise() {
 />
 <Grid container>
     <Grid item xs={12}>
-    <img src={adImg} width='100%' />
+    <img src={adImg} width='100%' style={{backgroundColor: theme.palette.background.paper, borderRadius: '16px'}}/>
 
     </Grid>
     </Grid>

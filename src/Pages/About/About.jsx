@@ -23,8 +23,8 @@ export default function About() {
   const theme = useTheme()
   return (
 
-    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh'  }}>
-<Toolbar/>
+    <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px:{xs:3, sm:10, md:12, lg:8, xl:32}, minHeight: 100 + 'vh' }} >
+    <Toolbar/>
         <PageHeader
             icon={<FcAnswers size={24} />}
             title="About Us"

@@ -80,7 +80,7 @@ function App() {
         <Route path='/test5' element={<Test5/>} />
         <Route path='/profile' element={<Profile/>} />
         <Route path='/author/:id' element={<Author/>} />
-        {/* <Route path='/register' element={<Register/>} /> */}
+        <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login/>} />
         </Route>
 

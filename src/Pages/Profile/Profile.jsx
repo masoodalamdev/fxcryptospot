@@ -11,7 +11,7 @@ export default function Profile() {
     const [user, setUser] = useState('')
     const theme = useTheme()
     const token = getToken()
-  const url = 'https://fxcryptospot.cyclic.app/api/user/loggeduser'
+  const url = 'http://localhost:8000/api/user/loggeduser'
 
   useEffect(() => {
     getUserDetail()
@@ -30,7 +30,7 @@ export default function Profile() {
         setUser(authorInfo)
       }))
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       })
 
   };

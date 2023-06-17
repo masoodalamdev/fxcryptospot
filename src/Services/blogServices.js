@@ -1,7 +1,7 @@
 import axios from "axios"
 
-// const URL = "https://fxcryptospot.cyclic.app/api/fxcryptospot"
-const URL = "https://fxcryptospot.cyclic.app/api/fxcryptospot"
+// const URL = "http://localhost:8000/api/fxcryptospot"
+const URL = "http://localhost:8000/api/fxcryptospot"
 
 
 export const getAllBlogs = async () => {
@@ -19,8 +19,11 @@ export const getCoinBlogs = async () => {
 export const getTradingBlogs = async () => {
     return await axios.get(`${URL}/blogs/trading`);
 }
-export const getSingleBlog = async (id) => {
-    return await axios.get(`${URL}/blog/${id}`);
+export const getBlogById= async (id) => {
+    return await axios.get(`${URL}/blog-id/${id}`);
+}
+export const getBlogBySlug = async (slug) => {
+    return await axios.get(`${URL}/blog/${slug}`);
 }
 
 export const createBlog = async (blog) => {

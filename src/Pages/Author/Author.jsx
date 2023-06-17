@@ -13,7 +13,7 @@ export default function Author() {
     const theme = useTheme()
     const token = getToken()
     const { id } = useParams()
-    const url = 'https://fxcryptospot.cyclic.app/api/user/loggeduser'
+    const url = 'http://localhost:8000/api/user/loggeduser'
 
   const getAuthorDetails = async () => {
     let response = await userServices.getAuthorInfo(id);
@@ -27,14 +27,14 @@ export default function Author() {
 
 
     return (
-        <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
-            <Toolbar />
+      <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 12, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
+      <Toolbar />
             <PageHeader
                 icon={<FcBusinessman size={24}/>}
                 title="Author Info"
                 subTitle="Forex Crypto Spot"
             />
-            <Grid container spacing={2}>
+            <Grid container >
                 <Grid item xs={12}>
                 <Card>
                 <CardHeader
@@ -46,14 +46,14 @@ export default function Author() {
         title={author && author.name}
         subheader={author && author.email}
       />
-       <CardActions disableSpacing>
+       {/* <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <Edit />
         </IconButton>
         <IconButton aria-label="share">
           <Delete />
         </IconButton>
-      </CardActions>
+      </CardActions> */}
                 </Card>
                 </Grid>
             </Grid>

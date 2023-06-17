@@ -1,65 +1,111 @@
 import { Facebook, Instagram, Twitter } from '@mui/icons-material'
-import { Box, Grid, List, ListItem, ListItemButton, ListItemText, Stack, Toolbar, Typography, useTheme } from '@mui/material'
-import React from 'react'
+import { Box, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography, useTheme } from '@mui/material'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import logolight from '../../Assets/logolight.png'
 import logo from '../../Assets/logo.png'
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
+import { ColorModeContext } from '../../Store'
 
 export default function MuiFooter() {
+    const { mode, toggleMode } = useContext(ColorModeContext)
+
     const theme = useTheme()
     return (
         <Box
             component="footer"
-            sx={{ p: { xs: 1, sm: 1, md: 3, lg: 3 }, bgcolor: theme.palette.background.paper }}
+            sx={{ bgcolor: theme.palette.background.paper }}
+            // sx={{ mt: 6, bgcolor: theme.palette.background.paper, p:{md:10} }}
         >
-            <Grid container spacing={2} >
-                <Grid item xs={12} sm={9} md={9} lg={9}>
-                   <Stack direction='row'>
-                    <img src={logo} height="50px" width="150px" style={{margin: '16px'}}/>
-                    <Typography variant="body2" color="text.primary" align='left' sx={{p:2}}>
-                    Forex Crypto Spot! Blog website dedicated to providing valuable information and insights on Forex trading, cryptocurrency, buying and selling, and exchanging crypto coins. 
-                    </Typography>
+            <Grid container sx={{px:{xs:3, sm:10, md:12, lg:8, xl:32}, py:{xs:3, md:8}, mt:{xs:3, sm:10, md:12, lg:8, xl:32}}} 
+            // direction="row"
+//   justifyContent="space-between"
+//   alignItems="center"
+   >
+                <Grid item xs={12} sm={12} md={6} lg={6} sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}}} >
+                 
+                    <img src={mode === 'light' ? logolight : logo} />
 
-                   </Stack>
-
-                </Grid>
-            
-
-                <Grid item xs={12} sm={3} md={3} lg={3} sx={{p:2}}>
-                <Stack direction="column" justifyContent="center">
-                    <Typography variant="h6" color="text.primary" align='center'>
-                        Follow Us
-                    </Typography>
-                  
-                <Stack direction="row" justifyContent="center">
-                    <Link href="https://www.facebook.com/" color="inherit">
-                        <Facebook />
-                    </Link>
-                    <Link
-                        href="https://www.instagram.com/"
-                        color="inherit"
-                        sx={{ pl: 1, pr: 1 }}
-                    >
-                        <Instagram />
-                    </Link>
-                    <Link href="https://www.twitter.com/" color="inherit">
-                        <Twitter />
-                    </Link>
-                    </Stack>
-                    </Stack>
-                </Grid>
-            </Grid>
-       <Grid container spacing={2}>
-        <Grid item xs={12} sm={12} md={12} lg={12}>
-
-         <Typography variant="body2" color="text.secondary" textAlign='center'>
+                    <Typography variant="body1">
         {"Copyright © "}
-            <Link color="inherit" href="https://fxcryptospot.com/" style={{textDecoration: 'none'}}>
+            <Link  href="https://fxcryptospot.com/" style={{textDecoration: 'none'}}>
            Forex Crypto Spot
           </Link>{" "}
         {new Date().getFullYear()}
         {"."}
        </Typography>
+              
+
+                </Grid>
+            
+               
+
+             
+        <Grid item xs={12} sm={4} md={2} lg={2} sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}, p:{xs:2, sm:2, md:0, lg:0, xl:0}}}>
+
+         <Typography variant="h6"  >
+        Quick Links
+       </Typography>
+       <List component="div" disablePadding>
+       <ListItemButton component='a'  href='/advertise'>
+            <ListItemText primary="Advertise with us" sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}}} />
+            </ListItemButton>
+       <ListItemButton component='a'  href='/contact' >
+            <ListItemText primary="Contact us" sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}}} />
+            </ListItemButton>
+       <ListItemButton component='a'  href='/about'>
+            <ListItemText primary="About us" sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}}} />
+            </ListItemButton>
+          </List>
      </Grid>
+
+    
+
+     <Grid item xs={12} sm={4} md={2} lg={2} sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}, p:{xs:2, sm:2, md:0, lg:0, xl:0}}}>
+
+        <Typography variant="h6"  >
+        Legal Stuff
+       </Typography>
+       <List component="div" disablePadding>
+       <ListItemButton component='a'  href='/privacy-policy'>
+            <ListItemText primary="Privacy Policy" sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}}} />
+            </ListItemButton>
+       <ListItemButton component='a'  href='/privacy-policy'>
+            <ListItemText primary="Terms of use" sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}}} />
+            </ListItemButton>
+       <ListItemButton component='a'  href='/sitemap'>
+            <ListItemText primary="Sitemap" sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}}} />
+            </ListItemButton>
+          </List>
+     </Grid>
+     
+     <Grid item xs={12} sm={4} md={2} lg={2} sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}, p:{xs:2, sm:2, md:0, lg:0, xl:0}}}>
+     <Typography variant="h6"  >
+     Follow Us
+       </Typography>
+       <List component="div" disablePadding >
+       <ListItemButton component='a'  href='https://www.facebook.com/' >
+       {/* <ListItemIcon sx={{minWidth: 32 }}>
+       <Facebook />
+       </ListItemIcon> */}
+            <ListItemText primary="Facebook" sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}}}/>
+            </ListItemButton>
+       <ListItemButton component='a'  href='https://www.instagram.com/'>
+       {/* <ListItemIcon sx={{minWidth: 32}}>
+       <Instagram />
+              </ListItemIcon> */}
+            <ListItemText primary="Instagram" sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}}} />
+            </ListItemButton>
+       <ListItemButton component='a'  href='/https://www.twitter.com/'>
+       {/* <ListItemIcon sx={{minWidth: 32}}>
+       <Twitter />
+       </ListItemIcon> */}
+            <ListItemText primary="Twitter" sx={{textAlign:{xs:'center', sm: 'center', md: 'left', lg: 'left', xl: 'left'}}} />
+            </ListItemButton>
+          </List>
+                   
+                   
+                </Grid>
      </Grid>
         </Box>
     )

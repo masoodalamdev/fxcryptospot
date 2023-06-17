@@ -43,11 +43,6 @@ export default function CategoryCounter() {
 
     return (
         <>
-            {/* <Stack direction="column" spacing={1}>
-                <Chip label={`Blockchain ${blockchain}`} color="primary" sx={{ borderRadius: 0 }} />
-                <Chip label={`Wallet ${wallet}`} color="primary" sx={{ borderRadius: 0 }} />
-                <Chip label={`Coin ${coin}`} color="primary" sx={{ borderRadius: 0 }} />
-            </Stack> */}
             <List>
           <ListItem disablePadding>
             <ListItemButton component="a" href="/blogs/blockchain">

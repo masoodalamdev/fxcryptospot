@@ -13,14 +13,14 @@ import profileImg from '../../Assets/Images/user2.jpg'
 
 
 
-export default function MuiCardSkeleton() {
+export default function MuiCardViewSkeleton() {
   const theme = useTheme()
   // const handleDel = ()=>{
   //   console.log('Del clicked succesfully')
   // }
 
   return (
-    <Card sx={{ minHeight: '430px', maxHeight: '430px', bgcolor: theme.palette.background.paper }}>
+    <Card sx={{ minHeight: '430px', maxHeight: '430px', bgcolor: theme.palette.background.paper, borderRadius: '1rem' }}>
 
       <Skeleton sx={{ height: 250 }} animation="wave" variant="rectangular" />
       <CardHeader
@@ -37,12 +37,12 @@ export default function MuiCardSkeleton() {
           style={{ marginBottom: 6 }}
         />}
         subheader={<Skeleton animation="wave" height={10} width="40%" />}
-        sx={{ color: "text.primary", minHeight: '130px', maxHeight: '130px' }}
+        sx={{ color: "text.primary", minHeight: '150px', maxHeight: '150px' }}
 
       />
 
       <CardContent
-        // sx={{ minHeight: '150px', maxHeight: '150px' }}
+        sx={{ minHeight: '150px', maxHeight: '150px' }}
       >
 
         <Typography

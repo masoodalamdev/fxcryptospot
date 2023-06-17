@@ -24,7 +24,7 @@ export default function App() {
   const theme = useTheme()
   return (
 
-    <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh'  }}>
+    <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px:{xs:3, sm:10, md:12, lg:8, xl:32}, minHeight: 100 + 'vh' }} >
 <Toolbar/>
         <PageHeader
             icon={<FcAndroidOs size={24} />}

@@ -6,13 +6,14 @@ import PageHeader from '../../Components/PageHeader/PageHeader'
 import { Book } from '@mui/icons-material'
 import MuiCardView from '../../Components/MuiCardView/MuiCardView'
 import RightSidebar from '../../Components/RightSidebar/RightSidebar'
+import MuiCardViewSkeleton from '../../Components/MuiCardViewSkeleton/MuiCardViewSkeleton'
 
 export default function BlogView() {
   const { id } = useParams()
   const [blog, setBlog] = useState()
   const [tags, setTags] = useState([])
-  console.log(blog)
-  console.log(id)
+  // console.log(blog)
+  // console.log(id)
   const theme = useTheme()
 
   useEffect(() => {
@@ -21,10 +22,12 @@ export default function BlogView() {
 
 
   const getBlog = async () => {
-    let response = await blogServices.getSingleBlog(id);
+    let response = await blogServices.getBlogBySlug(id);
     setBlog(response.data);
     setTags(response.data.tags)
+    // console.log(response.data[0])
   }
+
 
 
 
@@ -45,42 +48,45 @@ export default function BlogView() {
   };
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: {xs:1, sm:1, md:3, lg:3}, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
-      <Toolbar/>
+    <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 12, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
+      <Toolbar />
       <PageHeader
         icon={<Book />}
         title="Blog View"
-        subTitle="Read Amazing Blogs"
+        subTitle="Learn Crypto Earn Crypto"
       />
-      <Grid container spacing={2}>
+      <Grid container>
 
-                <Grid item xs={12} sm={12} md={9} lg={9}>
-          {blog ? <MuiCardView
-            image={blog.image}
-            profileImage='https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'
-            title={blog.title}
-            categoryAndDate={blog.createdAt.substring(0, 10) + " " + blog.category}
-            description={blog.content}
-            // id={item._id}
-            MuiChip={
-              
-              tags.map((tag, index) => {
-                return(
-                <Chip label={tag} sx={{m:1}} component="a" href={`/blogs/${tag.toLowerCase()}`} clickable />
-              )})
-             
-            }
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-            handleFavorite={handleFavorite}
-            handleShare={handleShare}
-          />
-            : ''}
-        </Grid>
-        <Grid item xs={0} sm={0} md={3} lg={3}>
-<RightSidebar/>
-
-      </Grid>
+        <Grid item xs={12} sm={12} md={9} lg={9} sx={{pr:4}}>
+          {blog ?
+              <MuiCardView
+                image={blog.image}
+                profileImage={blog.author.authorImage}
+                title={blog.title}
+                categoryAndDate={blog.createdAt.substring(0, 10) + " " + blog.category}
+                description={blog.content}
+                // id={item._id}
+                MuiChip={
+                  tags && tags.map((tag, index) => {
+                    return(
+                    <Chip key={index} label={tag} sx={{m:1}} component="a" href={`/blogs/${tag.toLowerCase()}`} clickable />
+                  )})
+                }
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                // handleFavorite={handleFavorite}
+                handleShare={handleShare}
+              />
+            : 
+           
+        // <Grid item xs={12} sm={12} md={9} lg={9} sx={{pr:4}}>
+              <MuiCardViewSkeleton/>
+            // </Grid>
+           
+           } 
+             </Grid> 
+            
+        <Grid item xs={0} sm={0} md={3} lg={3}><RightSidebar /></Grid>
       </Grid>
     </Box>
   )

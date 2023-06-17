@@ -1,6 +1,5 @@
-import { Box, Button, Card, CardContent, Divider, Grid, MenuItem, Stack, TextField, Toolbar, Typography, useTheme } from '@mui/material'
+import { Box, Button, ButtonGroup, Card, CardContent, Divider, Grid, MenuItem, Stack, TextField, Toolbar, Typography, useTheme } from '@mui/material'
 import React, { useState, useRef, useEffect } from 'react';
-import JoditEditor from "jodit-pro-react";
 import { Book, RestartAlt, Send } from '@mui/icons-material'
 import FileInput from '../../Components/FileInput'
 import AccordionComponent from '../../Components/Accordion/Accordion'
@@ -14,6 +13,7 @@ import PageHeader from '../../Components/PageHeader/PageHeader';
 import MuiSelect from '../../Components/MuiSelect/MuiSelect';
 import Autocomplete from '@mui/material/Autocomplete';
 import { FcPlus } from 'react-icons/fc';
+import JoditEditor from 'jodit-react';
 
 
 
@@ -36,7 +36,7 @@ export default function CreateBlog() {
   const [clearField, setClearField] = useState(blog)
   const [currentDate, setCurrentDate] = React.useState(new Date());
   const navigate = useNavigate();
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: 'success' })
 const theme = useTheme()
   const editor = useRef(null)
   const [textEditorcontent, setTextEditorContent] = useState('')
@@ -45,7 +45,7 @@ const theme = useTheme()
   }
 
   const token = getToken()
-  const url = 'https://fxcryptospot.cyclic.app/api/user/loggeduser'
+  const url = 'http://localhost:8000/api/user/loggeduser'
 
   useEffect(() => {
     getUserDetail()
@@ -68,7 +68,7 @@ const theme = useTheme()
         // console.log(response.data.user)
       }))
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       })
 
   };
@@ -145,7 +145,7 @@ const theme = useTheme()
 
 
 
-        <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
+      <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px:{xs:3, sm:10, md:12, lg:8, xl:32}, minHeight: 100 + 'vh' }} >
           <Toolbar/>
           <PageHeader
             icon={<FcPlus size={24} />}
@@ -153,9 +153,9 @@ const theme = useTheme()
             subTitle="Add New Post"
           />
           <form onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item xs={9}>
-                <Card sx={{ height: 100 + 'vh', maxWidth: '100%', p: 1 }}>
+            <Grid container>
+            <Grid item xs={12} sm={12} md={9} lg={9} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }} >
+            <Card sx={{ height: 150 + 'vh', p:2, borderRadius: '1rem'}}>
 
                   <Stack direction="column">
 
@@ -175,9 +175,10 @@ const theme = useTheme()
                   </Stack>
                 </Card>
               </Grid>
-              <Grid item xs={3}>
-                <Stack direction="column">
-                  <Card sx={{ height: 100 + 'vh', p: 1 }}>
+              <Grid item xs={12} sm={12} md={3} lg={3}>
+
+{/* <Stack direction="column"> */}
+  <Card sx={{ height: 150 + 'vh', p: 2 , borderRadius: '1rem'}}>
                     <Typography variant='h6' sx={{ margin: '12px', textAlign: 'center' }}>
                       Actions
                     </Typography>
@@ -251,13 +252,13 @@ const theme = useTheme()
                     <br />
                     <Divider />
                     <br />
-                    <Stack spacing={12} direction="row" sx={{ display: 'flex', margin: '0 auto', justifyContent: "center", alignItems: 'center' }}>
 
-                      <Button endIcon={<RestartAlt />} variant="contained" onClick={resetForm}>Reset</Button>
+                    <ButtonGroup size="medium" aria-label="large button group" fullWidth>
 
-                      <Button endIcon={<Send />} variant="contained" type='submit' > {blog.status === "PUBLISHED" ? 'Publish' : 'Save'} </Button>
-                    </Stack>
+                      <Button endIcon={<RestartAlt />} onClick={resetForm} sx={{ textTransform: 'capitalize'}}>Reset</Button>
 
+                      <Button endIcon={<Send />} type='submit'  sx={{ textTransform: 'capitalize'}}> {blog.status === "PUBLISHED" ? 'Publish' : 'Save'} </Button>
+                    </ButtonGroup>
                   </Card>
                   {/* <Box height={20} /> */}
 
@@ -268,7 +269,7 @@ const theme = useTheme()
                     <Divider />
                     <AccordionComponent />
                   </Card> */}
-                </Stack>
+                {/* </Stack> */}
               </Grid>
 
             </Grid>

@@ -44,7 +44,7 @@ export default function Test5() {
   // console.log(blogs.length)
 
   // async function logJSONData() {
-  //   const response = await fetch("https://fxcryptospot.cyclic.app/api/fxcryptospot/blogs");
+  //   const response = await fetch("http://localhost:8000/api/fxcryptospot/blogs");
   //   const jsonData = await response;
   //   console.log("response DATA=> ", jsonData);
   //   console.log("response DATA text=> ", jsonData.text());
@@ -84,7 +84,7 @@ export default function Test5() {
       }))
       .catch((response) => {
         // console.log(error);
-        console.log(response.data.message)
+        // console.log(response.data.message)
       })
 
   }

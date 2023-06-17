@@ -7,24 +7,17 @@ export default function PageHeader(props) {
     const {icon, title, subTitle} = props;
 
     const styledHeader = {
-        root:{backgroundColor: theme.palette.background.default},
+        // root:{backgroundColor: theme.palette.background.default, pt:2, pb: 2},
         pageHeader: { display: 'flex', marginBottom: '6px'},
         pageIcon: {display: 'inline-block', padding: '6px',  backgroundColor: theme.palette.background.default, },
         pageTitle: {paddingLeft: '6px'},
         pageSubTitle: {opacity: 1}
     }
-    const DrawerHeader = styled('div')(({ theme }) => ({
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-      }));
+   
   return (
     <>
     {/* <DrawerHeader /> */}
-    <Paper elevation={0} square sx={styledHeader.root}>
+    <Paper elevation={0} square sx={{ bgcolor: theme.palette.background.default, py:2}}>
         <div style={styledHeader.pageHeader} >
             <Card elevation={0} sx={styledHeader.pageIcon}>
                 {icon}
