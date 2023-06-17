@@ -13,7 +13,7 @@ export default function Author() {
     const theme = useTheme()
     const token = getToken()
     const { id } = useParams()
-    const url = 'http://localhost:8000/api/user/loggeduser'
+    const url = 'https://fxcryptospot.cyclic.app/api/user/loggeduser'
 
   const getAuthorDetails = async () => {
     let response = await userServices.getAuthorInfo(id);

@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const URL = "http://localhost:8000/api/user"
+const URL = "https://fxcryptospot.cyclic.app/api/user"
 
 
 export const getAllUsers = async () => {
