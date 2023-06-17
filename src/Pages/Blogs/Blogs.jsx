@@ -154,7 +154,7 @@ export default function Blogs() {
                         })
                       }}
                       // clickHandler={clickHandler}
-                      // handleFavorite={handleFavorite}
+                      handleFavorite={handleFavorite}
                       handleShare={handleShare}
                     />
                   </Grid>

@@ -18,7 +18,7 @@ import {
 
 
 export default function MuiCard(props) {
-  const {image, profileImage, title, category, chipColor, createdAt, id, slug, handleEdit, handleDelete, clickHandler, authorID, shareUrl} = props
+  const {image, profileImage, title, category, chipColor, createdAt, id, slug, handleEdit,handleFavorite, handleDelete, clickHandler, authorID, shareUrl} = props
   const token = getToken('token')
   const theme = useTheme()
   const [checked, setChecked] = React.useState(true);
@@ -115,11 +115,9 @@ export default function MuiCard(props) {
           </>
           : ''
         }
-          {/* <IconButton aria-label="add to favorites" onClick={handleFavorite}> */}
-            {/* <FavoriteIcon onClick={handleFavorite} /> */}
-            {/* <FcLikePlaceholder  size={24}/> */}
-            
-          {/* </IconButton> */}
+          <IconButton aria-label="add to favorites" onClick={handleFavorite}>
+            <FcLikePlaceholder size={24}/>
+          </IconButton>
           <IconButton aria-label="share" onMouseOver={handleShareClick}
         onClick={handleShareClick}>
             <FcTreeStructure  size={24}/>
