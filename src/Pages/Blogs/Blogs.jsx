@@ -23,6 +23,7 @@ import ConfirmDialog from '../../Components/ConfirmDialog/ConfirmDialog'
 import RightSidebar from '../../Components/RightSidebar/RightSidebar'
 import MuiCardSkeleton from '../../Components/MuiCardSkeleton/MuiCardSkeleton'
 import { FcNews } from 'react-icons/fc'
+import MuiFooter from '../../Components/Footer/MuiFooter'
 
 
 const handleEdit = () => {
@@ -112,7 +113,6 @@ export default function Blogs() {
 
   }
   return (
-
     <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 12, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
       <Toolbar />
       <PageHeader
@@ -121,7 +121,6 @@ export default function Blogs() {
         subTitle="Learn Crypto Earn Crypto"
       />
       <Grid container >
-        {/* <Stack direction="row"> */}
         <Grid item xs={12} sm={12} md={9} lg={9}>
           <Grid container >
             {loading ?
@@ -184,11 +183,10 @@ export default function Blogs() {
             }
           </Grid>
         </Grid>
-        <Grid item xs={0} sm={0} md={3} lg={3}>
+        <Grid item xs={12} sm={12} md={3} lg={3}>
           <RightSidebar />
         </Grid>
 
-        {/* </Stack> */}
 
       </Grid>
       <Notification
@@ -199,6 +197,8 @@ export default function Blogs() {
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog}
       />
+    
     </Box>
+   
   )
 }

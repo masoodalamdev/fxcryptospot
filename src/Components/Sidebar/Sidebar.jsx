@@ -18,7 +18,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import Footer from '../../Components/Footer/Footer';
 import logo from '../../Assets/logo.png'
 import logoMini from '../../Assets/logoMini.png'
 import logolight from '../../Assets/logolight.png'
@@ -35,8 +34,8 @@ import { ColorModeContext } from '../../Store';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { FcOrgUnit, FcPositiveDynamic, FcCurrencyExchange, FcLibrary, FcAndroidOs, FcSalesPerformance, FcNews, FcDataSheet, FcPlus, FcPrevious, FcNext, FcNightLandscape, FcLandscape, FcExpand, FcMenu } from "react-icons/fc";
-import MuiFooter from '../Footer/MuiFooter';
 import Drawer from '@mui/material/Drawer';
+import MuiFooter from '../Footer/MuiFooter';
 
 
 const drawerWidth = 240;
@@ -92,98 +91,91 @@ export default function Sidebar() {
     // console.log(mode, "mode")
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
-     const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
 
-  const handleClickNav = () => {
-    setOpen(!open);
-  };
+    const handleClickNav = () => {
+        setOpen(!open);
+    };
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
     };
     const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-            <Typography variant="h6" sx={{ my: 1 }}>
+        <Box sx={{ textAlign: 'center' }}>
+            <Box sx={{ minHeight: '64px', maxHeight: '64px', py: '12px' }} onClick={handleDrawerToggle}>
                 <img src={mode === 'light' ? logolight : logo} />
-            </Typography>
+            </Box>
             <Divider />
             <List>
-                {/* {pages.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item.name} />
+                <ListItemButton>
+                    <ListItemText primary="Home" />
+                </ListItemButton>
+                <ListItemButton onClick={handleClickNav}>
+
+                    <ListItemText primary="Blog" />
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemText primary="Blockchain" />
                         </ListItemButton>
-                    </ListItem>
-                ))} */}
-                  <ListItemButton>
-        <ListItemText primary="Home" />
-      </ListItemButton>
-          <ListItemButton onClick={handleClickNav}>
-        
-        <ListItemText primary="Blog" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton >
-            <ListItemText primary="Blockchain" />
-          </ListItemButton>
-           <ListItemButton >
-            <ListItemText primary="Bitcoin" />
-          </ListItemButton>
-           <ListItemButton >
-            <ListItemText primary="Mining" />
-          </ListItemButton>
-           <ListItemButton >
-            <ListItemText primary="Crypto Currency" />
-          </ListItemButton>
-            <ListItemButton >
-            <ListItemText primary="Trading" />
-          </ListItemButton>
-       
-        </List>
-      </Collapse>
-       <ListItemButton>
-        <ListItemText primary="Wallet" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemText primary="Earn" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemText primary="Coin" />
-      </ListItemButton>
-       <ListItemButton>
-        <ListItemText primary="Trading" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemText primary="Prices" />
-      </ListItemButton>
-       <ListItemButton>
-        <ListItemText primary="Apps" />
-      </ListItemButton>
-      <ListItemButton onClick={handleClickNav}>
-        
-        <ListItemText primary="About" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton >
-            <ListItemText primary="About" />
-          </ListItemButton>
-           <ListItemButton >
-            <ListItemText primary="Contact" />
-          </ListItemButton>
-           <ListItemButton >
-            <ListItemText primary="Sitemap" />
-          </ListItemButton>
-           <ListItemButton >
-            <ListItemText primary="Privacy Policy" />
-          </ListItemButton>
-            <ListItemButton >
-            <ListItemText primary="Advertise" />
-          </ListItemButton>
-        </List>
-      </Collapse>
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemText primary="Bitcoin" />
+                        </ListItemButton>
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemText primary="Mining" />
+                        </ListItemButton>
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemText primary="Crypto Currency" />
+                        </ListItemButton>
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemText primary="Trading" />
+                        </ListItemButton>
+
+                    </List>
+                </Collapse>
+                <ListItemButton>
+                    <ListItemText primary="Wallet" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemText primary="Earn" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemText primary="Coin" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemText primary="Trading" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemText primary="Prices" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemText primary="Apps" />
+                </ListItemButton>
+                <ListItemButton onClick={handleClickNav}>
+
+                    <ListItemText primary="About" />
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemText primary="About" />
+                        </ListItemButton>
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemText primary="Contact" />
+                        </ListItemButton>
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemText primary="Sitemap" />
+                        </ListItemButton>
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemText primary="Privacy Policy" />
+                        </ListItemButton>
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemText primary="Advertise" />
+                        </ListItemButton>
+                    </List>
+                </Collapse>
             </List>
         </Box>
     );
@@ -307,7 +299,7 @@ export default function Sidebar() {
         <>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                <AppBar position="fixed" open={open} elevation={0} sx={{ bgcolor: theme.palette.background.paper, px:{xs:3, sm:10, md:12, lg:8, xl:32}}}>
+                <AppBar position="fixed" open={open} elevation={0} sx={{ bgcolor: theme.palette.background.paper, px: { xs: 3, sm: 10, md: 12, lg: 8, xl: 32 } }}>
                     <Toolbar disableGutters>
                         <Typography
                             variant="h6"
@@ -348,47 +340,39 @@ export default function Sidebar() {
                         </Typography>
 
                         <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                                <MuiButton
+                            <MuiButton
                                 text='Home'
                                 href='/'
-                                />
-                                <MuiButton
+                            />
+                            <MuiButton
                                 text='Blog'
                                 href='/blogs'
-                                />
-                                <MuiButton
+                            />
+                            <MuiButton
                                 text='Earn'
                                 href='/blogs'
-                                />
-                                <MuiButton
+                            />
+                            <MuiButton
                                 text='Wallet'
                                 href='/blogs/wallet'
-                                />
-                                {/* <MuiButton
-                                text='Coin'
-                                href='/blogs/coin'
-                                /> */}
-                                {/* <MuiButton
-                                text='Trading'
-                                href='/blogs/trading'
-                                /> */}
-                                <MuiButton
+                            />
+                            <MuiButton
                                 text='Prices'
                                 href='/prices'
-                                />
-                                <MuiButton
+                            />
+                            <MuiButton
                                 text='Apps'
                                 href='/apps'
-                                />
-                            
-                        
-                           
+                            />
+
+
+
 
                             <MuiButton onMouseOver={handleClick}
                                 onClick={handleClick}
-                            text='About'
+                                text='About'
                             >
-                                 
+
                             </MuiButton>
                             <Menu
                                 // id="simple-menu"
@@ -407,10 +391,10 @@ export default function Sidebar() {
 
                         <Box>
                             <Stack direction='row'>
-                            <Tooltip title="Dak mode">
-                                <IconButton onClick={toggleMode} sx={{bgcolor: 'rgba(0,0,0,0.04)', ml:2}} >
-                                    {theme.palette.mode === 'dark' ? <FcLandscape size={24} /> : <FcNightLandscape size={24}  />}
-                                </IconButton>
+                                <Tooltip title="Dak mode">
+                                    <IconButton onClick={toggleMode} sx={{ bgcolor: 'rgba(0,0,0,0.04)', ml: 2 }} >
+                                        {theme.palette.mode === 'dark' ? <FcLandscape size={24} /> : <FcNightLandscape size={24} />}
+                                    </IconButton>
                                 </Tooltip>
 
 
@@ -418,7 +402,7 @@ export default function Sidebar() {
                                 {token ?
                                     <Box>
                                         <Tooltip title="Profile">
-                                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 1,  bgcolor: 'rgba(0,0,0,0.04)', mx:1 }}>
+                                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 1, bgcolor: 'rgba(0,0,0,0.04)', mx: 1 }}>
                                                 {user && user.image ?
                                                     <Avatar alt="Profile" src={user && user.image} sx={{ width: 24, height: 24 }} />
                                                     : <Skeleton variant="circular" width={24} height={24} />
@@ -453,16 +437,14 @@ export default function Sidebar() {
                                         </Menu>
                                     </Box>
                                     : ''}
-                               <Tooltip title="Menu">
-                                <IconButton onClick={handleDrawerToggle} sx={{  display: { md: 'none' }, bgcolor: 'rgba(0,0,0,0.04)'  }}>
-                                   <FcMenu size={24}  />
-                                </IconButton>
+                                <Tooltip title="Menu">
+                                    <IconButton onClick={handleDrawerToggle} sx={{ display: { md: 'none' }, bgcolor: 'rgba(0,0,0,0.04)' }}>
+                                        <FcMenu size={24} />
+                                    </IconButton>
                                 </Tooltip>
                             </Stack>
                         </Box>
-                        {/* ================== web nav ended ================== */}
                     </Toolbar>
-                    {/* </Container> */}
                 </AppBar>
                 <Box component="nav">
                     <Drawer
@@ -474,22 +456,26 @@ export default function Sidebar() {
                             keepMounted: true, // Better open performance on mobile.
                         }}
                         sx={{
-                            display: { xs: 'block', sm: 'block' },
+                            display: { xs: 'block', sm: 'block', },
                             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                         }}
                     >
                         {drawer}
                     </Drawer>
                 </Box>
-               
-                <Outlet />
+
                 {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />
-                     ============= content goes here =============
+                ============= content goes here =============
                 </Box> */}
+                <Outlet />
             </Box>
-            <MuiFooter />
-           
+            
+               
+                <MuiFooter />
+            {/* <MuiFooter/> */}
+
+
 
             <Notification
                 notify={notify}

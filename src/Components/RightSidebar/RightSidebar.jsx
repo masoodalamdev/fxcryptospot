@@ -76,8 +76,8 @@ export default function RightSidebar() {
             key={index}
               title={item.title}
               // category={item.category }
-              image={item.image}
-              content={item.content}
+              // image={item.image}
+              // content={item.content}
               slug={item.slug}
             />
           )

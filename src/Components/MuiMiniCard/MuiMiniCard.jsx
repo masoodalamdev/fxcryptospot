@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardMedia, Grid, Stack, Typography, useT
 
 export default function MuiMiniCard(props) {
     const theme = useTheme()
-    const {title, category, image, content, slug} = props
+    const {title, category,  slug} = props
     return (
     <a href={`/blog/${slug}`} style={{textDecoration: 'none'}} >
         <Card sx={{mb:4, bgcolor: theme.palette.background.light , borderRadius: '1rem' ,  ':hover': {
@@ -15,7 +15,7 @@ export default function MuiMiniCard(props) {
                 // subheader={category}
                 sx={{color: "text.primary" }}
             />
-            <CardContent sx={{ pt: 0 }}>
+            {/* <CardContent sx={{ pt: 0 }}>
                 <Stack direction="row">
                     <CardMedia sx={{ width: '40%' }}
                         component="img"
@@ -33,7 +33,7 @@ export default function MuiMiniCard(props) {
                      dangerouslySetInnerHTML={{ __html: content }} >
                     </Typography>
                 </Stack>
-            </CardContent>
+            </CardContent> */}
         </Card>
         </a>
     )

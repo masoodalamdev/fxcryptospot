@@ -57,7 +57,7 @@ export default function BlogView() {
       />
       <Grid container>
 
-        <Grid item xs={12} sm={12} md={9} lg={9} sx={{pr:4}}>
+        <Grid item xs={12} sm={12} md={9} lg={9} sx={{pr:{md:4}, pb:{xs:4, sm:4, md:0, lg:0, xl:0}}}>
           {blog ?
               <MuiCardView
                 image={blog.image}

@@ -95,6 +95,7 @@ function App() {
       
 
       </Routes>
+      {/* <MuiFooter /> */}
     <CssBaseline/>
     </BrowserRouter>
   
