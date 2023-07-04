@@ -9,13 +9,37 @@ import SearchIcon from '@mui/icons-material/Search';
 import CategoryCounter from '../CategoryCounter/CategoryCounter'
 import Tags from '../Tags/Tags'
 import { ColorModeContext } from '../../Store'
+import axios from 'axios';
 
 
+export function TestButton() {
+  const [searchedBlog, setSearchedBlog] = useState([{"title": "title 1"}, {"title": "title 2"}, {"title": "title 3"}])
+  // {searchedBlog.map((item, index) => {
+  //   return (
+  //     <>
+  //     <MuiMiniCard
+  //     key={index}
+  //       title={item.title}
+  //       // category={item.category }
+  //       // image={item.image}
+  //       // content={item.content}
+  //       slug={item.slug}
+  //     />
+     
+  //     </>
+  //   )
+  // })}
+  return (
+    <div>test button</div>
+  )
+}
 
 
 export default function RightSidebar() {
   const [blogs, setBlogs] = useState([])
   const slicedBlogs = blogs.slice(0,3)
+  const [searchQuery, setSearchQuery] = useState({"searchQuery" : ""})
+  const [searchedBlog, setSearchedBlog] = useState([])
   // console.log(blogs.slice(0,3))
   // const { mode, toggleMode } = useContext(ColorModeContext)
   // const theme = createTheme({
@@ -51,15 +75,37 @@ export default function RightSidebar() {
     }
   
   }
+
+  const handleSearchInput = (e)=> {
+    e.preventDefault();
+    setSearchQuery({ ...searchQuery, [e.target.name]: e.target.value })
+  }
+  const handleSearch = async ()=> {
+    // console.log(searchQuery)
+    // await blogServices.getSearchBlogs(searchQuery)
+    await axios.post("https://fxcryptospot.cyclic.app/api/fxcryptospot/blogs/search",  searchQuery)
+    .then((response => {
+      console.log(response.data)
+      setSearchedBlog(response.data)
+      console.log(searchedBlog)
+  }))
+    .catch((response) => {
+      // console.log(error);
+      console.log(response)
+    })
+  }
   return (
     <>
       <Box sx={{ minHeight: 100 + 'vh', bgcolor: theme.palette.background.default}}>
-        <InputBase
+        {/* <InputBase
         fullWidth
           sx={{bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p:2, borderRadius: '1rem' }}
           placeholder='Search here'
-          endAdornment={<SearchIcon fontSize="small" />}
-        />
+          name="searchQuery" value={searchQuery.searchQuery}
+          endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{cursor: 'pointer'}}/>}
+          onChange={handleSearchInput}
+        /> */}
+
         <Typography variant="h6" textAlign='center' color='text.primary' sx={{pb:1}}>
           Category
         </Typography>
@@ -92,3 +138,4 @@ export default function RightSidebar() {
     </>
   )
 }
+

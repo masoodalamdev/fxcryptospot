@@ -1,10 +1,10 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
-import Checkbox from '@mui/material/Checkbox';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import { orange } from '@mui/material/colors';
-import Home from './Pages/Home/Home';
-import { CssBaseline } from '@mui/material';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  createRoutesFromElements,
+} from "react-router-dom";
 import Contact from './Pages/Contact/Contact';
 import About from './Pages/About/About';
 import PrivacyPolicy from './Pages/PrivacyPolicy/PrivacyPolicy';
@@ -13,92 +13,153 @@ import Login from './Pages/Auth/Login/Login';
 import NotFound from './Pages/NotFound/NotFound';
 import Exchange from './Pages/Exchange/Exchange';
 import Apps from './Pages/Apps/Apps';
-import Navbar from './Components/Navbar/Navbar';
-import Footer from './Components/Footer/Footer';
-import Test from './Pages/Test';
-import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import React, { useContext } from 'react';
-import { useTheme } from '@emotion/react';
+import React, { useState } from 'react';
 import Prices from './Pages/Prices/Prices';
-import Dashboard from './Pages/Dashboard/Dashboard';
-import CreateBlog from './Pages/CreateBlog/CreateBlog';
+import CreateBlog from './Pages/PrivateRoutes/Blog/CreateBlog';
 import Blogs from './Pages/Blogs/Blogs';
 import Advertise from './Pages/Advertise/Advertise';
-import MiniDrawer from './Components/Drawer/Drawer';
-import Test2 from './Test2';
-import Test3 from './Test3';
-import Sidebar from './Components/Sidebar/Sidebar';
 import BlogView from './Pages/Blogs/BlogView';
-import RightSidebar from './Components/RightSidebar/RightSidebar';
-import Test4 from './Pages/Test4';
-import Test5 from './Pages/Test5';
-import BlogEditor from './Pages/Blogs/BlogEditor';
-import Profile from './Pages/Profile/Profile';
+import BlogEditor from './Pages/PrivateRoutes/Blog/BlogEditor';
 import Sitemap from './Pages/Sitemap/Sitemap';
 import Blockchain from './Pages/Blogs/Blockchain/Blockchain';
 import Wallet from './Pages/Blogs/Wallet/Wallet';
 import Trading from './Pages/Blogs/Trading/Trading';
 import Coin from './Pages/Blogs/Coin/Coin';
 import Author from './Pages/Author/Author';
-import MuiFooter from './Components/Footer/MuiFooter';
-
+import PrivateRoutes from './Utils/PrivateRoutes';
+import Profile from './Pages/PrivateRoutes/Profile/Profile'
+import Dashboard from './Pages/PrivateRoutes/Dashboard/Dashboard'
+import RootLayout from './Layouts/RootLayout';
+import BlogLayout from './Layouts/BlogLayout';
+import Test from './Test';
 
 function App() {
 
-  return (
-   
-      <BrowserRouter>
-      <Routes>
-       
-        <Route path='/' element={<Sidebar/>} >
-        <Route index element={<Home />}/>
-        <Route path='/fxcryptospot' element={<Home/>} />
-        <Route path='/dashboard' element={<Dashboard/>} />
-        <Route path='/create-blog' element={<CreateBlog/>} />
-        <Route path='/blogs' element={<Blogs/>} />
-        <Route path='/blog/:id' element={<BlogView/>} />
-        <Route path='/blog-edit/:id' element={<BlogEditor/>} />
-        <Route path='/blogs/blockchain' element={<Blockchain/>} />
-        <Route path='/blogs/wallet' element={<Wallet/>} />
-        <Route path='/blogs/coin' element={<Coin/>} />
-        <Route path='/blogs/trading' element={<Trading/>} />
-        <Route path='/exchange' element={<Exchange/>} />
-        <Route path='/prices' element={<Prices/>} />
-        <Route path='/apps' element={<Apps/>} />
-        <Route path='/advertise' element={<Advertise/>} />
-        <Route path='/about' element={<About/>} />
-        <Route path='/contact' element={<Contact/>} />
-        <Route path='/sitemap' element={<Sitemap/>} />
-        <Route path='/privacy-policy' element={<PrivacyPolicy/>} />
-        <Route path='/*' element={<NotFound/>} />
-        <Route path='/test' element={<Test/>} />
-        <Route path='/test2' element={<Test2/>} />
-        {/* <Route path='/test4' element={<Test4/>} /> */}
-        <Route path='/test5' element={<Test5/>} />
-        <Route path='/profile' element={<Profile/>} />
-        <Route path='/author/:id' element={<Author/>} />
-        <Route path='/register' element={<Register/>} />
-        <Route path='/login' element={<Login/>} />
+  const [searchBar, setSearchBar] = useState(false)
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+
+      <>
+      
+        <Route path="/" element={<RootLayout setSearchBar = {setSearchBar} />} >
+          <Route index element={<Blogs searchBar={searchBar} />} />
+          <Route path='blog/:id' element={<BlogView searchBar={searchBar} />} />
+          <Route path='exchange' element={<Exchange searchBar={searchBar} />} />
+          <Route path='prices' element={<Prices searchBar={searchBar} />} />
+          <Route path='apps' element={<Apps searchBar={searchBar} />} />
+          <Route path='advertise' element={<Advertise searchBar={searchBar} />} />
+          <Route path='about' element={<About searchBar={searchBar} />} />
+          <Route path='contact' element={<Contact searchBar={searchBar} />} />
+          <Route path='sitemap' element={<Sitemap searchBar={searchBar} />} />
+          <Route path='privacy-policy' element={<PrivacyPolicy searchBar={searchBar} />} />
+          <Route path='*' element={<NotFound searchBar={searchBar} />} />
+          <Route path='author/:id' element={<Author searchBar={searchBar} />} />
+          <Route path='register' element={<Register searchBar={searchBar} />} />
+          <Route path='login' element={<Login searchBar={searchBar} />} />
+          <Route path='test' element={<Test searchBar={searchBar} />} />
         </Route>
 
-      {/* <Route path="/admin" element={<Sidebar />}>
-      <Route index element={<Dashboard />}/>
-      <Route path="/admin/create-blog" element={<CreateBlog/>}/>
-     
-      </Route> */}
-        <Route path='/test4' element={<Test4/>} />
-        <Route path='/test5' element={<Test5/>} />
-        <Route path='/test3' element={<Test3/>} />
-      
+        <Route path="blogs" element={<BlogLayout setSearchBar = {setSearchBar}/>} >
+          <Route index element={<Blogs searchBar={searchBar} />} />
+          <Route path='blockchain' element={<Blockchain searchBar={searchBar} />} />
+          <Route path='wallet' element={<Wallet searchBar={searchBar} />} />
+          <Route path='coin' element={<Coin searchBar={searchBar} />} />
+          <Route path='trading' element={<Trading searchBar={searchBar} />} />
+        </Route>
 
-      </Routes>
-      {/* <MuiFooter /> */}
-    <CssBaseline/>
-    </BrowserRouter>
-  
+        <Route element={<PrivateRoutes setSearchBar = {setSearchBar}/>} >
+          <Route path='/dashboard' element={<Dashboard searchBar={searchBar} />} />
+          <Route path='/profile' element={<Profile searchBar={searchBar}/>} />
+          <Route path='/create-blog' element={<CreateBlog searchBar={searchBar}/>} />
+          <Route path='/blog-edit/:id' element={<BlogEditor searchBar={searchBar}/>} />
+        </Route>
+      </>
+    )
+  )
+  return (
+
+    // <Router>
+    //   <Sidebar setSearchBar={setSearchBar} />
+    //   <Routes>
+
+    //     <Route path='/' element={<Home />} >
+    //       <Route path='blogs' element={<Blogs searchBar={searchBar} />} />
+    //       <Route path='blog/:id' element={<BlogView searchBar={searchBar} />} />
+    //       <Route path='blogs/blockchain' element={<Blockchain searchBar={searchBar} />} />
+    //       <Route path='blogs/wallet' element={<Wallet searchBar={searchBar} />} />
+    //       <Route path='blogs/coin' element={<Coin searchBar={searchBar} />} />
+    //       <Route path='blogs/trading' element={<Trading searchBar={searchBar} />} />
+    //       <Route path='exchange' element={<Exchange searchBar={searchBar} />} />
+    //       <Route path='prices' element={<Prices searchBar={searchBar} />} />
+    //       <Route path='apps' element={<Apps searchBar={searchBar} />} />
+    //       <Route path='advertise' element={<Advertise searchBar={searchBar} />} />
+    //       <Route path='about' element={<About searchBar={searchBar} />} />
+    //       <Route path='contact' element={<Contact searchBar={searchBar} />} />
+    //       <Route path='sitemap' element={<Sitemap searchBar={searchBar} />} />
+    //       <Route path='privacy-policy' element={<PrivacyPolicy searchBar={searchBar} />} />
+    //       <Route path='*' element={<NotFound searchBar={searchBar} />} />
+    //       <Route path='author/:id' element={<Author searchBar={searchBar} />} />
+    //       <Route path='register' element={<Register searchBar={searchBar} />} />
+    //       <Route path='login' element={<Login searchBar={searchBar} />} />
+    //       <Route path='test3' element={<Test3 />} />
+    //       <Route path='test4' element={<Test4 />} />
+    //       <Route path='test5' element={<Test5 />} />
+
+    //     </Route>
+
+
+
+    //     {/* <Route path='/' element={<Sidebar setSearchBar = {setSearchBar} />} >
+    //       <Route index element={<Home />} />
+    //       <Route path='/fxcryptospot' element={<Home />} />
+    //       <Route path='/blogs' element={<Blogs searchBar = {searchBar} />} />
+    //       <Route path='/blog/:id' element={<BlogView searchBar = {searchBar} />} />
+
+    //       <Route path='/blogs/blockchain' element={<Blockchain searchBar = {searchBar} />} />
+    //       <Route path='/blogs/wallet' element={<Wallet searchBar = {searchBar} />} />
+    //       <Route path='/blogs/coin' element={<Coin searchBar = {searchBar} />} />
+    //       <Route path='/blogs/trading' element={<Trading searchBar = {searchBar} />} />
+    //       <Route path='/exchange' element={<Exchange searchBar = {searchBar} />} />
+    //       <Route path='/prices' element={<Prices searchBar = {searchBar} />} />
+    //       <Route path='/apps' element={<Apps searchBar = {searchBar} />} />
+    //       <Route path='/advertise' element={<Advertise searchBar = {searchBar} />} />
+    //       <Route path='/about' element={<About searchBar = {searchBar} />} />
+    //       <Route path='/contact' element={<Contact searchBar = {searchBar} />} />
+    //       <Route path='/sitemap' element={<Sitemap searchBar = {searchBar} />} />
+    //       <Route path='/privacy-policy' element={<PrivacyPolicy searchBar = {searchBar} />} />
+    //       <Route path='/*' element={<NotFound searchBar = {searchBar} />} />
+    //       <Route path='/test3' element={<Test3/>} />
+    //       <Route path='/test4' element={<Test4/>} />
+    //       <Route path='/test5' element={<Test5 />} />
+    //       <Route path='/author/:id' element={<Author searchBar = {searchBar} />} />
+    //       <Route path='/register' element={<Register searchBar = {searchBar} />} />
+    //       <Route path='/login' element={<Login searchBar = {searchBar} />} />
+
+    //     </Route> */}
+
+    //     {/* =============Protected Routes============  */}
+
+    //     <Route element={<PrivateRoutes setSearchBar={setSearchBar} />}>
+    //       <Route path='/dashboard' element={<Dashboard searchBar={searchBar} />} />
+    //       <Route path='/profile' element={<Profile />} />
+    //       <Route path='/create-blog' element={<CreateBlog />} />
+    //       <Route path='/blog-edit/:id' element={<BlogEditor />} />
+    //     </Route>
+
+    //     {/* =============Protected Routes============  */}
+
+
+    //     {/* <Route path='/test4' element={<Test4/>} />
+    //     <Route path='/test5' element={<Test5/>} />
+    //     <Route path='/test3' element={<Test3/>} /> */}
+
+
+    //   </Routes>
+    //   <MuiFooter />
+    //   {/* <MuiFooter /> */}
+    //   <CssBaseline />
+    // </Router>
+    <RouterProvider router={router} />
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Chip, Grid, Grow, IconButton, Menu, MenuItem, Typography, useTheme } from '@mui/material'
+import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Chip, Grid, Grow, IconButton, Menu, MenuItem, Stack, Typography, useTheme } from '@mui/material'
 // import { getToken } from './Services/LocalStorageServices'
 import ShareIcon from "@mui/icons-material/Share";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -18,7 +18,7 @@ import {
 
 
 export default function MuiCard(props) {
-  const {image, profileImage, title, category, chipColor, createdAt, id, slug, handleEdit,handleFavorite, handleDelete, clickHandler, authorID, shareUrl} = props
+  const {image, profileImage, title, category, chipColor, createdAt, id, slug,handleFavorite, handleDelete, authorID, shareUrl} = props
   const token = getToken('token')
   const theme = useTheme()
   const [checked, setChecked] = React.useState(true);
@@ -58,24 +58,35 @@ export default function MuiCard(props) {
           alt="blog image"
          
         />
-        <CardHeader
-          avatar={
-            <Avatar
+        </a>
+        <Stack direction='row'>
+        <Avatar
               aria-label="profile IMG"
               src={profileImage}
               href={`/author/${authorID}`}
               component="a"
+              sx={{m: 'auto', ml:2}}
             >
             </Avatar>
-          }
-
-          titleTypographyProps={{ variant: "h6", fontFamily: "Montserrat", fontWeight: 'bold', lineHeight: 1.35, fontSize:{sm: '1rem'}}}
+        <CardHeader
+          // avatar={
+          //   <Avatar
+          //     aria-label="profile IMG"
+          //     src={profileImage}
+          //     href={`/author/${authorID}`}
+          //     component="a"
+          //   >
+          //   </Avatar>
+          // }
+          component="a"
+          href={`/blog/${slug}`}
+          titleTypographyProps={{ variant: "h6", fontFamily: "Montserrat", fontWeight: 'bold', lineHeight: 1.35, fontSize:{sm: '1rem'}, }}
           title={title}
           subheader={createdAt}
-          sx={{color: "text.primary", minHeight: '130px', maxHeight: '130px' }}
+          sx={{color: "text.primary", minHeight: '130px', maxHeight: '130px',textDecoration: 'none' }}
           
         />
-
+</Stack>
         {/* <CardContent
         sx={{minHeight: '150px', maxHeight: '150px' }}
         >
@@ -96,10 +107,10 @@ export default function MuiCard(props) {
           </Typography>
 
         </CardContent> */}
-        </a>
         
         <CardActions disableSpacing sx={{minHeight: '50px', maxHeight: '50px', justifyContent: 'space-between' }}>
-        {token ? <>
+        {token ? 
+        <>
           <IconButton aria-label="edit">
     <a href={`/blog-edit/${id}`} style={{textDecoration: 'none', color: 'inherit'}}>
             <Edit 
@@ -107,7 +118,7 @@ export default function MuiCard(props) {
             />
             </a>
           </IconButton>
-          <IconButton aria-label="delete" onClick={clickHandler} >
+          <IconButton aria-label="delete" onClick={handleDelete} >
             {/* <Delete onClick={() => clickHandler("Hello World!")}/> */}
             {/* <Delete onClick={(event) => clickHandler(event, id)}/> */}
             <Delete />

@@ -40,6 +40,9 @@ export const deleteBlog = async (id) => {
     
     return await axios.delete(`${URL}/delete-blog/${id}`)
 }
+export const getSearchBlogs = async (searchQuery) => {
+    return await axios.post(`${URL}/blogs/search`, searchQuery)
+}
 
 export const getCategory = ()=>([
     { name: 'Bitcoin', value: 'Bitcoin' },

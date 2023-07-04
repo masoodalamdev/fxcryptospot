@@ -1,101 +1,366 @@
 import './Prices.css'
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Coin from './Coin';
-import { Box, Grid, Toolbar, useTheme } from '@mui/material';
+import { Box, Grid, Toolbar, useTheme, InputBase, TableHead } from '@mui/material';
 import PageHeader from '../../Components/PageHeader/PageHeader';
-import { QueryStats } from '@mui/icons-material';
-import { FcBullish } from 'react-icons/fc';
+import { FcBullish, FcCancel } from 'react-icons/fc';
+import PropTypes from 'prop-types';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import Fab from '@mui/material/Fab';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Fade from '@mui/material/Fade';
+import SearchIcon from '@mui/icons-material/Search';
+import * as blogServices from '../../Services/blogServices'
+import MuiCard from '../../Components/MuiCard/MuiCard'
+import Notification from '../../Components/Notification/Notification'
+import ConfirmDialog from '../../Components/ConfirmDialog/ConfirmDialog'
+import { TableBody, TableCell, TableRow } from '@mui/material';
+import Table from '../../Components/Table/Table'
+// =================== back to top button started =========================
+
+function ScrollTop(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector(
+      '#back-to-top-anchor',
+    );
+
+    if (anchor) {
+      anchor.scrollIntoView({
+        block: 'center',
+      });
+    }
+  };
+
+  return (
+    <Fade in={trigger}>
+      <Box
+        onClick={handleClick}
+        role="presentation"
+        sx={{ position: 'fixed', bottom: 32, right: 32 }}
+      >
+        {children}
+      </Box>
+    </Fade>
+  );
+}
+
+ScrollTop.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
+// =================== back to top button ended =========================
 
 
-
-export default function Prices() {
+export default function Prices(props) {
+  const headCells = [
+    { id: 'Rank', label: "Rank" },
+    { id: 'Logo', label: "Logo" },
+    { id: 'Name', label: "Name" },
+    { id: 'Symbol', label: "Symbol" },
+    { id: 'Price', label: "Price" },
+    { id: 'Market Cap', label: "Market Cap" },
+    { id: 'Volume', label: "Volume" },
+    { id: 'Price Change 24h', label: "Price Change 24h", disableSorting: true }
+  ]
+  const [recordForEdit, setRecoreForEdit] = useState(null)
+  const [records, setRecords] = useState([])
+  const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
+  const [openPopup, setOpenPopup] = useState(false)
+  const {
+    TblContainer,
+    TblHead,
+    TblPagination,
+    recordsAfterPagingAndSorting
+  } = Table(records, headCells, filterFn);
+  const handleSearchCoin = e => {
+    let target = e.target;
+    setFilterFn({
+      fn: items => {
+        if (target.value == "")
+          return items;
+        else
+          return items.filter(x => x.name.toLowerCase().includes(target.value))
+      }
+    })
+  }
+  const openInPopup = item => {
+    setRecoreForEdit(item)
+    setOpenPopup(true)
+  }
   const theme = useTheme()
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: 'success' })
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+  const { searchBar } = props
+  const [searchQuery, setSearchQuery] = useState({ "searchQuery": "" })
+  const [searchedBlog, setSearchedBlog] = useState([])
+  const [searchHeader, setSearchHeader] = useState({ title: "Search something amazing", subTitle: "Learn crypto earn crypto", icon: true })
 
+  const handleSearchInput = (e) => {
+    e.preventDefault();
+    setSearchQuery({ ...searchQuery, [e.target.name]: e.target.value })
+  }
+  const handleSearch = async () => {
+    await blogServices.getSearchBlogs(searchQuery)
+      .then((response => {
+        if (response.data.data.length > 0) {
+          setSearchedBlog(response.data.data)
+          setSearchHeader({
+            title: `You have searched for "${searchQuery.searchQuery}"`,
+            subTitle: `${response.data.data.length} results found`,
+            icon: true
+          })
+        }
+      }))
+      .catch((response) => {
+        // console.log(error);
+        setSearchedBlog(null)
+        setSearchHeader({
+          title: 'Your search did not match any results!',
+          subTitle: 'Try to search some another keywords',
+          icon: false
+        })
+      })
+  }
+  const currentUrl = window.location.href
+
+  const handleFavorite = () => {
+    alert('favorite added succesfully')
+  }
+
+  const handleDelete = (id) => {
+    // console.log("event=>", event, "message=>", id)
+    blogServices.deleteBlog(id)
+      .then((response => {
+        // console.log(response)
+        const msg = response.data
+        // console.log("Redirecting to blog portal..!")
+        // setTimeout(() => { navigate('/blogs') }, 2000);
+        setConfirmDialog({
+          ...setConfirmDialog,
+          isOpen: false
+        })
+        setNotify({
+          isOpen: true,
+          message: msg,
+          type: 'success'
+        })
+      }))
+      .catch((response) => {
+        // console.log(error);
+        console.log(response.data.message)
+      })
+
+  }
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState('')
 
   const filteredCoins = coins.filter(coin =>
     coin.name.toLowerCase().includes(search.toLocaleLowerCase())
-    )
+  )
 
-
-
-  
-    useEffect(()=>{
-      axios
+  useEffect(() => {
+    axios
       .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false')
       .then(res => {
         setCoins(res.data);
+        setRecords(res.data);
         // console.log(res.data);
       }).catch(error => console.log(error));
-    }, []);
-  
-    const handleChange = e => {
-      setSearch(e.target.value);
-    };
-  
-    
-  
-    return (
-      <>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, bgcolor: theme.palette.background.default, minHeight: 100 + 'vh' }}>
-      <Toolbar/>
-      <PageHeader
-        icon={<FcBullish size={24} />}
-        title="Live Prices"
-        subTitle="Coin Market Cape"
-      />
-      <Grid container>
-        <Grid item xs={12}>
-        <div className='coin-app'>
-          <div className='coin-search'>
-            <h1 className='coin-text'>Search a currency</h1>
-            <form>
-              <input
-                className='coin-input'
-                type='text'
-                onChange={handleChange}
-                placeholder='Search'
-              />
-            </form>
-          </div>
-          {filteredCoins.map(coin => {
-            return (
-              <>
-            <Coin
-                key={coin.id}
-                name={coin.name}
-                price={coin.current_price}
-                symbol={coin.symbol}
-                marketcap={coin.total_volume}
-                volume={coin.market_cap}
-                image={coin.image}
-                priceChange={coin.price_change_percentage_24h}
-              />
-              </>
-            );
-          })}
-        </div>
+  }, []);
+
+  const handleChange = e => {
+    setSearch(e.target.value);
+  };
+
+
+
+  return (
+    <>
+      <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 9, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
+        <Toolbar />
+        <PageHeader
+          icon={searchBar ? (searchHeader.icon === true ? <SearchIcon size={24} /> : <FcCancel size={24} />) : <FcBullish size={24} />}
+          title={searchBar ? searchHeader.title : "Live Prices"}
+          subTitle={searchBar ? searchHeader.subTitle : "Coin Market Cape"}
+        />
+        {searchBar ?
+          <InputBase
+            autoComplete='off'
+            fullWidth
+            sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
+            placeholder='Search here'
+            name="searchQuery" value={searchQuery.searchQuery}
+            endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
+            onChange={handleSearchInput}
+          />
+          : ''
+        }
+
+        <Grid container>
+          {
+            searchBar ?
+              searchedBlog && searchedBlog.map((item, index) => {
+
+                return (
+                  <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }} >
+
+                    <MuiCard
+                      key={index}
+                      image={item.image}
+                      profileImage={item.author.authorImage}
+                      title={item.title}
+                      // date={item.publishDate.substring(0,10)}
+                      category={item.category}
+                      chipColor={item.category === 'Bitcoin' ? 'primary' : (item.category === 'CryptoCurrency') ? 'secondary' : (item.category === 'Blockchain') ? 'error' : (item.category === 'Ethereum') ? 'success' : (item.category === 'Blockchain') ? 'info' : (item.category === 'Mining') ? 'warning' : 'primary'}
+                      createdAt={item.createdAt.substring(0, 10)}
+                      // description={item.content}
+                      id={item._id}
+                      slug={item.slug}
+                      shareUrl={currentUrl + '/' + item.slug}
+                      authorID={item.author.authorID}
+                      handleDelete={() => {
+                        // handleDelete(item._id)
+                        setConfirmDialog({
+                          isOpen: true,
+                          title: "Are you sure to delete this record?",
+                          subTitle: "You can't undo this operation",
+                          onConfirm: () => { handleDelete(item._id) }
+                        })
+                      }}
+                      // clickHandler={clickHandler}
+                      handleFavorite={handleFavorite}
+                    />
+                  </Grid>
+                )
+
+              })
+              :
+
+              <Grid item xs={12}>
+
+                <TblContainer>
+                  <TblHead />
+                  <TableBody>
+                    {recordsAfterPagingAndSorting().map((item, index) => {
+                      return (
+                        <TableRow key={index}>
+                          {/* <TableRow > */}
+                          {/* <th scope='row' > {index + 1}</th> */}
+                          <TableCell>{item.market_cap_rank}</TableCell>
+                          {/* <TableCell>{index + 1}</TableCell> */}
+                          <TableCell><img src={item.image} alt="coin" style={{ height: "30px", width: "30px" }} /></TableCell>
+                          <TableCell>{item.name}</TableCell>
+                          <TableCell>{item.symbol.toUpperCase()}</TableCell>
+                          <TableCell>${item.current_price}</TableCell>
+                          <TableCell>${item.market_cap}</TableCell>
+                          <TableCell>${item.total_volume}</TableCell>
+                          {/* <TableCell>{item.city}</TableCell> */}
+                          {item.price_change_percentage_24h < 0 ?
+                            <TableCell sx={{ color: 'red' }}>{item.price_change_percentage_24h.toFixed(2)}%</TableCell>
+                            :
+                            <TableCell sx={{ color: 'green' }}>{item.price_change_percentage_24h.toFixed(2)}%</TableCell>
+                          }
+                          <TableCell>{item.lastDate}</TableCell>
+                          <TableCell>
+                            {/* <Stack direction='row'>
+                                    <ActionButton
+                                      onClick={() => { openInPopup(item) }}
+                                    >
+                                      <Visibility fontSize='small' sx={{ color: 'blue' }} />
+                                    </ActionButton>
+                                    <ActionButton>
+                                      <EditOutlined fontSize='small' sx={{ color: 'green' }} />
+                                    </ActionButton>
+                                    <ActionButton>
+                                      <CloseOutlined fontSize='small' sx={{ color: 'red' }} />
+                                    </ActionButton>
+                                  </Stack> */}
+                            {/* <Link to={`/update/${item._id}`}>
+                    <button className='btn btn-edit'>Edit</button>
+                  </Link>
+                  <Link to={`/view/${item._id}`}>
+                    <button className='btn btn-view'>View</button>
+                  </Link>
+                  <button className='btn btn-delete' onClick={()=> {onDeleteUser(item._id)}}>Delete</button> */}
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                </TblContainer>
+                <TblPagination />
+
+
+
+
+                {/* <div className='coin-app'>
+                  <div className='coin-search'>
+                    <h1 className='coin-text'>Search a currency</h1>
+                    <form>
+                      <input
+                        className='coin-input'
+                        type='text'
+                        onChange={handleChange}
+                        placeholder='Search'
+                      />
+                    </form>
+                  </div>
+                  {filteredCoins.map(coin => {
+                    return (
+                      <>
+                        <Coin
+                          key={coin.id}
+                          name={coin.name}
+                          price={coin.current_price}
+                          symbol={coin.symbol}
+                          marketcap={coin.total_volume}
+                          volume={coin.market_cap}
+                          image={coin.image}
+                          priceChange={coin.price_change_percentage_24h}
+
+                        />
+                      </>
+                    );
+                  })}
+                </div> */}
+              </Grid>
+          }
+          
         </Grid>
-      </Grid>
       </Box>
-        
-        </>
-    );
+      <Notification
+        notify={notify}
+        setNotify={setNotify}
+      />
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
+      <ScrollTop {...props}>
+        <Fab size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
+    </>
+  );
 
 
-  }
+}
 

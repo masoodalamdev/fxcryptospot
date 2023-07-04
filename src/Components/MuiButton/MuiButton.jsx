@@ -6,16 +6,17 @@ import { ColorModeContext } from '../../Store'
 
 export default function MuiButton(props) {
  const theme = useTheme()
-  const {text, variant, type, href,onMouseOver, onClick, sx} = props
+  const {text, variant, type, fullWidth, href,onMouseOver, onClick, color, sx} = props
   return (
     <Button
     variant={variant}
     type={type}
-    fullWidth
+    fullWidth={fullWidth}
     href={href}
     onMouseOver={onMouseOver}
     onClick={onClick}
-    sx={{ textTransform: 'capitalize', fontWeight: 'bold', color: theme.palette.text.primary, ... sx }}
+    color={color}
+    sx={{ textTransform: 'capitalize', fontWeight: 'bold', ... sx }}
     >
       {text}
     </Button>

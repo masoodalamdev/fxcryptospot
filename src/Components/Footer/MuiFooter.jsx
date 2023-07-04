@@ -1,14 +1,12 @@
-import { Facebook, Instagram, Twitter } from '@mui/icons-material'
-import { Box, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, Toolbar, Typography, useTheme } from '@mui/material'
+import { Box, Grid, List, ListItemButton, ListItemText, Typography, useTheme } from '@mui/material'
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import logolight from '../../Assets/logolight.png'
 import logo from '../../Assets/logo.png'
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import { ColorModeContext } from '../../Store'
 
 export default function MuiFooter() {
-     const { mode, toggleMode } = useContext(ColorModeContext)
+     const { mode } = useContext(ColorModeContext)
 
      const theme = useTheme()
      return (
@@ -24,11 +22,11 @@ export default function MuiFooter() {
                >
                     <Grid item xs={12} sm={12} md={6} lg={6} sx={{ textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left', xl: 'left' } }} >
 
-                         <img src={mode === 'light' ? logolight : logo} />
+                         <img src={mode === 'light' ? logolight : logo} alt='logo' />
 
                          <Typography variant="body1">
                               {"Copyright © "}
-                              <Link href="https://fxcryptospot.com/" style={{ textDecoration: 'none' }}>
+                              <Link to="https://fxcryptospot.com/" style={{ textDecoration: 'none' }}>
                                    Forex Crypto Spot
                               </Link>{" "}
                               {new Date().getFullYear()}
@@ -41,7 +39,7 @@ export default function MuiFooter() {
 
 
 
-                    <Grid item xs={12} sm={4} md={2} lg={2} sx={{ textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left', xl: 'left' }, p: { xs: 2, sm: 2, md: 0, lg: 0, xl: 0 } }}>
+                    <Grid item xs={12} sm={4} md={2} lg={2} sx={{ textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left', xl: 'left' }, px: { xs: 8, sm: 8, md: 0, lg: 0, xl: 0 } }}>
 
                          <Typography variant="h6"  >
                               Quick Links
@@ -61,7 +59,7 @@ export default function MuiFooter() {
 
 
 
-                    <Grid item xs={12} sm={4} md={2} lg={2} sx={{ textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left', xl: 'left' }, p: { xs: 2, sm: 2, md: 0, lg: 0, xl: 0 } }}>
+                    <Grid item xs={12} sm={4} md={2} lg={2} sx={{ textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left', xl: 'left' }, px: { xs: 8, sm: 8, md: 0, lg: 0, xl: 0 } }}>
 
                          <Typography variant="h6"  >
                               Legal Stuff
@@ -79,7 +77,7 @@ export default function MuiFooter() {
                          </List>
                     </Grid>
 
-                    <Grid item xs={12} sm={4} md={2} lg={2} sx={{ textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left', xl: 'left' }, p: { xs: 2, sm: 2, md: 0, lg: 0, xl: 0 } }}>
+                    <Grid item xs={12} sm={4} md={2} lg={2} sx={{ textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left', xl: 'left' }, px: { xs: 8, sm: 8, md: 0, lg: 0, xl: 0 } }}>
                          <Typography variant="h6"  >
                               Follow Us
                          </Typography>
@@ -92,7 +90,7 @@ export default function MuiFooter() {
                                   
                                    <ListItemText primary="Instagram" sx={{ textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left', xl: 'left' } }} />
                               </ListItemButton>
-                              <ListItemButton component='a' href='/https://www.twitter.com/'>
+                              <ListItemButton component='a' href='https://www.twitter.com/'>
                                  
                                    <ListItemText primary="Twitter" sx={{ textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left', xl: 'left' } }} />
                               </ListItemButton>

@@ -4,7 +4,7 @@ import React from 'react'
 export default function MuiInput(props) {
     const { label, variant, type , name, value, onChange} = props
     return (
-        <TextField id="outlined-basic"
+        <TextField 
          label={label} 
          variant="outlined" 
          type={type}

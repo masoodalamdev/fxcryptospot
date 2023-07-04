@@ -1,6 +1,5 @@
 import { Card, Paper, Typography, useTheme } from '@mui/material'
 import React from 'react'
-import { styled } from "@mui/material/styles";
 
 export default function PageHeader(props) {
     const theme = useTheme()
@@ -17,7 +16,7 @@ export default function PageHeader(props) {
   return (
     <>
     {/* <DrawerHeader /> */}
-    <Paper elevation={0} square sx={{ bgcolor: theme.palette.background.default, py:2}}>
+    <Paper elevation={0} square sx={{ bgcolor: theme.palette.background.default, py:2}} id="back-to-top-anchor">
         <div style={styledHeader.pageHeader} >
             <Card elevation={0} sx={styledHeader.pageIcon}>
                 {icon}

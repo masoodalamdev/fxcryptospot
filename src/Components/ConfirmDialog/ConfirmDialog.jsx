@@ -35,7 +35,7 @@ export default function ConfirmDialog(props) {
     }
 }
   return (
-    <Dialog open={confirmDialog.isOpen}>
+    <Dialog open={confirmDialog.isOpen} fullScreen={confirmDialog.isFullWidth} sx={confirmDialog.sx}>
         <DialogTitle sx={styledDialog.dialogTitle} >
         <IconButton disableRipple >
         <NotListedLocation  />

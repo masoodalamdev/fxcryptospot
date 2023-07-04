@@ -1,4 +1,10 @@
 .App {
   text-align: center;
 }
+.activeLight{
+  background-color: #F6F6F6;
+}
+.activeDark{
+  background-color: #171622;
 
+}
