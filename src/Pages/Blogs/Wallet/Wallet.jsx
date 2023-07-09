@@ -7,15 +7,16 @@ import Notification from '../../../Components/Notification/Notification'
 import ConfirmDialog from '../../../Components/ConfirmDialog/ConfirmDialog'
 import RightSidebar from '../../../Components/RightSidebar/RightSidebar'
 import MuiCardSkeleton from '../../../Components/MuiCardSkeleton/MuiCardSkeleton'
-import { FcLibrary, FcCancel } from 'react-icons/fc';
+import { FcLibrary } from 'react-icons/fc';
 import PropTypes from 'prop-types';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Fade from '@mui/material/Fade';
 import SearchIcon from '@mui/icons-material/Search';
-
-
+import SearchFound from '../../../Assets/Images/SearchFound.png'
+import SearchNotFound from '../../../Assets/Images/SearchNotFound.png'
+import SearchHeader from '../../../Components/SearchHeader/SearchHeader'
 // =================== back to top button started =========================
 
 function ScrollTop(props) {
@@ -69,7 +70,7 @@ export default function Wallet(props) {
 
   const [blogs, setBlogs] = useState([])
   const [loading, setLoading] = useState(false)
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: 'success' })
   const [confirmDialog, setConfirmDialog] = useState({isOpen: false, title: '', subTitle: ''})
   const theme = useTheme()
   const currentUrl = window.location.href
@@ -158,24 +159,32 @@ export default function Wallet(props) {
   return (
     <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px:{xs:3, sm:10, md:9, lg:8, xl:32}, minHeight: 100 + 'vh' }} >
     <Toolbar/>
+    {searchBar ?
+          <>
+            <SearchHeader
+              icon={searchHeader.icon === true ? SearchFound : SearchNotFound}
+              title={searchHeader.title}
+              subTitle={searchHeader.subTitle}
+            />
 
-     <PageHeader
-        icon={searchBar ? (searchHeader.icon === true ? <SearchIcon size={24} /> : <FcCancel size={24} />) : <FcLibrary size={24} />}
-        title={searchBar ? searchHeader.title : "Wallet"}
-        subTitle={searchBar ? searchHeader.subTitle : "Learn Crypto Earn Crypto"}
-      />
-      {searchBar ?
-        <InputBase
-        autoComplete='off'
-          fullWidth
-          sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
-          placeholder='Search here'
-          name="searchQuery" value={searchQuery.searchQuery}
-          endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
-          onChange={handleSearchInput}
-        />
-        : ''
-      }
+            <InputBase
+              autoComplete='off'
+              fullWidth
+              sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
+              placeholder='Search here'
+              name="searchQuery" value={searchQuery.searchQuery}
+              endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
+              onChange={handleSearchInput}
+            />
+          </>
+          :
+          <PageHeader
+            icon={<FcLibrary size={40} />}
+            title="Wallet"
+            subTitle="Learn Crypto Earn Crypto"
+          />
+        }
+   
      <Grid container >
               {/* <Stack direction="row"> */}
               <Grid item xs={12} sm={12} md={9} lg={9}>
@@ -184,10 +193,9 @@ export default function Wallet(props) {
             searchBar ?
             searchedBlog && searchedBlog.map((item, index) => {
               return (
-                <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }} >
+                <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }} key={index} >
 
                   <MuiCard
-                    key={index}
                     image={item.image}
                     profileImage={item.author.authorImage}
                     title={item.title}
@@ -218,10 +226,10 @@ export default function Wallet(props) {
             :
              blogs.map((item, index) => {
                 return (
-                  <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }} >
+                    
+                  <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }} key={index}>
 
                     <MuiCard
-                      key={index}
                       image={item.image}
                       profileImage={item.author.authorImage}
                       title={item.title}

@@ -1,6 +1,5 @@
 import { Box, Grid, InputBase, Toolbar, useTheme } from '@mui/material'
 import React, { useState } from 'react'
-import PageHeader from '../../Components/PageHeader/PageHeader'
 import MuiCardFullView from '../../Components/MuiCardFullView/MuiCardFullView'
 import aboutme from '../../Assets/Images/aboutme.jpg'
 import { FcCancel, FcInfo } from 'react-icons/fc'
@@ -14,7 +13,11 @@ import * as blogServices from '../../Services/blogServices'
 import MuiCard from '../../Components/MuiCard/MuiCard'
 import Notification from '../../Components/Notification/Notification'
 import ConfirmDialog from '../../Components/ConfirmDialog/ConfirmDialog'
-
+import { Helmet } from 'react-helmet-async'
+import PageHeader from '../../Components/PageHeader/PageHeader'
+import SearchHeader from '../../Components/SearchHeader/SearchHeader'
+import SearchFound from '../../Assets/Images/SearchFound.png'
+import SearchNotFound from '../../Assets/Images/SearchNotFound.png'
 
 // =================== back to top button started =========================
 
@@ -71,7 +74,7 @@ export default function About(props) {
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: 'success' })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
   const { searchBar } = props
-  const [searchQuery, setSearchQuery] = useState({ "searchQuery": ""})
+  const [searchQuery, setSearchQuery] = useState({ "searchQuery": "" })
   const [searchedBlog, setSearchedBlog] = useState([])
   const [searchHeader, setSearchHeader] = useState({ title: "Search something amazing", subTitle: "Learn crypto earn crypto", icon: true })
 
@@ -132,10 +135,42 @@ export default function About(props) {
 
   }
   return (
-
+    <>
+<Helmet>
+  <title>About Us - Forex Crypto Spot</title>
+  <meta name="description" content='Forex Crypto Spot, A blog dedicated to providing valuable information and insights on Forex trading, cryptocurrency, buying, selling and exchanging crypto coins'/>
+  <link rel='canonical' href='/about' />
+  </Helmet>
     <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 9, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
       <Toolbar />
-      <PageHeader
+      {searchBar ?
+          <>
+            <SearchHeader
+              icon={searchHeader.icon === true ? SearchFound : SearchNotFound}
+              title={searchHeader.title}
+              subTitle={searchHeader.subTitle}
+            />
+
+            <InputBase
+              autoComplete='off'
+              fullWidth
+              sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
+              placeholder='Search here'
+              name="searchQuery" value={searchQuery.searchQuery}
+              endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
+              onChange={handleSearchInput}
+            />
+          </>
+          :
+          <PageHeader
+            icon={<FcInfo size={40} />}
+            title="About Us"
+            subTitle="Learn Crypto Earn Crypto"
+          />
+        }
+
+
+      {/* <PageHeader
         icon={searchBar ? (searchHeader.icon === true ? <SearchIcon size={24} /> : <FcCancel size={24} />) : <FcInfo size={24} />}
         title={searchBar ? searchHeader.title : "About Us"}
         subTitle={searchBar ? searchHeader.subTitle : "Learn Crypto Earn Crypto"}
@@ -151,7 +186,7 @@ export default function About(props) {
           onChange={handleSearchInput}
         />
         : ''
-      }
+      } */}
       <Grid container >
         {
           searchBar ?
@@ -216,5 +251,6 @@ export default function About(props) {
         </Fab>
       </ScrollTop>
     </Box>
+    </>
   )
 }

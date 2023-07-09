@@ -1,21 +1,22 @@
 import { Avatar, Box, Card, CardHeader, Paper, Typography, useTheme } from '@mui/material'
 import React from 'react'
 
-export default function PageHeader(props) {
+export default function BlogHeader(props) {
     const theme = useTheme()
-    const { icon, title, subTitle } = props;
+    const { icon, authorProfile, title, subTitle } = props;
 
     return (
             <Card elevation={0} sx={{ bgcolor: theme.palette.background.paper, borderRadius: '1rem', my: 2 }}>
                 <CardHeader
                     avatar={
+                        <a href={`/author/${authorProfile}`}>
                         <Avatar 
                         aria-label="Author Profile"
+                        src={icon}
                         alt="Forex Crypto Spot Author"
-                        sx={{bgcolor: theme.palette.background.paper}}
                         >
-                        {icon}
                         </Avatar>
+                        </a>
                     }
 
                     title={title}

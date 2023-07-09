@@ -1,3 +1,8 @@
-# https://www.robotstxt.org/robotstxt.html
+# https://www.robotstotstxt.html
 User-agent: *
-Disallow:
+Disallow: /register
+Disallow: /login
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /create-blog
+Disallow: /blog-edit/:id

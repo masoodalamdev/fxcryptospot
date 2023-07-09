@@ -20,7 +20,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import MuiCard from '../../../Components/MuiCard/MuiCard'
 import Notification from '../../../Components/Notification/Notification'
 import ConfirmDialog from '../../../Components/ConfirmDialog/ConfirmDialog'
-
+import SearchHeader from '../../../Components/SearchHeader/SearchHeader'
+import SearchFound from '../../../Assets/Images/SearchFound.png'
+import SearchNotFound from '../../../Assets/Images/SearchNotFound.png'
 // =================== back to top button started =========================
 
 function ScrollTop(props) {
@@ -267,24 +269,33 @@ export default function CreateBlog(props) {
       <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 9, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
         <Toolbar />
       
-        <PageHeader
-        icon={searchBar ? (searchHeader.icon === true ? <SearchIcon size={24} /> : <FcCancel size={24} />) : <FcPlus size={24} />}
-        title={searchBar ? searchHeader.title : "Create Blog"}
-        subTitle={searchBar ? searchHeader.subTitle : "Add New Post"}
-      />
-      {searchBar ?
-        <InputBase
-        autoComplete='off'
-          fullWidth
-          sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
-          placeholder='Search here'
-          name="searchQuery" value={searchQuery.searchQuery}
-          endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
-          onChange={handleSearchInput}
-        />
-        : ''
-      }
+        {searchBar ?
+          <>
+            <SearchHeader
+              icon={searchHeader.icon === true ? SearchFound : SearchNotFound}
+              title={searchHeader.title}
+              subTitle={searchHeader.subTitle}
+            />
 
+            <InputBase
+              autoComplete='off'
+              fullWidth
+              sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
+              placeholder='Search here'
+              name="searchQuery" value={searchQuery.searchQuery}
+              endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
+              onChange={handleSearchInput}
+            />
+          </>
+          :
+          <PageHeader
+            icon={<FcPlus size={40} />}
+            title="Create Blog"
+            subTitle="Add New Post"
+          />
+        }
+     
+        
 <Grid container >
         {
           searchBar ?

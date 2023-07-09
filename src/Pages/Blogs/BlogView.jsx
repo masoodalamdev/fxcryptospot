@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import * as blogServices from '../../Services/blogServices'
 import { Box, Chip, Grid, Toolbar, useTheme, InputBase } from '@mui/material'
-import PageHeader from '../../Components/PageHeader/PageHeader'
+import BlogHeader from '../../Components/BlogHeader/BlogHeader'
+import SearchHeader from '../../Components/SearchHeader/SearchHeader'
 import MuiCardView from '../../Components/MuiCardView/MuiCardView'
 import RightSidebar from '../../Components/RightSidebar/RightSidebar'
 import MuiCardViewSkeleton from '../../Components/MuiCardViewSkeleton/MuiCardViewSkeleton'
@@ -16,7 +17,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Fade from '@mui/material/Fade';
 import SearchIcon from '@mui/icons-material/Search';
 import MuiCard from '../../Components/MuiCard/MuiCard'
-
+import { Helmet } from 'react-helmet-async'
+import SearchFound from '../../Assets/Images/SearchFound.png'
+import SearchNotFound from '../../Assets/Images/SearchNotFound.png'
 
 // =================== back to top button started =========================
 
@@ -79,7 +82,7 @@ export default function BlogView(props) {
   // console.log(id)
   const theme = useTheme()
   const { searchBar } = props
-  const [searchQuery, setSearchQuery] = useState({ "searchQuery": ""})
+  const [searchQuery, setSearchQuery] = useState({ "searchQuery": "" })
   const [searchedBlog, setSearchedBlog] = useState([])
   const [searchHeader, setSearchHeader] = useState({ title: "Search something amazing", subTitle: "Learn crypto earn crypto", icon: true })
   const currentUrl = window.location.href
@@ -158,129 +161,144 @@ export default function BlogView(props) {
   }
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 12, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
-      <Toolbar />
+    <>
+      <Helmet>
+        <title>{blog && blog.title}</title>
+        <meta name="description" content={blog && blog.content.substring(3, 163)} />
+        <link rel='canonical' href='/about' />
+      </Helmet>
 
-      <PageHeader
-        icon={searchBar ? (searchHeader.icon === true ? <SearchIcon size={24} /> : <FcCancel size={24} />) : <FcReading size={24} />}
-        title={searchBar ? searchHeader.title : "Blog View"}
-        subTitle={searchBar ? searchHeader.subTitle : "Learn Crypto Earn Crypto"}
-      />
-      {searchBar ?
-        <InputBase
-        autoComplete='off'
-          fullWidth
-          sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
-          placeholder='Search here'
-          name="searchQuery" value={searchQuery.searchQuery}
-          endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
-          onChange={handleSearchInput}
-        />
-        : ''
-      }
- <Grid container >
-        {
-          searchBar ?
-            searchedBlog && searchedBlog.map((item, index) => {
+      <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 12, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
+        <Toolbar />
+        {searchBar ?
+          <>
+            <SearchHeader
+              icon={searchHeader.icon === true ? SearchFound : SearchNotFound}
+              title={searchHeader.title}
+              subTitle={searchHeader.subTitle}
+            />
 
-              return (
-                <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }} >
+            <InputBase
+              autoComplete='off'
+              fullWidth
+              sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
+              placeholder='Search here'
+              name="searchQuery" value={searchQuery.searchQuery}
+              endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
+              onChange={handleSearchInput}
+            />
+          </>
+          :
+          <BlogHeader
+            icon={blog && blog.author.authorImage}
+            title={blog && blog.title}
+            subTitle={blog && blog.category + " " + blog.createdAt.substring(0, 10)}
+            authorProfile={blog && blog.author.authorID}
+          />
+        }
 
-                  <MuiCard
-                    key={index}
-                    image={item.image}
-                    profileImage={item.author.authorImage}
-                    title={item.title}
-                    // date={item.publishDate.substring(0,10)}
-                    category={item.category}
-                    chipColor={item.category === 'Bitcoin' ? 'primary' : (item.category === 'CryptoCurrency') ? 'secondary' : (item.category === 'Blockchain') ? 'error' : (item.category === 'Ethereum') ? 'success' : (item.category === 'Blockchain') ? 'info' : (item.category === 'Mining') ? 'warning' : 'primary'}
-                    createdAt={item.createdAt.substring(0, 10)}
-                    // description={item.content}
-                    id={item._id}
-                    slug={item.slug}
-                    shareUrl={currentUrl + '/' + item.slug}
-                    authorID={item.author.authorID}
-                    handleDelete={() => {
-                      // handleDelete(item._id)
-                      setConfirmDialog({
-                        isOpen: true,
-                        title: "Are you sure to delete this record?",
-                        subTitle: "You can't undo this operation",
-                        onConfirm: () => { handleDelete(item._id) }
-                      })
-                    }}
-                    // clickHandler={clickHandler}
-                    handleFavorite={handleFavorite}
-                  />
-                </Grid>
-              )
-
-            })
-            :
-<>
-            <Grid item xs={12} sm={12} md={9} lg={9} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 0, lg: 0, xl: 0 } }}>
-            {blog ?
-              <MuiCardView
-                image={blog.image}
-                profileImage={blog.author.authorImage}
-                title={blog.title}
-                categoryAndDate={blog.createdAt.substring(0, 10) + " " + blog.category}
-                description={blog.content}
-                id={blog._id}
-                buttonText={blog.buttonText}
-                buttonHref={blog.refLink}
-                MuiChip={
-                  tags && tags.map((tag, index) => {
+        <Grid container >
+          <Grid item xs={12} sm={12} md={9} lg={9}>
+            <Grid container >
+              {
+                searchBar ?
+                  searchedBlog && searchedBlog.map((item, index) => {
                     return (
-                      <Chip key={index} label={tag} sx={{ m: 1 }} component="a" href={`/blogs/${tag.toLowerCase()}`} clickable />
+                      <Grid item xs={12} sm={12} md={6} lg={6} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 4, } }} >
+                        <MuiCard
+                          key={index}
+                          image={item.image}
+                          profileImage={item.author.authorImage}
+                          title={item.title}
+                          // date={item.publishDate.substring(0,10)}
+                          category={item.category}
+                          chipColor={item.category === 'Bitcoin' ? 'primary' : (item.category === 'CryptoCurrency') ? 'secondary' : (item.category === 'Blockchain') ? 'error' : (item.category === 'Ethereum') ? 'success' : (item.category === 'Blockchain') ? 'info' : (item.category === 'Mining') ? 'warning' : 'primary'}
+                          createdAt={item.createdAt.substring(0, 10)}
+                          // description={item.content}
+                          id={item._id}
+                          slug={item.slug}
+                          shareUrl={currentUrl + '/' + item.slug}
+                          authorID={item.author.authorID}
+                          handleDelete={() => {
+                            // handleDelete(item._id)
+                            setConfirmDialog({
+                              isOpen: true,
+                              title: "Are you sure to delete this record?",
+                              subTitle: "You can't undo this operation",
+                              onConfirm: () => { handleDelete(item._id) }
+                            })
+                          }}
+                          // clickHandler={clickHandler}
+                          handleFavorite={handleFavorite}
+                        />
+                      </Grid>
                     )
                   })
-                }
-                handleEdit={handleEdit}
-                handleDelete={() => {
-                  // handleDelete(item._id)
-                  setConfirmDialog({
-                    isOpen: true,
-                    title: "Are you sure to delete this record?",
-                    subTitle: "You can't undo this operation",
-                    onConfirm: () => { handleDelete(blog._id) }
-                  })
-                }}
-                handleFavorite={handleFavorite}
-                handleShare={handleShare}
-              />
-              :
-  
-              // <Grid item xs={12} sm={12} md={9} lg={9} sx={{pr:4}}>
-              <MuiCardViewSkeleton />
-              // </Grid>
-  
-            }
+                  :
+                  <>
+                    <Grid item xs={12} sm={12} md={12} lg={12} sx={{ pr: { md: 4 }, pb: { xs: 4, sm: 4, md: 0, lg: 0, xl: 0 } }}>
+                      {blog ?
+                        <MuiCardView
+                          image={blog.image}
+                          // profileImage={blog.author.authorImage}
+                          // title={blog.title}
+                          // categoryAndDate={blog.createdAt.substring(0, 10) + " " + blog.category}
+                          description={blog.content}
+                          id={blog._id}
+                          buttonText={blog.buttonText}
+                          buttonHref={blog.refLink}
+                          MuiChip={
+                            tags && tags.map((tag, index) => {
+                              return (
+                                <Chip key={index} label={tag} sx={{ m: 1 }} component="a" href={`/blogs/${tag.toLowerCase()}`} clickable />
+                              )
+                            })
+                          }
+                          handleEdit={handleEdit}
+                          handleDelete={() => {
+                            // handleDelete(item._id)
+                            setConfirmDialog({
+                              isOpen: true,
+                              title: "Are you sure to delete this record?",
+                              subTitle: "You can't undo this operation",
+                              onConfirm: () => { handleDelete(blog._id) }
+                            })
+                          }}
+                          handleFavorite={handleFavorite}
+                          handleShare={handleShare}
+                        />
+                        :
+                        <MuiCardViewSkeleton />
+                      }
+                    </Grid>
+
+                  </>
+              }
+            </Grid>
           </Grid>
-           <Grid item xs={0} sm={0} md={3} lg={3}><RightSidebar />
+          <Grid item xs={12} sm={12} md={3} lg={3}>
+            <RightSidebar />
+          </Grid>
+        </Grid>
 
-           </Grid>
-           </>
-        }
-      </Grid>
 
-           
 
-       
- 
-      <Notification
-        notify={notify}
-        setNotify={setNotify}
-      />
-      <ConfirmDialog
-        confirmDialog={confirmDialog}
-        setConfirmDialog={setConfirmDialog}
-      />
-      <ScrollTop {...props}>
-        <Fab size="small" aria-label="scroll back to top">
-          <KeyboardArrowUpIcon />
-        </Fab>
-      </ScrollTop>
-    </Box>
+
+
+        <Notification
+          notify={notify}
+          setNotify={setNotify}
+        />
+        <ConfirmDialog
+          confirmDialog={confirmDialog}
+          setConfirmDialog={setConfirmDialog}
+        />
+        <ScrollTop {...props}>
+          <Fab size="small" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </ScrollTop>
+      </Box>
+    </>
   )
 }

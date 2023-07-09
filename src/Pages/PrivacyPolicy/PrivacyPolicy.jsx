@@ -14,7 +14,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import MuiCard from '../../Components/MuiCard/MuiCard'
 import Notification from '../../Components/Notification/Notification'
 import ConfirmDialog from '../../Components/ConfirmDialog/ConfirmDialog'
-
+import { Helmet } from 'react-helmet-async'
+import SearchHeader from '../../Components/SearchHeader/SearchHeader'
+import SearchFound from '../../Assets/Images/SearchFound.png'
+import SearchNotFound from '../../Assets/Images/SearchNotFound.png'
 // =================== back to top button started =========================
 
 function ScrollTop(props) {
@@ -135,24 +138,32 @@ export default function PrivacyPolicy(props) {
     <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px:{xs:3, sm:10, md:9, lg:8, xl:32}, minHeight: 100 + 'vh' }} >
     <Toolbar/>
      
-        <PageHeader
-        icon={searchBar ? (searchHeader.icon === true ? <SearchIcon size={24} /> : <FcCancel size={24} />) : <FcPrivacy size={24} />}
-        title={searchBar ? searchHeader.title : "Privacy Policy"}
-        subTitle={searchBar ? searchHeader.subTitle : "Learn Crypto Earn Crypto"}
-      />
-      {searchBar ?
-        <InputBase
-        autoComplete='off'
-          fullWidth
-          sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
-          placeholder='Search here'
-          name="searchQuery" value={searchQuery.searchQuery}
-          endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
-          onChange={handleSearchInput}
-        />
-        : ''
-      }
+    {searchBar ?
+          <>
+            <SearchHeader
+              icon={searchHeader.icon === true ? SearchFound : SearchNotFound}
+              title={searchHeader.title}
+              subTitle={searchHeader.subTitle}
+            />
 
+            <InputBase
+              autoComplete='off'
+              fullWidth
+              sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
+              placeholder='Search here'
+              name="searchQuery" value={searchQuery.searchQuery}
+              endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
+              onChange={handleSearchInput}
+            />
+          </>
+          :
+          <PageHeader
+            icon={<FcPrivacy size={40} />}
+            title="Privacy Policy"
+            subTitle="Learn Crypto Earn Crypto"
+          />
+        }
+       
 <Grid container>
 {
           searchBar ?

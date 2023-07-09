@@ -33,7 +33,7 @@ import TableRow from '@mui/material/TableRow';
 import { Container } from '@mui/system';
 import { Grid, Toolbar, useTheme } from '@mui/material';
 import logo from './Assets/logo.png'
-import logolight from './Assets/logolight.png'
+import logolight from './Assets/logodark.png'
 import { ColorModeContext } from './Store';
 import { Link } from 'react-router-dom';
 

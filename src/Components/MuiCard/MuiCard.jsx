@@ -55,7 +55,7 @@ export default function MuiCard(props) {
           component="img"
           height="250"
           image={image}
-          alt="blog image"
+          alt="Forex Crypto Spot"
          
         />
         </a>
@@ -66,6 +66,7 @@ export default function MuiCard(props) {
               href={`/author/${authorID}`}
               component="a"
               sx={{m: 'auto', ml:2}}
+              alt="FXCryptoSpot Author"
             >
             </Avatar>
         <CardHeader

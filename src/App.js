@@ -32,6 +32,7 @@ import Dashboard from './Pages/PrivateRoutes/Dashboard/Dashboard'
 import RootLayout from './Layouts/RootLayout';
 import BlogLayout from './Layouts/BlogLayout';
 import Test from './Test';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
 
@@ -159,7 +160,10 @@ function App() {
     //   {/* <MuiFooter /> */}
     //   <CssBaseline />
     // </Router>
+    <HelmetProvider>
+
     <RouterProvider router={router} />
+    </HelmetProvider>
   );
 }
 

@@ -43,7 +43,7 @@ export default function CategoryCounter() {
 
     return (
         <>
-            <List>
+            <List sx={{bgcolor: theme.palette.background.paper, borderRadius: '1rem', mt: 2}}>
           <ListItem disablePadding>
             <ListItemButton component="a" href="/blogs/blockchain">
               <ListItemText primary="Blockhain" />

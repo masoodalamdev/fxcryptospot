@@ -106,12 +106,12 @@ export default function RightSidebar() {
           onChange={handleSearchInput}
         /> */}
 
-        <Typography variant="h6" textAlign='center' color='text.primary' sx={{pb:1}}>
+        <Typography variant="h6" textAlign='center' color='text.primary' sx={{pb:1}} component="h3">
           Category
         </Typography>
         <Divider/>
         <CategoryCounter/>
-        <Typography variant="h6" textAlign='center' color='text.primary'  sx={{mt: 4, pb:1}}>
+        <Typography variant="h6" textAlign='center' color='text.primary'  sx={{mt: 2, pb:1}}component="h4">
           Popular Posts
         </Typography>
         <Divider/>
@@ -128,7 +128,7 @@ export default function RightSidebar() {
             />
           )
         })}
-    <Typography variant="h6" textAlign='center' color='text.primary' sx={{mb:1}}>
+    <Typography variant="h6" textAlign='center' color='text.primary' sx={{mb:1}} component="h5">
           Tags
         </Typography>
         <Divider/>

@@ -6,7 +6,10 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Fade from '@mui/material/Fade';
 import { Box } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-
+import { Helmet } from 'react-helmet-async'
+import SearchHeader from '../../Components/SearchHeader/SearchHeader'
+import SearchFound from '../../Assets/Images/SearchFound.png'
+import SearchNotFound from '../../Assets/Images/SearchNotFound.png'
 
 // =================== back to top button started =========================
 

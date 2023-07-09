@@ -43,24 +43,26 @@ export default function MuiCardView(props) {
         image={image}
         alt="blog image"
       />
-      <CardHeader
+      {/* <CardHeader
         avatar={
           <Avatar
             aria-label="profile IMG"
             src={profileImage}
+            alt="Forex Crypto Spot"
           >
           </Avatar>
         }
-        titleTypographyProps={{ variant: "h5", fontFamily: "Montserrat", fontWeight: 'bold', lineHeight: 1.35, }}
+        titleTypographyProps={{ component:"h1", variant: "h5", fontFamily: "Montserrat", fontWeight: 'bold', lineHeight: 1.35, }}
         // titleTypographyProps={{ variant: "h6", fontFamily: "sans-serif Roboto Helvetica Arial" }}
         title={title}
         subheader={categoryAndDate}
-      />
+      /> */}
 
       <CardContent>
 
         <Typography
-          variant="body2"
+          variant="subtitle1"
+          component="h3"
           color="text.secondary"
           style={{
             // display: '-webkit-box',

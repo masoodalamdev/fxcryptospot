@@ -1,8 +1,8 @@
 import { Box, Grid, List, ListItemButton, ListItemText, Typography, useTheme } from '@mui/material'
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import logolight from '../../Assets/logolight.png'
 import logo from '../../Assets/logo.png'
+import logodark from '../../Assets/logodark.png'
 import { ColorModeContext } from '../../Store'
 
 export default function MuiFooter() {
@@ -22,7 +22,7 @@ export default function MuiFooter() {
                >
                     <Grid item xs={12} sm={12} md={6} lg={6} sx={{ textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left', xl: 'left' } }} >
 
-                         <img src={mode === 'light' ? logolight : logo} alt='logo' />
+                         <img src={mode === 'light' ? logo : logodark} alt='logo' />
 
                          <Typography variant="body1">
                               {"Copyright © "}

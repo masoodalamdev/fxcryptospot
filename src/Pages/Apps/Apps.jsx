@@ -1,6 +1,5 @@
 import { Box, Toolbar, useTheme, InputBase, Grid } from '@mui/material'
 import React, { useState } from 'react'
-import PageHeader from '../../Components/PageHeader/PageHeader'
 import MuiCardFullView from '../../Components/MuiCardFullView/MuiCardFullView'
 import { FcAndroidOs, FcCancel } from 'react-icons/fc'
 import PropTypes from 'prop-types';
@@ -13,6 +12,11 @@ import * as blogServices from '../../Services/blogServices'
 import MuiCard from '../../Components/MuiCard/MuiCard'
 import Notification from '../../Components/Notification/Notification'
 import ConfirmDialog from '../../Components/ConfirmDialog/ConfirmDialog'
+import SearchFound from '../../Assets/Images/SearchFound.png'
+import SearchNotFound from '../../Assets/Images/SearchNotFound.png'
+import PageHeader from '../../Components/PageHeader/PageHeader'
+import SearchHeader from '../../Components/SearchHeader/SearchHeader';
+import AppsIcon from '../../Assets/Images/apps.png'
 
 // =================== back to top button started =========================
 
@@ -132,23 +136,31 @@ export default function App(props) {
 
     <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 9, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
       <Toolbar />
-      <PageHeader
-        icon={searchBar ? (searchHeader.icon === true ? <SearchIcon size={24} /> : <FcCancel size={24} />) : <FcAndroidOs size={24} />}
-        title={searchBar ? searchHeader.title : "Apps"}
-        subTitle={searchBar ? searchHeader.subTitle : "Learn Crypto Earn Crypto"}
-      />
       {searchBar ?
-        <InputBase
-        autoComplete='off'
-          fullWidth
-          sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
-          placeholder='Search here'
-          name="searchQuery" value={searchQuery.searchQuery}
-          endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
-          onChange={handleSearchInput}
-        />
-        : ''
-      }
+          <>
+            <SearchHeader
+              icon={searchHeader.icon === true ? SearchFound : SearchNotFound}
+              title={searchHeader.title}
+              subTitle={searchHeader.subTitle}
+            />
+
+            <InputBase
+              autoComplete='off'
+              fullWidth
+              sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
+              placeholder='Search here'
+              name="searchQuery" value={searchQuery.searchQuery}
+              endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
+              onChange={handleSearchInput}
+            />
+          </>
+          :
+          <PageHeader
+            icon={<FcAndroidOs size={40} />}
+            title="Apps"
+            subTitle="Learn Crypto Earn Crypto"
+          />
+        }
 
       <Grid container >
         {

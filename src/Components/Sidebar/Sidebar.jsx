@@ -10,9 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import logo from '../../Assets/logo.png'
-import logoo from '../../Assets/logoo.png'
-import logooo from '../../Assets/logooo.png'
-import logolight from '../../Assets/logolight.png'
+import logodark from '../../Assets/logodark.png'
 import { NavLink, useNavigate, } from 'react-router-dom';
 import { AppBar, Avatar, Collapse, Menu, MenuItem, Skeleton, Stack, Tooltip } from '@mui/material';
 import {  ExpandLess, ExpandMore, Search } from '@mui/icons-material';
@@ -66,7 +64,7 @@ export default function Sidebar({setSearchBar}) {
     const drawer = (
         <Box sx={{ textAlign: 'center' }}>
             <Box sx={{ minHeight: '64px', maxHeight: '64px', py: '12px' }} onClick={handleDrawerToggle}>
-                <img src={mode === 'light' ? logolight : logo} alt='logo' />
+                <img src={mode === 'light' ? logo : logodark} alt='Forex Crypto Spot' />
             </Box>
             <Divider />
             <List>
@@ -294,7 +292,7 @@ export default function Sidebar({setSearchBar}) {
                                 flexGrow: 1
                             }}
                         >
-                            <img src={mode === "light" ? logoo : logooo} alt="web logo" />
+                            <img src={mode === "light" ? logo : logodark} alt="Forex Crypto Spot" />
                         </Typography>
 
                         <Typography
@@ -313,7 +311,7 @@ export default function Sidebar({setSearchBar}) {
                                 textDecoration: "none"
                             }}
                         >
-                            <img src={mode === "light" ? logolight : logo} alt="mobile logo" />
+                            <img src={mode === "light" ? logo : logodark} alt="Forex Crypto Spot" />
                         </Typography>
 
                         <Box sx={{ display: { xs: "none", md: "flex" } }}>

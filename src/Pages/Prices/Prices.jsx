@@ -18,6 +18,11 @@ import Notification from '../../Components/Notification/Notification'
 import ConfirmDialog from '../../Components/ConfirmDialog/ConfirmDialog'
 import { TableBody, TableCell, TableRow } from '@mui/material';
 import Table from '../../Components/Table/Table'
+import SearchFound from '../../Assets/Images/SearchFound.png'
+import SearchNotFound from '../../Assets/Images/SearchNotFound.png'
+import SearchHeader from '../../Components/SearchHeader/SearchHeader';
+import PricesIcon from '../../Assets/Images/prices.png'
+
 // =================== back to top button started =========================
 
 function ScrollTop(props) {
@@ -195,22 +200,31 @@ export default function Prices(props) {
     <>
       <Box component="main" sx={{ flexGrow: 1, bgcolor: theme.palette.background.default, px: { xs: 3, sm: 10, md: 9, lg: 8, xl: 32 }, minHeight: 100 + 'vh' }} >
         <Toolbar />
-        <PageHeader
-          icon={searchBar ? (searchHeader.icon === true ? <SearchIcon size={24} /> : <FcCancel size={24} />) : <FcBullish size={24} />}
-          title={searchBar ? searchHeader.title : "Live Prices"}
-          subTitle={searchBar ? searchHeader.subTitle : "Coin Market Cape"}
-        />
+
         {searchBar ?
-          <InputBase
-            autoComplete='off'
-            fullWidth
-            sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
-            placeholder='Search here'
-            name="searchQuery" value={searchQuery.searchQuery}
-            endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
-            onChange={handleSearchInput}
+          <>
+            <SearchHeader
+              icon={searchHeader.icon === true ? SearchFound : SearchNotFound}
+              title={searchHeader.title}
+              subTitle={searchHeader.subTitle}
+            />
+
+            <InputBase
+              autoComplete='off'
+              fullWidth
+              sx={{ bgcolor: theme.palette.background.paper, mb: 4, height: '50px', p: 2, borderRadius: '1rem' }}
+              placeholder='Search here'
+              name="searchQuery" value={searchQuery.searchQuery}
+              endAdornment={<SearchIcon fontSize="small" onClick={handleSearch} sx={{ cursor: 'pointer' }} />}
+              onChange={handleSearchInput}
+            />
+          </>
+          :
+          <PageHeader
+            icon={<FcBullish size={40} />}
+            title="Live Crypto Prices"
+            subTitle="Learn Crypto Earn Crypto"
           />
-          : ''
         }
 
         <Grid container>
