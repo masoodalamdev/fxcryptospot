@@ -164,7 +164,7 @@ export default function BlogView(props) {
     <>
       <Helmet>
         <title>{blog && blog.title}</title>
-        <meta name="description" content={blog && blog.content.substring(3, 163)} />
+        <meta name="description" content={blog && blog.content.slice(3, 163)} />
         <link rel='canonical' href='/about' />
       </Helmet>
 

@@ -21,7 +21,6 @@ import Table from '../../Components/Table/Table'
 import SearchFound from '../../Assets/Images/SearchFound.png'
 import SearchNotFound from '../../Assets/Images/SearchNotFound.png'
 import SearchHeader from '../../Components/SearchHeader/SearchHeader';
-import PricesIcon from '../../Assets/Images/prices.png'
 
 // =================== back to top button started =========================
 

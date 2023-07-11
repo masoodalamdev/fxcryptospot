@@ -16,7 +16,6 @@ import SearchFound from '../../Assets/Images/SearchFound.png'
 import SearchNotFound from '../../Assets/Images/SearchNotFound.png'
 import PageHeader from '../../Components/PageHeader/PageHeader'
 import SearchHeader from '../../Components/SearchHeader/SearchHeader';
-import AppsIcon from '../../Assets/Images/apps.png'
 
 // =================== back to top button started =========================
 

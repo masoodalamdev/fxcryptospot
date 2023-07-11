@@ -15,7 +15,6 @@ import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Fade from '@mui/material/Fade';
 import SearchIcon from '@mui/icons-material/Search';
-import BlogIcon from '../../Assets/Images/blog.png'
 import SearchFound from '../../Assets/Images/SearchFound.png'
 import SearchNotFound from '../../Assets/Images/SearchNotFound.png'
 import SearchHeader from '../../Components/SearchHeader/SearchHeader';
