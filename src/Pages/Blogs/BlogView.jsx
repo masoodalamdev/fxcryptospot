@@ -20,6 +20,7 @@ import MuiCard from '../../Components/MuiCard/MuiCard'
 import { Helmet } from 'react-helmet-async'
 import SearchFound from '../../Assets/Images/SearchFound.png'
 import SearchNotFound from '../../Assets/Images/SearchNotFound.png'
+import PageHeaderSkeleton from '../../Components/PageHeaderSkeleton/PageHeaderSkeleton'
 
 // =================== back to top button started =========================
 
@@ -189,12 +190,15 @@ export default function BlogView(props) {
             />
           </>
           :
+          blog ?
           <BlogHeader
             icon={blog && blog.author.authorImage}
             title={blog && blog.title}
             subTitle={blog && blog.category + " " + blog.createdAt.substring(0, 10)}
             authorProfile={blog && blog.author.authorID}
           />
+          : 
+          <PageHeaderSkeleton/>
         }
 
         <Grid container >
@@ -268,7 +272,10 @@ export default function BlogView(props) {
                           handleShare={handleShare}
                         />
                         :
+                        <>
+                        
                         <MuiCardViewSkeleton />
+                        </>
                       }
                     </Grid>
 

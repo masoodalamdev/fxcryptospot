@@ -10,9 +10,6 @@ import blogPostImg from '../../Assets/Images/blog.jpg'
 import profileImg from '../../Assets/Images/user2.jpg'
 
 
-
-
-
 export default function MuiCardViewSkeleton() {
   const theme = useTheme()
   // const handleDel = ()=>{
@@ -20,7 +17,7 @@ export default function MuiCardViewSkeleton() {
   // }
 
   return (
-    <Card sx={{ minHeight: '430px', maxHeight: '430px', bgcolor: theme.palette.background.paper, borderRadius: '1rem' }}>
+    <Card sx={{ minHeight: '450px', maxHeight: '450px', bgcolor: theme.palette.background.paper, borderRadius: '1rem' }}>
 
       <Skeleton sx={{ height: 250 }} animation="wave" variant="rectangular" />
       <CardHeader
@@ -28,7 +25,6 @@ export default function MuiCardViewSkeleton() {
           <Skeleton animation="wave" variant="circular" width={40} height={40} />
 
         }
-
         titleTypographyProps={{ variant: "body", fontFamily: "sans-serif Roboto Helvetica Arial" }}
         title={<Skeleton
           animation="wave"

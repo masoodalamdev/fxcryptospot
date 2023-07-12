@@ -87,10 +87,14 @@ export default function MuiCardView(props) {
       text={buttonText}
       color='primary'
       // sx={{ color: 'palette.error.main'}}
-      variant='contained'
+      // variant='contained'
       fullWidth
       href={buttonHref}    
-        sx={{py:2, my:2}}
+        sx={{py:2, my:2, bgcolor: '#FDD55F', color: '#C26920', '&:hover': {
+          color: '#C26920',
+          bgcolor: '#FDD55F'
+      },}}
+       
       />
             <Divider/>
         {MuiChip}
