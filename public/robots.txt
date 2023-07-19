@@ -6,3 +6,5 @@ Disallow: /dashboard
 Disallow: /profile
 Disallow: /create-blog
 Disallow: /blog-edit/:id
+
+Sitemap: https://fxcryptospot.com/sitemap.txt
